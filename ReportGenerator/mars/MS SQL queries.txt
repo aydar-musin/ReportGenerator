@@ -1,0 +1,46 @@
+﻿# Создание таблицы
+
+CREATE TABLE Main(
+	OGRN bigint  NOT NULL,
+	INN bigint,
+	KPP bigint,
+	OKPO bigint,
+	BailiffsExist bit,
+	ArbitrationExists bit,
+	ContractsExist bit,
+	LicensiesExist bit,
+	TrademarksExist bit,
+	Address nvarchar(500),
+	AddressAddedDate date,
+	ManagerAddedDate date,
+	FoundersCount bigint,
+	MainActiviyCode nvarchar(20),
+	ArbitrDefendantCount bigint,
+	ArbitrPlaintiffCount bigint,
+	ArbitrOtherCount bigint,
+	ArbitrBankruptcyCount bigint,
+	WonContractsCount bigint,
+	PlacedContractsCount bigint,
+	CONSTRAINT PK_Main PRIMARY KEY(OGRN));
+
+CREATE TABLE OtherNames(
+	OGRN bigint NOT NULL,
+	Name nvarchar(300) NOT NULL,
+	AddedDate date,
+	CONSTRAINT PK_OtherNames PRIMARY KEY(OGRN, Name));
+
+CREATE TABLE OtherAddresses(
+	OGRN bigint NOT NULL,
+	Address nvarchar(392) NOT NULL,
+	AddedDate date,
+	CONSTRAINT PK_OtherAddresses PRIMARY KEY(OGRN, Address));
+
+
+# Запрос данных
+
+SELECT * FROM [dbo].[Main]
+GO
+SELECT * FROM [dbo].[OtherNames]
+GO
+SELECT * FROM [dbo].[OtherAddresses]
+GO

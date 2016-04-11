@@ -1,0 +1,1091 @@
+﻿
+
+<!doctype html>
+<!--[if IE]><![endif]-->
+<!--[if lt IE 7]><html class="ie-lt7 ie-lt8 ie-lt9 ie-lt10" lang="ru"><![endif]-->
+<!--[if IE 7]><html class="ie-lt8 ie-lt9 ie-lt10" lang="ru"><![endif]-->
+<!--[if IE 8]><html class="ie-lt9 ie-lt10" lang="ru"><![endif]-->
+<!--[if IE 9]><html class="ie-lt10" lang="ru"><![endif]-->
+<!--[if !IE]><!--><html lang="ru"><!--<![endif]-->
+<head>
+	<meta charset="utf-8"/>
+	<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+	<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+	<meta name="format-detection" content="telephone=no"/>
+	<meta name="apple-itunes-app" content="app-id=604761759"/>
+	<link rel="manifest" href="/static/manifest.json"/>
+	<title>ООО &quot;НК &quot;Роснефть&quot;- НТЦ&quot;, Краснодар (ИНН 2310095895) – Карточка – Контур-Фокус</title>
+	
+	<meta name="robots" content="noindex, nofollow"/>
+	
+	<meta name="description" content="ООО &quot;НК &quot;Роснефть&quot;- НТЦ&quot; &ndash; информация о контрагенте: ИНН 2310095895; ОГРН 1042305704352; 350000, Краснодарский край, г Краснодар, ул Красная, 54. Выписка из ЕГРЮЛ &ndash; ООО &quot;НК &quot;Роснефть&quot;- НТЦ&quot;"/>
+	<meta name="keywords" content="2310095895, 231001001, 1042305704352, 74243149"/>
+	<link rel="canonical" href="https://focus.kontur.ru/entity?query=1042305704352"/>
+
+
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+	<!--[if lt IE 9]><meta http-equiv="Page-Enter" content="blendTrans(duration=0.01)"/><meta http-equiv="Page-Exit" content="blendTrans(duration=0.01)"/><![endif]-->
+
+	
+		<link href="/static/styles.e2ea5ba699e9cc45.css" rel="stylesheet" type="text/css"/>
+		<!--[if lte IE 9]><link href="/static/styles.ie.b7306436725a54ab.css" rel="stylesheet" type="text/css"/><![endif]-->
+		<link media="print" href="/static/styles.print.f060632a7bac7fe6.css" rel="stylesheet" type="text/css"/>
+	
+	
+
+	<!--[if lt IE 9]><script src="/static/scripts/libs/respond-1.4.2.min.js"></script><![endif]-->
+	<!--[if lt IE 9]><script src="/static/scripts/libs/jquery-1.12.0.min.js"></script><![endif]-->
+	<!--[if gte IE 9]><!--><script src="/static/scripts/libs/jquery-2.2.0.min.js"></script><!--<![endif]-->
+	<script src="/static/scripts/libs/jquery-ui-1.11.custom-2.min.js" type="text/javascript"></script>
+	<script src="/static/scripts/libs/jquery-plugins-da39a3ee5e6b4b0.min.js" type="text/javascript"></script>
+	<script src="/static/scripts/libs/underscore-1.6.0.min.js" type="text/javascript"></script>
+
+	
+		<!--[if lt IE 9]><script src="/static/scripts.ie.ac13f080e6c963ee.js" type="text/javascript"></script><![endif]-->
+		<script src="/static/scripts.077f67c44a2dde76.js" type="text/javascript"></script>
+	
+	
+
+	<script type="text/javascript">
+		$(document).on("track-event",function(e,cat,act,lab,val){$.post("/track",{cat:cat,act:act,lab:lab,val:val});});
+		if($.browser.webkit)$("html").addClass("webkit");
+	</script>
+</head>
+<body class="white-body   ">
+	
+	<div class="frame">
+		<!--noindex--><div class="only-print print-head">Контур.Фокус &copy; ЗАО &laquo;ПФ &laquo;СКБ Контур&raquo; 2016</div><!--/noindex-->
+		
+<!--noindex--><div class="header">
+	<div class="topmost non-printable">
+		<div class="wrapper">
+			<div class="c-kontur_projects c-dropdown">
+				<a href="/"><div class="c-kontur_logo"></div></a>
+				<div class="c-kontur_logo_arrow"><div class="ico ico_down3"></div></div>
+			</div>
+			
+<div class="c-dropdown_content">
+	<div class="c-dropdown_projects">
+		<div class="c-dropdown_projects_item">
+			<a href="http://www.kontur-extern.ru/?utm_source=focus.kontur.ru&amp;utm_medium=switcher" class="c-dropdown_projects_item_link c-link c-dropdown_projects_item_link__extern" data-current-product="">
+				<span class="c-dropdown_projects_name">Экстерн</span>
+				<span class="c-dropdown_projects_comment">Отчетность через интернет</span>
+			</a>
+		</div>
+		<div class="c-dropdown_projects_item">
+			<a href="http://www.diadoc.ru/?utm_source=focus.kontur.ru&amp;utm_medium=switcher" class="c-dropdown_projects_item_link c-link c-dropdown_projects_item_link__diadoc">
+				<span class="c-dropdown_projects_name">Диадок</span>
+				<span class="c-dropdown_projects_comment">Электронный документооборот</span>
+			</a>
+		</div>
+		<div class="c-dropdown_projects_item">
+			<a href="https://kontur.ru/focus?utm_source=focus.kontur.ru&amp;utm_medium=switcher" class="c-dropdown_projects_item_link c-link c-dropdown_projects_item_link__focus">
+				<span class="c-dropdown_projects_name">Фокус</span>
+				<span class="c-dropdown_projects_comment">Узнать все о любой организации</span>
+			</a>
+		</div>
+		<div class="c-dropdown_projects_item">
+			<a href="http://www.kontur-normativ.ru/?utm_source=focus.kontur.ru&amp;utm_medium=switcher" class="c-dropdown_projects_item_link c-link c-dropdown_projects_item_link__normativ">
+				<span class="c-dropdown_projects_name">Норматив</span>
+				<span class="c-dropdown_projects_comment">Справочно-правовая система</span>
+			</a>
+		</div>
+		<div class="c-dropdown_projects_item">
+			<a href="https://kontur.ru/zakupki?utm_source=focus.kontur.ru&amp;utm_medium=switcher" class="c-dropdown_projects_item_link c-link c-dropdown_projects_item_link__zakupki">
+				<span class="c-dropdown_projects_name">Закупки</span>
+				<span class="c-dropdown_projects_comment">Поиск тендеров и сертификат</span>
+			</a>
+		</div>
+		<div class="c-dropdown_projects_item">
+			<a href="http://www.b-kontur.ru/?utm_source=focus.kontur.ru&amp;utm_medium=switcher" class="c-dropdown_projects_item_link c-link c-dropdown_projects_item_link__bk">
+				<span class="c-dropdown_projects_name">Бухгалтерия</span>
+				<span class="c-dropdown_projects_comment">Профессиональная бухгалтерия</span>
+			</a>
+		</div>
+		<div class="c-dropdown_projects_item">
+			<a href="http://www.e-kontur.ru/?utm_source=focus.kontur.ru&amp;utm_medium=switcher" class="c-dropdown_projects_item_link c-link c-dropdown_projects_item_link__elba">
+				<span class="c-dropdown_projects_name">Эльба</span>
+				<span class="c-dropdown_projects_comment">Бухгалтерия для предпринимателей</span>
+			</a>
+		</div>
+	</div>
+	<div class="c-dropdown_hr"></div>
+	<div class="c-dropdown_list">
+		<div class="c-dropdown_list_item">
+			<a href="https://kontur.ru/products?utm_source=focus.kontur.ru&amp;utm_medium=switcher" class="c-link">Все сервисы</a>
+		</div>
+		<div class="c-dropdown_list_item c-dropdown_list_item__right">
+			<a href="https://kontur.ru?utm_source=focus.kontur.ru&amp;utm_medium=switcher" class="c-link">kontur.ru</a>
+		</div>
+	</div>
+</div>
+			
+		<span class="authLine-requisite"><span class="ico ico_usr"></span>89151722036</span><span class="authLine-separator"></span>
+	
+		<a class="logButton" rel="nofollow" href="/login?logout=&amp;back=https%3a%2f%2ffocus.kontur.ru%2fentity%3fquery%3d1042305704352">Выйти</a>
+	
+		</div>
+	</div>
+	<div class="wrapper wrapper__focus safeContext">
+		
+<div class="menuBttn non-printable">
+	<div class="menuImg"></div>
+	<div class="triangleUp"></div>
+	<ul class="ui-menu clearList">
+		
+				<li><a href="/mon">Новости наблюдения</a></li>
+			
+				<li><a href="/lists/overview">Все списки</a></li>
+			
+				<li><a href="/markersettings">Мои маркеры</a></li>
+			
+			<li><a target="_blank" href="https://feedback.kontur.ru/Default.aspx?projectId=focus&amp;feedbackToken=3Vnr9hDqQlZgcrbSW1eK8pllJjRsgb6KuiQpboGpzFatXTCQunRLcYHtcV586UNX">Отзыв о сервисе</a></li>
+		
+			<li><a target="_blank" href="https://ff.kontur.ru/">Фокус.Форум</a></li>
+		
+	</ul>
+</div>
+
+
+		
+<div class="hMenu non-printable">
+	
+			<a class="hMenuItem hMenuItem4" href="/mon">Новости наблюдения</a>
+			<div class="hMenuSplit"></div>
+		
+			<a class="hMenuItem hMenuItem3" href="/lists/overview">Все списки</a>
+			<div class="hMenuSplit"></div>
+		
+		<a rel="external nofollow" class="hMenuItem hMenuItem1" href="https://feedback.kontur.ru/Default.aspx?projectId=focus&amp;feedbackToken=3Vnr9hDqQlZgcrbSW1eK8pllJjRsgb6KuiQpboGpzFatXTCQunRLcYHtcV586UNX" target="_blank">Отзыв о сервисе</a>
+		<div class="hMenuSplit"></div>
+	
+</div>
+<script>
+	$(function () {
+		if (!$('html').hasClass('ie-lt9') || $('.hMenuItem.hMenuItem3')[0])
+			return;
+
+		showMenuItem();
+		$(window).on('resize', showMenuItem);
+
+		function showMenuItem() {
+			var w = $(window).width();
+
+			if (w > 1100 && w < 1300)
+				$('.hMenuItem.hMenuItem4').show();
+			else if (w < 1100)
+				$('.hMenuItem.hMenuItem4').hide();
+		}
+	});
+</script>
+
+		
+<div class="searchBlock non-printable">
+	<div class="search__elastic">
+		<form action="/search" data-action="" class="search-form non-printable" method="get" autocomplete="off">
+			<input class="search-params" type="hidden" name="region" value=""/>
+			<input class="search-params" type="hidden" name="industry" value=""/>
+			<input class="search-params" type="hidden" name="state" value="181077917"/>
+			<input type="hidden" id="acurl" value="/ac"/>
+			<button class="search-form-button-wrap" id="SearchButton" type="submit">
+				<span class="search-form-button"></span>
+			</button>
+			<div class="c-input-wrap c-input-wrap_elastic search-form-input-wrap ">
+				
+				<div id="search-field-wrap" class="search-form-input-wrap_shadow-offset">
+					<input type="hidden" id="search-value" value=""/>
+					<input class="c-input search-form-input" id="search-field" name="query" data-name="query" type="search" autocomplete="off" spellcheck="false" autocorrect="off" autocapitalize="off" maxlength="300" value=""/>
+					<span class="c-input-watermark search-form-input-watermark"><span class="long-watermark-text">Введите ИНН, ОГРН, название, адрес или ФИО</span><span class="short-watermark-text">Поиск организаций и ИП</span></span>
+					<script type="text/javascript">
+						function restore(){$("#search-field").val($("#search-value").val());}
+						$(window).bind("onpagehide" in window ? 'pagehide' : 'unload', function(e) {if(e.persisted) restore();}, false);
+					</script>
+					<!--[if IE]><script type="text/javascript">$(restore);</script><![endif]-->
+					<!--[if !IE]><!--><script type="text/javascript">if(/*@cc_on!@*/false){$(restore);}</script><!--<![endif]-->
+				</div>
+			</div>
+			
+			<script type="text/javascript">
+				(function() {
+					// Chrome on android and ios
+					var isMobileChrome = (isMobile.Android() && $.browser.chrome) || !!navigator.userAgent.match('CriOS');
+					var isWinPhoneIE = navigator.userAgent.match(/iemobile/i);
+
+					new Input('#search-field', {watermark:true, autofocus:false && !window.location.hash});
+					$("#search-field").autocomplete({
+						source: ac_source,
+						close: ac_close,
+						insertAfter: "#search-field-wrap",
+						delay: 100,
+						minLength: 1
+					});
+					if(isMobileChrome || isWinPhoneIE) {
+						$("#search-field").autocomplete("disable");
+					}
+
+					new Button('#SearchButton', {baseClass:'search-form-button-wrap'});
+				}());
+			</script>
+		</form>
+	</div>
+</div>
+	</div>
+</div><!--/noindex-->
+
+		
+	
+	<input type="hidden" id="query" value="1042305704352"/>
+	<input type="hidden" id="query-type" value="OgrnUl"/>
+	<script type="text/javascript">
+		$(document).bind("content-refresh", function(){location.reload();});
+		$(document).ready(function(){addTask_startUpdate();});
+	</script>
+	
+<div id="org-content" class="company t-readable">
+	<div class="titleMenuBlock">
+		<div class="titleBlock">
+			<div class="helper ">
+				<div class="wrapper buttons_up">
+					<!--noindex-->
+					
+<div class="add_to_list noselect floatLeft" data-ogrn="1042305704352">
+	
+	
+		<button class="btn title_button list_box_button"><span class="ico ico_plus"></span> Добавить в список...</button>
+	
+	
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 20 20" style="display:none"><symbol id="lists-qadd-icon" viewBox="-2 -2 20 20"><path d="M1 1.994v12.012c0 .548.446.994.994.994h12.012c.548 0 .994-.446.994-.994v-12.012c0-.548-.446-.994-.994-.994h-12.012c-.548 0-.994.446-.994.994zm-1 0c0-1.101.895-1.994 1.994-1.994h12.012c1.101 0 1.994.895 1.994 1.994v12.012c0 1.101-.895 1.994-1.994 1.994h-12.012c-1.101 0-1.994-.895-1.994-1.994v-12.012z"/><path d="M12 6.998v2.002h-3v3h-1.989v-3h-3.011v-2.002h3.011v-2.998h1.989v2.998h3z"/></symbol></svg>
+<div id="list_box" class="list_box">
+	<div id="list_box_items" class="list_box_items">
+		<input type="hidden" id="mon-limit" value="1000"/>
+		<input type="hidden" id="list-set-item_url" value="/Mon/SetMonItemState.ashx"/>
+		<input type="hidden" id="lists-menu_create_url" value="/Mon/AddList.ashx"/>
+        <input type="hidden" id="lists-analytics_url" value="/lists/analytics"/>
+		<input type="hidden" id="company-ogrn" value="1042305704352"/>
+		<input type="hidden" id="lists-settings" value="/lists/overview"/>
+		
+		<div id="list_input_node" class="list_input">
+			<div id="list_input_node_info" class="list_input_node_info hidden">Формируйте списки известных вам компаний. Это позволит автоматически видеть взаимосвязи с ними, а также отслеживать изменения.</div>
+			<span class="field">
+				<input type="text" name="list_name" id="list_input" class="c-input no_noselect" maxlength="100"><span id="list_input_placeholder" class="c-input-watermark">Новый список</span>
+			</span>
+		</div>
+		<div id="list_color_pallete_min" class="list_color_pallete_min"><div><div class="list_color_red" data-color="red"></div></div><div><div class="list_color_orange" data-color="orange"></div></div><div><div class="list_color_yellow" data-color="yellow"></div></div><div><div class="list_color_green" data-color="green"></div></div><div><div class="list_color_lblue selected" data-color="lblue"></div></div><div><div class="list_color_blue" data-color="blue"></div></div><div><div class="list_color_purpure" data-color="purpure"></div></div><div><div class="list_color_pink" data-color="pink"></div></div><div><div class="list_color_gray" data-color="gray"></div></div><div><div class="list_color_black" data-color="black"></div></div></div>
+		<div class="list_management"><div id="add_to_list_button" class="create_list_button button hidden -disabled">Создать список</div></div>
+	</div>
+</div>
+
+</div>
+					
+					<div class="clear"></div>
+					<!--/noindex-->
+				</div>
+			</div>
+			<script type="text/javascript">if (typeof setAndroidMobileOffset == 'function') { setAndroidMobileOffset(); }</script>
+			<div class="wrapper no_overflow">
+				<div class="inlineBlock va_top mar_r_10"><h1>ООО &quot;НК &quot;Роснефть&quot;- НТЦ&quot;</h1></div>
+<div class="list_labels list_labels_main" data-ogrn="1042305704352" style="">
+    
+    
+</div>
+
+			</div>
+		</div>
+		<div class="wrapper">
+			
+<!--noindex--><div class="relative navLinks">
+	<a class="navLink state__active" href="/entity?query=1042305704352">Сводка
+	</a><a class="navLink " href="/kad?query=1042305704352">Арбитраж
+	</a><a class="navLink " href="/forms?query=1042305704352">Финансы
+	</a><a class="navLink " href="/contracts?query=1042305704352">Госконтракты
+	</a><a class="navLink " href="/lics?query=1042305704352">Лицензии
+	</a><a class="navLink " href="/inspections?query=1042305704352">План.&nbsp;проверки
+	</a><a class="navLink " href="/sites?query=1042305704352">Сайты
+	</a><a class="navLink " href="/graph?query=1042305704352">Связи
+	</a>
+</div><!--/noindex-->
+
+		</div>
+	</div>
+	<div class="wrapper content-wrapper">
+		<div class="main safeContext main-summary">
+			
+				<input type="hidden" id="subject-inn" value="2310095895"/>
+				<input type="hidden" id="subject-ogrn" value="1042305704352"/>
+				<input type="hidden" id="subject-name" value="ООО &quot;НК &quot;Роснефть&quot;- НТЦ&quot;"/>
+				
+<!--noindex--><div class="block__purchase safeContext non-printable">
+	
+		<div class="block__purchase_text">
+			Пока не истек демо-доступ оформите подписку.
+		</div>
+		<div class="block__purchase_bttns">
+			<a class="button button__buy" href="/price#full"><span class="button_content">Купить подписку</span></a>
+		</div>
+	
+</div><!--/noindex-->
+
+				<div class="b__first">
+					<div class="block white-block">
+						<div class="unevenIndent">
+							<h4>Общество с ограниченной ответственностью &quot;НК &quot;Роснефть&quot;- Научно -Технический Центр&quot;</h4><h4 class="fullMargin marT10" title="Наименование на иностранном языке">Limited Liability Company &quot;NC &quot;Rosneft&quot; -Research-and-Technical Centre&quot;</h4>
+	<div class="fullMargin green">
+		Действующее предприятие
+	</div>
+
+<dl>
+	
+		<dt>ИНН</dt><dd>2310095895</dd>
+	
+	
+		<dt>КПП</dt><dd>231001001</dd>
+	
+	
+		<dt>ОГРН</dt><dd>1042305704352</dd>
+	
+	
+		<dt>ОКПО</dt><dd>74243149</dd>
+	
+</dl>
+<div class="fullMargin">
+	
+		<p class="noMargin">Дата образования: 1 сентября 2004</p>
+	
+	
+</div>
+	<div class="fullMargin">
+		
+			<p class="noMargin">350000</p>
+		
+			<p class="noMargin">Краснодарский край</p>
+		
+			<p class="noMargin">г Краснодар</p>
+		
+		<div class="noMargin">
+			
+<a class="noLine " href="/search?query=%d0%9a%d1%80%d0%b0%d1%81%d0%bd%d0%be%d0%b4%d0%b0%d1%80%d1%81%d0%ba%d0%b8%d0%b9+%d0%9a%d1%80%d0%b0%d1%81%d0%bd%d0%be%d0%b4%d0%b0%d1%80+%22%d0%9a%d1%80%d0%b0%d1%81%d0%bd%d0%b0%d1%8f+54%22&amp;state=181077917"><span class=" underline">ул Красная, 54</span>&nbsp;<span class="smallText lightGrey nowrap" title="Приблизительное число результатов поиска"><span class="ico ico_loupe"></span>39</span></a>
+				<a class="non-printable nowrap noLine map-link" target="_blank" href="/map?query=1042305704352"><span class="ico ico_map"></span><span class="underline">Осмотреть</span></a>
+			
+		</div>
+		
+			<p class="noMargin"></p>
+		
+<p class="noMargin smallText "><span title="Дата внесения сведений в ЕГРЮЛ">11.02.2011</span></p>
+
+	</div>
+
+	<div class="fullMargin">
+		Код налогового органа: 2310<br/>Дата постановки на учет: 1 сентября 2004
+	</div>
+
+<div class="fullMargin">
+	
+	<div class="marT20 marB10">
+		<div class="company-phone-caption">Тел:</div>
+		<div class="company-phone-block">
+			
+					
+<a class="noLine " href="/search?query=%2b7(861)262-42-02&amp;state=181077917"><span class="t-link underline">+7<span class='space'></span>(861)<span class='space'></span>262-42-02</span>&nbsp;<span class="smallText lightGrey nowrap" title="Приблизительное число результатов поиска"><span class="ico ico_loupe"></span>2</span></a>
+					<br/>
+				
+					
+<a class="noLine " href="/search?query=%2b7(861)262-34-97&amp;state=181077917"><span class="t-link underline">+7<span class='space'></span>(861)<span class='space'></span>262-34-97</span>&nbsp;<span class="smallText lightGrey nowrap" title="Приблизительное число результатов поиска"><span class="ico ico_loupe"></span>2</span></a>
+					<br/>
+				
+					
+<a class="noLine " href="/search?query=%2b7(861)262-40-26&amp;state=181077917"><span class="t-link underline">+7<span class='space'></span>(861)<span class='space'></span>262-40-26</span>&nbsp;<span class="smallText lightGrey nowrap" title="Приблизительное число результатов поиска"><span class="ico ico_loupe"></span>2</span></a>
+					<br/>
+				
+					
+<a class="noLine " href="/search?query=%2b7612262-34-97&amp;state=181077917"><span class="t-link underline">+7<span class='space'></span>612<span class='space'></span>262-34-97</span>&nbsp;<span class="smallText lightGrey nowrap" title="Приблизительное число результатов поиска"><span class="ico ico_loupe"></span>1</span></a>
+					<br/>
+				
+		</div>
+		<div class="clear"></div>
+	</div>
+	
+		<div class="marT10 marB20">
+			<div class="company-phone-caption">Тел:</div>
+				<div class="company-phone-block" id="js-phone-get-text">
+					<a href="#" id="js-phone-get" class="noLine"><span class="underline"><span class="mobile-hidden">Получить из</span><span class="mobile-only-inline">Из</span> Контур.Справочника (1)</span>&nbsp;<span class="ico ico_down3 lightGrey"></span></a>
+				</div>
+				<div class="company-phone-block grey">
+					<span class="js-wait" id="js-phone-load">Загрузка...</span>
+				</div>
+				<div class="company-phone-block hidden" id="js-phone-show">
+					<div class="noMargin smallText clear">
+						Найдено в <a class="smallText" rel="external noreferrer nofollow" target="_blank" href="/redirect?url=https%3a%2f%2fkontur.ru%2fphonebook">Контур.Справочнике</a>
+					</div>
+				</div>
+			<div class="clear"></div>
+		</div>
+
+		<div class="lsets_warning lightbox_mini" data-lightbox-mini-id="js-phone-limit">
+			<div>
+				<div class="w"></div>
+				<div class="lightbox_mini_content">
+					<div class="lsets_warning_text">Превышен дневной лимит запросов к Контур.Справочнику</div>
+					<div class="t-readable size14 marT20">Лимит обращений к <a rel="external noreferrer nofollow" target="_blank" href="/redirect?url=https%3a%2f%2fkontur.ru%2fphonebook">Контур.Справочнику</a> - не более 20 компаний в сутки.</div><br/>
+					<div class="t-readable size14">Вы можете:</div>
+					<ul class="t-readable size14">
+						<li>Повторить запрос после 23:59 (время московское).</li>
+						<li>Увеличить лимит запросов. Для этого оставьте заявку по телефону 8 800 500-16-44.</li>
+					</ul>
+					<div class="lsets_warning_buttons">
+						<button class="btn lightbox_mini_footer_close_ext">Закрыть</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="lsets_warning lightbox_mini" data-lightbox-mini-id="js-phone-need-active">
+			<div>
+				<div class="w"></div>
+				<div class="lightbox_mini_content">
+					<div class="lsets_warning_text">Неактивный режим</div>
+					<div class="t-readable size14 marT20">Контакты из Контур.Справочника доступны только в активированном режиме.</div>
+					<div class="lsets_warning_buttons">
+						<button class="btn lightbox_mini_footer_close_ext">Закрыть</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+			<script>$("#js-phone-get").click(function(){getKonturPhones("/Entity/Phones/OrgKonturPhones.ashx","2310095895",'["8612624202","8612623497","8612624026","86122623497"]');return false;});</script>
+		
+</div>
+
+<div class="fullMargin">
+	
+</div>
+<div class="fullMargin">
+	
+<p class="noMargin">
+	Генеральный Директор<br/>
+<a class="noLine " href="/search?query=%22%d0%a7%d0%b5%d1%82%d0%b2%d0%b5%d1%80%d0%b8%d0%ba%d0%be%d0%b2+%d0%92%d0%bb%d0%b0%d0%b4%d0%b8%d0%bc%d0%b8%d1%80+%d0%92%d0%b0%d0%bb%d0%b5%d1%80%d1%8c%d0%b5%d0%b2%d0%b8%d1%87%22+701701761195&amp;state=181077917"><span class=" underline">Четвериков Владимир Валерьевич</span>&nbsp;<span class="smallText lightGrey nowrap" title="Приблизительное число результатов поиска"><span class="ico ico_loupe"></span>1</span></a>
+</p>
+<div class="smallTextBlock">
+	
+<p class="noMargin smallText "><span title="Дата внесения сведений в ЕГРЮЛ">14.05.2013</span></p>
+
+		<span class="noMargin smallText ind1em">ИНН&nbsp;701701761195</span>
+	
+<a class="connectionsLink" href="/graph?query=1042305704352&amp;fio=%d0%a7%d0%b5%d1%82%d0%b2%d0%b5%d1%80%d0%b8%d0%ba%d0%be%d0%b2+%d0%92%d0%bb%d0%b0%d0%b4%d0%b8%d0%bc%d0%b8%d1%80+%d0%92%d0%b0%d0%bb%d0%b5%d1%80%d1%8c%d0%b5%d0%b2%d0%b8%d1%87&amp;from=man">1 связь<span class="ico ico_right3 rightArrowConnections"></span><div class="inlineBlock"></div></a>
+</div>
+
+	
+</div>
+<div class="fullMargin">
+	
+			<div class="noMargin mobile-stickOut" >
+				<div class="stickOut smallText textRight mobile-hidden">73.10</div>
+				<p class="noMargin">Научные исследования и разработки в области естественных и технических наук</p>
+			</div>
+		
+		<div class="noMargin"><a href="/activities?query=1042305704352">Все виды деятельности (6)</a></div>
+	
+</div>
+
+	<h3>Учредители</h3>
+
+
+	<div class="noMargin">
+		Уставный капитал: 4 825 480 340&nbsp;руб.
+		
+<p class="noMargin smallText "><span title="Дата внесения сведений в ЕГРЮЛ">12.02.2014</span></p>
+
+	</div>
+
+
+<div class="foundersMargin mobile-stickOut">
+	
+		<div class="stickOut smallText line23 textRight foundersPercentFieldGt480">100&thinsp;%</div>
+	
+	
+		<p class="noMargin">
+			
+				<a href="/entity?query=1027700043502">ОАО &quot;Нефтяная Компания &quot;Роснефть&quot;</a>
+			
+		</p>
+	
+	
+	<div class="smallTextBlock">
+		<div class="noMargin smallText">
+			
+				<span class="ind2em foundersPercentField480">100&thinsp;%</span>
+			
+			
+				<span class="ind2em">4&nbsp;825&nbsp;480&nbsp;340,00&nbsp;руб.</span>
+			
+			
+<p class="noMargin smallText inline"><span title="Дата внесения сведений в ЕГРЮЛ">12.02.2014</span></p>
+
+			<span class="ind2em">ИНН&nbsp;7706107510</span>
+			
+<a class="connectionsLink" href="/graph?query=1027700043502&amp;from=ent">176 связей<span class="ico ico_right3 rightArrowConnections"></span><div class="inlineBlock"></div></a>
+			
+			
+		</div>
+	</div>
+</div>
+	<h3>Регистрация во внебюджетных фондах</h3>
+	<dl class="marT0">
+		
+			<dt>ФСС</dt>
+			<dd>2302008421 23021</dd>
+		
+	</dl>
+
+<div class="non-printable marT28">
+	<h3>Выписка из ЕГРЮЛ</h3>
+	
+		<a class="noLine" href="/excerpt/1042305704352/ece715e80:19633/ООО_НК_Роснефть_-_НТЦ-1042305704352.pdf" target="_blank">
+			<span class="ico ico_doc"></span>
+			<span class="underline">Скачать выписку</span>
+		</a>
+	
+		<br/><span class="marT28">от 9 марта 2016</span>
+	
+	
+<div id="js-addtask-holder">
+	<p class="noMargin marT10">
+		
+			<input type="hidden" value="/Entity/ExcerptRequestHolder.aspx" id="js-addtask-updateurl"/>
+			<input type="hidden" value="/Entity/AddTask.ashx" id="js-addtask-url"/>
+
+			<span class="lineBlock ind1-2em">
+				<span class="link-button-parent">
+					<a id="AddTaskButton" class="noLine link-button" disabled="disabled">
+						<span class="link-button-content ico ico_upd"></span>
+						<span class="link-button-content">Запросить свежую</span>
+					</a>
+				</span>
+			</span>
+			<script type="text/javascript">new Button('#AddTaskButton',{baseClass:'link-button',onclick:addTask_addTask});</script>
+		
+			<br/><span class="grey size13 sideComment lineBlock">
+				<span id="loader" class="js-wait js-addtask-wait" style="display:none;">&ensp;</span>Предполагаемое время ожидания&nbsp;&lt;&nbsp;1&nbsp;мин.
+			</span>
+		
+	</p>
+
+	<div class="marT10 marT28 size13">
+		
+				Для получения свежей выписки оформите <a href="/price#full">подписку</a>.
+			
+		<div class="hidden alert js-addtask-error">
+			<div class="js-addTask-err_unk">Сервис временно недоступен. Повторите попытку позже.</div>
+			<div class="js-err_auth">Вы вышли из системы. Обновите страницу.</div>
+			<div class="js-addtask-err_limit">Вы превысили доступный лимит одновременных запросов на выписку</div>
+		</div>
+	</div>
+</div>
+
+</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="b__last ">
+					
+						<div class="b__last-col b__last-col-L">
+	<div class="block">
+		<div class="unevenIndent">
+			<h3>Арбитражные дела</h3>
+			<table class="kadSectionTable">
+				<thead class="kadSectionTableHead">
+					<tr>
+						<td class="kadSectionTableHeadTd">Роль</td>
+						<td colspan="2" class="kadSectionTableHeadTd">За&nbsp;12&nbsp;месяцев</td>
+						<td colspan="2" class="kadSectionTableHeadTd">За&nbsp;всё&nbsp;время</td>
+					</tr>
+				</thead>
+				
+				<tr class="kadSectionTableTr">
+					<td class="kadSectionTableTd"><a href="/kad?query=1042305704352&amp;type=1&amp;years=0&amp;link=ext">Ответчик</a></td>
+					<td class="kadSectionTableTd money">0&nbsp;р.</td>
+					<td class="kadSectionTableTd count"><span title="Количество дел в качестве ответчика за последние 12 мес.">(0)</span></td>
+					<td class="kadSectionTableTd money">17&nbsp;млн&nbsp;р.</td>
+					<td class="kadSectionTableTd count"><span title="Количество дел в качестве ответчика за всё время">(4)</span></td>
+				</tr>
+				
+				<tr class="kadSectionTableTr">
+					<td class="kadSectionTableTd"><a href="/kad?query=1042305704352&amp;type=0&amp;years=0&amp;link=ext">Истец</a></td>
+					<td class="kadSectionTableTd money">108&nbsp;т.&nbsp;р.</td>
+					<td class="kadSectionTableTd count"><span title="Количество дел в качестве истца за последние 12 мес.">(1)</span></td>
+					<td class="kadSectionTableTd money">7,2&nbsp;млн&nbsp;р.</td>
+					<td class="kadSectionTableTd count"><span title="Количество дел в качестве истца за всё время">(21)</span></td>
+				</tr>
+				
+				<tr class="kadSectionTableTr">
+					<td class="kadSectionTableTd"><a href="/kad?query=1042305704352&amp;type=4&amp;years=0&amp;link=ext">Другое</a></td>
+					<td class="kadSectionTableTd money">0&nbsp;р.</td>
+					<td class="kadSectionTableTd count"><span title="Количество дел в другом качестве за последние 12 мес.">(1)</span></td>
+					<td class="kadSectionTableTd money">0&nbsp;р.</td>
+					<td class="kadSectionTableTd count"><span title="Количество дел в другом качестве за всё время">(3)</span></td>
+				</tr>
+				
+			</table>
+
+			
+<!--[if lt IE 9]>
+	<script type="text/javascript" src="static/scripts/cssParser.js"></script>
+	<script type="text/javascript" src="static/scripts/polycalc.js"></script>
+<![endif]-->
+<div class="kt_wrap_block marT15">
+	
+	<div class="js-kadtherm">
+		<div class="size12 grey text_overflow_cut">
+			Ответчик за 3 года:&nbsp;<span class="js-kt-sum" data-default="13 млн р.">13 млн р.</span>&nbsp;<span class="js-kt-cnt" data-default="(2)">(2)</span><span class="js-kt-condition"></span>
+		</div>
+		<div class="marT3 w100p">
+			<div class="kad_therm_graph kt_floats_left js-kt">
+				
+	<div class="c-lgreen brw1px" style="width:83.23%;" data-status=" – не проиграно" data-count="(1)" data-amount="12 млн р." data-href="/kad?query=1042305704352&amp;type=Defendant&amp;result=Loss&amp;years=3"></div>
+
+	<div class="c-gray brw1px" style="width:0.57%;" data-status=" – рассматривается" data-count="(1)" data-amount="100 т. р." data-href="/kad?query=1042305704352&amp;type=Defendant&amp;result=BlindSpot&amp;years=3"></div>
+
+			</div>
+		</div>
+	</div>
+	
+	<div class="js-kadtherm">
+		<div class="size12 grey marT10 text_overflow_cut">
+			Истец за 3 года:&nbsp;<span class="js-kt-sum" data-default="108 т. р.">108 т. р.</span>&nbsp;<span class="js-kt-cnt" data-default="(6)">(6)</span><span class="js-kt-condition"></span>
+		</div>
+		<div class="marT3 w100p">
+			<div class="kad_therm_graph kt_floats_left js-kt">
+				
+	<div class="c-green brw1px" style="width:0%;" data-status=" – выиграно" data-count="(1)" data-amount="0 р." data-href="/kad?query=1042305704352&amp;type=Petitioner&amp;result=Win&amp;years=3"></div>
+
+	<div class="c-gray" style="width:0.62%;" data-status=" – рассматривается" data-count="(1)" data-amount="108 т. р." data-href="/kad?query=1042305704352&amp;type=Petitioner&amp;result=BlindSpot&amp;years=3"></div>
+
+	<div class="c-dgray brw1px" style="width:0%;" data-status=" – исход опред. не удалось" data-count="(3)" data-amount="0 р." data-href="/kad?query=1042305704352&amp;type=Petitioner&amp;result=Undefined&amp;years=3"></div>
+
+	<div class="c-lred brw1px" style="width:0%;" data-status=" – не выиграно" data-count="(1)" data-amount="0 р." data-href="/kad?query=1042305704352&amp;type=Petitioner&amp;result=Loss&amp;years=3"></div>
+
+			</div>
+		</div>
+	</div>
+	
+</div>
+<script type="text/javascript">
+$(function() {
+	$(".js-kt>div").hover(kt_hover, kt_out);
+	$(".kad_therm_graph>div").click(function() {
+		window.location = $(this).attr('data-href');
+	});
+});
+</script>
+
+		</div>
+	</div>
+
+<div class="block">
+	<div class="unevenIndent">
+		<h3>Финансовое состояние на 2014 год</h3>
+		
+			<div class="marB15">
+				
+					<span>Баланс &mdash; 6,5 млрд</span>
+					
+							<span class="percentUp" title="По сравнению с показателем на начало 2014 года"><span class="ico ico_up"></span>4%</span>
+						<br/>
+				
+					<span>Выручка &mdash; 2,2 млрд</span>
+					
+							<span class="percentDown" title="По сравнению с показателем на начало 2014 года"><span class="ico ico_down"></span>2%</span>
+						<br/>
+				
+					<span>Чистая прибыль &mdash; 258,0 млн</span>
+				
+				<div class="marT15"><a href="/forms?query=1042305704352" id="FinancesLink">Подробности 2005...2014</a></div>
+			</div>
+		
+		
+	</div>
+</div>
+	<div class="block">
+		<div class="unevenIndent">
+			<h3>Государственные контракты</h3>
+			
+				<p class="halfMargin"><a href="/contracts?query=1042305704352&amp;type=customers&amp;link=ext" id="CustomersLink">Выигранные</a></p>
+				<p class="marB10">
+					
+						<span>За 12 мес. &mdash; 2,1&nbsp;млрд&nbsp;руб. <span class="grey" title="Количество выигранных контрактов за последние 12 мес.">(83)</span></span><br/>
+					
+					<span>Всего &mdash; 2,5&nbsp;млрд&nbsp;руб. <span class="grey" title="Количество выигранных контрактов за все время">(126)</span></span>
+				</p>
+			
+				<p class="halfMargin"><a href="/contracts?query=1042305704352&amp;type=suppliers&amp;link=ext" id="SuppliersLink">Размещенные</a></p>
+				<p class="marB10">
+					
+						<span>За 12 мес. &mdash; 834,6&nbsp;млн&nbsp;руб. <span class="grey" title="Количество размещенных контрактов за последние 12 мес.">(214)</span></span><br/>
+					
+					<span>Всего &mdash; 1,3&nbsp;млрд&nbsp;руб. <span class="grey" title="Количество размещенных контрактов за все время">(338)</span></span>
+				</p>
+			
+		</div>
+	</div>
+
+	<div class="block">
+		<div class="unevenIndent">
+			<h3>Учрежденные юрлица</h3>
+			<ul class="clearList">
+				
+						
+<li class="halfMargin">
+	
+		<a href="/entity?query=1087746329736">ООО &quot;СинТоп&quot;</a>
+	
+	
+</li>
+					
+						
+<li class="halfMargin">
+	
+		<a href="/entity?query=1077759306855">ООО &quot;ЦИР&quot;</a>
+	
+	
+</li>
+					
+						
+<li class="halfMargin">
+	
+		<a href="/entity?query=1087746450208">ООО &quot;Вектор Девелопмент&quot;</a>
+	
+	
+</li>
+					
+						
+<li class="halfMargin">
+	
+		<a href="/entity?query=1092300002508">СРО СПО &quot;РОСНЕФТЬ&quot;</a>
+	
+	
+</li>
+					
+			</ul>
+			
+				<p class="halfMargin">
+					<a href="/graph?query=1042305704352&amp;filterFlags=134217728&amp;order=28">Подробнее (4)</a>
+				</p>
+			
+		</div>
+	</div>
+
+<div class="block relative">
+	<div class="unevenIndent">
+	<h3>Записи в ЕГРЮЛ</h3>
+	<dl class="auto"><dt class="size11 marT3">22.01.2016</dt><dd class="marB10  ">Внесение изменений, связанных с учредительными документами</dd><dt class="size11 marT3">24.11.2015</dt><dd class="marB10  ">Внесение сведений о предоставлении лицензии</dd><dt class="size11 marT3">26.08.2015</dt><dd class="marB10  ">Внесение сведений о регистрации в ФСС</dd></dl>
+	<div class="halfMargin"><a href="/egrrecs?query=1042305704352">Подробнее&nbsp;(38)</a></div>
+	</div>
+</div>
+
+<div class="block block__history">
+	<div class="unevenIndent">
+		<h3>История</h3>
+		
+			<p class="noMargin grey size15">Другие названия</p>
+		
+<div class="halfMargin indentedPar">
+	
+	
+	ООО &quot;НК &quot;Роснефть&quot;-Научно-Технический Центр&quot;
+	
+</div>
+			<p class="noMargin grey size15">Руководители</p>
+			
+<div class="halfMargin indentedPar">
+	<p class="noMargin">Генеральный директор</p>
+	
+<a class="noLine " href="/search?query=%22%d0%9a%d0%be%d0%bd%d0%b4%d1%80%d0%b0%d1%82%d1%8c%d0%b5%d0%b2+%d0%9d%d0%b8%d0%ba%d0%be%d0%bb%d0%b0%d0%b9+%d0%90%d0%bb%d0%b5%d0%ba%d1%81%d0%b0%d0%bd%d0%b4%d1%80%d0%be%d0%b2%d0%b8%d1%87%22+701735844690&amp;state=181077917"><span class=" underline">Кондратьев Николай Александрович</span>&nbsp;<span class="smallText lightGrey nowrap" title="Приблизительное число результатов поиска"><span class="ico ico_loupe"></span>18</span></a>
+	
+	
+		<div class="noMargin smallText smallTextBlock">
+			
+<p class="noMargin smallText inline"><span title="Дата внесения сведений в ЕГРЮЛ">20.11.2006</span></p>
+<span class="ind2em">ИНН&nbsp;701735844690</span>
+<a class="connectionsLink" href="/graph?query=1042305704352&amp;fio=%d0%9a%d0%be%d0%bd%d0%b4%d1%80%d0%b0%d1%82%d1%8c%d0%b5%d0%b2+%d0%9d%d0%b8%d0%ba%d0%be%d0%bb%d0%b0%d0%b9+%d0%90%d0%bb%d0%b5%d0%ba%d1%81%d0%b0%d0%bd%d0%b4%d1%80%d0%be%d0%b2%d0%b8%d1%87&amp;from=his">10 связей<span class="ico ico_right3 rightArrowConnections"></span><div class="inlineBlock"></div></a>
+		</div>
+	
+</div>
+			<p class="noMargin grey size15">Уставный капитал</p>
+			
+<div class="halfMargin indentedPar">
+	
+	
+	81 750 590 руб.
+	
+		<div class="noMargin smallText smallTextBlock">
+			
+<p class="noMargin smallText inline"><span title="Дата внесения сведений в ЕГРЮЛ">28.06.2007</span></p>
+
+		</div>
+	
+</div>
+	</div>
+</div>
+
+<div class="block block_no_data">
+	<div class="unevenIndent">
+		<h3 class="grey">Исполнительные производства</h3>
+		<p class="noMargin grey">Информация не найдена</p>
+	</div>
+</div></div>
+					
+						<div class="b__last-col b__last-col-R">
+	<input type="hidden" id="post-url-holder" value="/Entity/UserSettings/UserMarkerSettings.ashx"/>
+	<script>
+		$(function() {
+			replaceSection();
+			$(window).resize(replaceSection);
+
+			function replaceSection() {
+				var $markerAgreement = $('#marker_agreement'),
+					$colL = $('.b__last-col.b__last-col-L'),
+					$colR = $('.b__last-col.b__last-col-R');
+
+				if ($(document).width() <= 1342) {
+					if (!$colL.find('#marker_agreement'))
+						return;
+
+					$colL.prepend($markerAgreement);
+				} else {
+					if (!$colR.find('#marker_agreement'))
+						return;
+
+					$colR.prepend($markerAgreement);
+				}
+			}
+
+			$('#ma_agree').click(function () {
+				$('#marker_agreement').hide();
+
+				$.ajax({
+					url: $("#post-url-holder").val(),
+					async: true,
+					cache: false,
+					type: "POST",
+					data: {all: "on"}
+				}).done(function() {
+					var param = "&markers=on";
+					if(String(window.location).indexOf(param) < 0)
+						window.location.replace(window.location + param); //NOTE: While index not updated yet
+				}).fail(function() {
+					showAlertLightbox();
+				});
+			});
+
+			$('#ma_deny').click(function () {
+				$('#marker_agreement').hide();
+
+				$.ajax({
+					url: $("#post-url-holder").val(),
+					async: true,
+					cache: false,
+					type: "POST",
+					data: {all:"off"}
+				}).fail(function () {
+					showAlertLightbox();
+				});
+			});
+		});
+	</script>
+
+	<div id="marker_agreement" class="block">
+		<div class="unevenIndent">
+			<h3>Мои маркеры</h3>
+			<div>
+				<div class="size13 ma_descr">
+					<p>Система может автоматически проверять контрагентов и с помощью цветовых маркеров сигнализировать о том, на какие сведения следует обратить повышенное внимание.</p>
+					<p>После включения маркеров настройте их в соответствии со своими представлениями о проверке контрагентов.</p>
+				</div>
+				<div>
+					<button id="ma_agree" class="btn blue activate_button ma_agree">Включить маркеры</button><button id="ma_deny" class="btn ma_deny">Отказаться</button>
+				</div>
+				<a href="/markersettings" class="marT15 inlineBlock">Узнать больше о маркерах</a>
+			</div>
+		</div>
+	</div>
+
+<div class="block relative">
+	<div class="unevenIndent graph_block">
+		<h3>Связанные организации</h3>
+		
+			<div class="line_height_20">
+				<a href="/graph?query=1042305704352">Все ближайшие связи</a> &mdash; 15 
+			</div>
+		
+	</div>
+</div>
+
+<div class="block">
+	<div class="unevenIndent">
+		<h3>Лицензии</h3>
+		
+				<div>
+					<a href="/lics?query=1042305704352">Роспотребнадзор&nbsp;(1)</a>
+				</div>
+			
+				<div>
+					<a href="/lics?query=1042305704352#EGRUL">По данным ЕГРЮЛ&nbsp;(2)</a>
+				</div>
+			
+	</div>
+</div>
+
+<div class="block relative">
+	<div class="unevenIndent">
+		
+				<div class="">
+					
+	<h3>Плановые проверки 2016</h3>
+	
+		<div>Запланированные проверки &mdash; 2</div>
+	
+		<div>Органы контроля &mdash; 2</div>
+	
+		<div>Проверяемые адреса &mdash; 2</div>
+	
+				</div>
+			
+				<div class="marT15">
+					
+	<h3>Плановые проверки 2015</h3>
+	
+		<div>Запланированные проверки &mdash; 1</div>
+	
+		<div>Органы контроля &mdash; 1</div>
+	
+		<div>Проверяемые адреса &mdash; 1</div>
+	
+				</div>
+			
+			<div class="marT15">
+				<a href="/inspections?query=1042305704352">Подробнее</a>
+			</div>
+		
+	</div>
+</div>
+
+<div class="block">
+	<div class="unevenIndent">
+	<h3>Упоминания в интернете</h3>
+	
+			<div class="marB10 size13">
+				<div class="fauxh3 smallMargin"><a rel="external noreferrer nofollow" class="shorten" target="_blank" href="/redirect?query=1042305704352&amp;url=http%3a%2f%2frosneft.ru&amp;mac=RtzAVgoAwAa3MvphH0a9_VU_SU01">РОСНЕФТЬ</a></div>
+				<div class="green shorten">http://rosneft.ru</div>
+				<div><b>ООО</b>&#160;&#171;<b>НК</b>&#160;&#171;<b>Роснефть</b>   <b>Научно</b>-<b>технический</b> <b>центр</b>&#187;  &nbsp;...&nbsp; <b>г</b>. <b>Краснодар</b>, <b>ул</b>. <b>Красная</b>, д.<b>54</b>; Фамилия, имя,</div>
+			</div>
+		
+			<div class="marB10 size13">
+				<div class="fauxh3 smallMargin"><a rel="external noreferrer nofollow" class="shorten" target="_blank" href="/redirect?query=1042305704352&amp;url=http%3a%2f%2fwww.gubkin.ru&amp;mac=FUZle3jJCN62sRIZRff2guXWrWk1">Российский государственный университет нефти и газа имени И.М. Губкина</a></div>
+				<div class="green shorten">http://www.gubkin.ru</div>
+				<div>&#171;<b>НК</b> &#171;<b>Роснефть</b>&#187; </div>
+			</div>
+		
+			<div class="marB10 size13">
+				<div class="fauxh3 smallMargin"><a rel="external noreferrer nofollow" class="shorten" target="_blank" href="/redirect?query=1042305704352&amp;url=http%3a%2f%2fmporosneft.ru&amp;mac=OInVn0AtEux8VOhdbHd1SFiAj0Y1">Главная - МПО ОАО &#171;НК &#171;Роснефть&#187; Нефтегазстройпрофсоюза РФ</a></div>
+				<div class="green shorten">http://mporosneft.ru</div>
+				<div><b>ООО</b> &#171;<b>НК</b> &#171;<b>Роснефть</b>&#187; - <b>НТЦ</b>&#187;  &nbsp;...&nbsp; <b>г</b>.<b>Краснодар</b>, <b>ул</b>. <b>Красная</b>, д. <b>54</b> &#160; Председатель Омельченко Вера Николаевна &#160; тел.</div>
+			</div>
+		<div class="company-sites-item company-sites-item_showall"><a href="/sites?query=1042305704352">Подробнее (17)</a></div>
+	</div>
+</div>
+
+<div class="block">
+	<div class="unevenIndent">
+		<div class="l-img dd-img"></div>
+		<div class="l-img-txt">Может обмениваться электронными документами через <a href="http://www.diadoc.ru?from=Focus" target="_blank">Диадок</a></div>
+	</div>
+</div>
+
+<div class="block block_no_data">
+	<div class="unevenIndent">
+		<h3 class="grey">Исполнительные производства</h3>
+		<p class="noMargin grey">Информация не найдена</p>
+	</div>
+</div></div>
+					
+				</div>
+				
+			
+		</div>
+	</div>
+</div>
+	
+	
+	
+		<div class="footer-above">
+			<div class="footer-ms-note"><div class="footer-note-text grey size11">Некоторые реквизиты и поля получены из источников ГМЦ Росстата. Полученные сведения не могут быть использованы для перепродажи третьим лицам.</div></div>
+		</div>
+	
+
+	<script type="text/javascript">$(document).ready(function(){free_fixLinks();});</script>
+
+		<div class="only-print print-foot">Контур.Фокус &copy; ЗАО &laquo;ПФ &laquo;СКБ Контур&raquo; 2016</div>
+		<div class="frame-push non-printable"></div>
+	</div>
+
+	
+	<div class="footer non-printable">
+		<div class="wrapper">
+			<div class="footer-wrap safeContext">
+				<div class="b__first">
+					<div class="footer_kontur">
+						<a href="https://kontur.ru/" class="footer-logo"></a>
+						<span class="footer-logo-text">&nbsp;c&nbsp;1988&nbsp;года</span>
+					</div>
+					<a class="footer_appstore footer_gplay" href="https://play.google.com/store/apps/details?id=com.kontur.focus" target="_blank">Доступно в Google Play</a><a class="footer_appstore" href="https://itunes.apple.com/ru/app/id604761759" target="_blank">Доступно в App Store</a>
+				</div>
+				<div class="b__last">
+					<div class="footer_right">
+						<div class="phone">8 800 500-16-44</div>
+						<a href="mailto:focus@kontur.ru">focus@kontur.ru</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+	
+	
+<div class="c-lightbox-content free-message-lightbox" id="FreeMessageLightboxContent">
+	<div class="c-lightbox-caption">Войдите в систему</div>
+	<div class="message">
+		Более подробная информация будет доступна, если войти в систему
+		
+		
+		
+	</div>
+	<div class="buttons-block">
+		
+			<span class="button"><a class="button_content" href="/login?back=https%3a%2f%2ffocus.kontur.ru%2fentity%3fquery%3d1042305704352">Войти в систему</a></span>
+		
+		
+	</div>
+</div>
+
+	<div data-lightbox-mini-id="alert_lightbox" class="alert_lightbox lightbox_mini">
+		<div>
+			<div class="lightbox_mini_content">
+				<div class="alert_lightbox_text"></div>
+				<input type="hidden" id="js-alert_lightbox_text_default" value="Не удалось выполнить операцию обращения к серверу. Попытайтесь позже."/>
+				<button id="alert_lightbox_button" class="btn">OK</button>
+				<script>$("#alert_lightbox_button").click(function(){hideAlertLightbox();return false;})</script>
+			</div>
+		</div>
+	</div>
+
+	<input type="hidden" id="main-auth" value="demo"/>
+	<script type="text/javascript">
+		var trckfn=function(){var v=$(this).data("track");if(v){$(document).trigger("track-event",v.split("/",4));}};
+		$("a[data-track]").on("click",trckfn);$("form[data-track]").on("submit",trckfn);
+	</script>
+<script type="text/javascript">String.prototype.removeUriParam=function(a){var b=new RegExp("\\b"+a+"=[^\\&\\?]*\\&?","ig");return this.replace(b,"").replace(/(\?|\&)$/,"")};var _gaq=_gaq||[];_gaq.push(["t._setAccount","UA-27013843-1"]);try{_gaq.push(["t._setReferrerOverride",document.referrer.removeUriParam("token").removeUriParam("mutoken").removeUriParam("sttoken").removeUriParam("entkey")]);_gaq.push(function(){var a=_gat._getTrackerByName("t");a._setCustomVar(1,"auth",ga_updateAuth(a._getVisitorCustomVar(1),$("#main-auth").val()),1)})}catch(e){}_gaq.push(["t._trackPageview",location.pathname+location.search.removeUriParam("token").removeUriParam("mutoken").removeUriParam("sttoken").removeUriParam("entkey")]);try{$(document).on("ga-track-event",function(d,a,b,c,f){_gaq.push(["t._trackEvent",a,b,c,f])})}catch(e){}try{$(".ga-track-page").on("click",function(){if(!$(this).hasClass("t-disabledlink")){_gaq.push(["t._trackPageview",$(this).attr("href")])}})}catch(e){}(function(){var b=document.createElement("script");b.type="text/javascript";b.async=true;b.src=("https:"==document.location.protocol?"https://":"http://")+"stats.g.doubleclick.net/dc.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})();function ga_updateAuth(a,b){if(b==null||b.length==0){return null}if(a==null||a.length==0||a.indexOf("@")!=0){a="@"+b}else{var c=a.lastIndexOf("!");if(c>=0){a=a.substr(0,c)}if(a.indexOf("@"+b)<0){a+="@"+b}}a+="!"+b;return a};</script>
+<script type="text/javascript">var yaParams={auth:$("#main-auth").val()};</script><script type="text/javascript">(function(d,w,c){(w[c]=w[c]||[]).push(function(){try{w.yaCounter14324677=new Ya.Metrika({id:14324677,enableAll:true,ut:"noindex",params:window.yaParams||{}});}catch(e){}});var n=d.getElementsByTagName("script")[0],s=d.createElement("script"),f=function(){n.parentNode.insertBefore(s,n);};s.type="text/javascript";s.async=true;s.src=(d.location.protocol=="https:"?"https:":"http:")+"//mc.yandex.ru/metrika/watch.js";if(w.opera=="[object Opera]"){d.addEventListener("DOMContentLoaded",f,false);}else{f();}})(document,window,"yandex_metrika_callbacks");</script><noscript><div><img src="//mc.yandex.ru/watch/14324677?ut=noindex" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<script type="text/javascript">$(document).on("ym-reach-goal",function(d,c,b){yaCounter14324677.reachGoal(c,{label:b})});</script>
+</body>
+</html>
