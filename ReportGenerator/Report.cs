@@ -22,7 +22,7 @@ namespace ReportGenerator
         }
         public static string Generate(CompanyInfo info,Order order)
         {
-            string html = GeneralInfo(info) + Founders(info)+ Activities(info)  + Lics(info)  + Finance(info)  + Arbitr(info)  + Contracts(info)  + Bailiffs(info) +History(info);
+            string html = GeneralInfo(info) + Founders(info) + Activities(info) + Lics(info) + Finance(info) + Arbitr(info) + Contracts(info) + Bailiffs(info) + History(info) + RelatedCompanies(info.RelatedCompanies, "Связанные организации") + RelatedCompanies(info.Predecessors,"Предшественники");
             html= GetTemplate() + html + "<body/> <html/>";
 
             string fileName = "temp/" + order.CompanyINNOGRN + "_" + order.CustomerEmail + ".doc";
@@ -183,15 +183,15 @@ font-size:12px;
                 html = string.Format(@"<P STYLE='margin - top: 0.25in; margin - bottom: 0.25in; page -break-inside: avoid; page -break-before: always; page -break-after: avoid'>
         <B > <h3>Лицензии ({0}) </h3>
                  </B > </P >
-                                <P STYLE = 'margin-top: 0.13in; margin-bottom: 0.19in; page-break-inside: avoid; page-break-after: avoid' ></P >
+                                <P STYLE = 'margin-top: 0.13in; margin-bottom: 0.19in; page-break-inside: avoid; page-break-after: avoid' ></P > <ol>
                                       ", info.Lics.Count);
 
                 foreach (var lic in info.Lics)
                 {
-                    html += string.Format(@"<p><P STYLE='margin - bottom: 0.13in; page -break-inside: avoid'>{0} <span class='silversmall'>{1}</span> <BR > {2}<BR > {3}</P > ",
+                    html += string.Format(@"<br><br><li><p><P STYLE='margin - bottom: 0.13in; page -break-inside: avoid'>{0} <span class='silversmall'>{1}</span> <BR > {2}<BR > <span class='silversmall'>{3}</span></P > </li>",
                         lic.Number, lic.Date.HasValue ? lic.Date.Value.ToShortDateString() : "", lic.Activity, lic.Address);
                 }
-                html += "";
+                html += "</ol>";
             }
             return html;
         }
@@ -260,13 +260,13 @@ font-size:12px;
 </P >
 <TABLE WIDTH = 699 CELLPADDING = 7 CELLSPACING = 0 > 
 <COL WIDTH=84>
-	<COL WIDTH=587>", info.Count, info.Sum);
+	<COL WIDTH=587><ol>", info.Count, info.Sum);
 
             foreach (var _case in info.Cases)
             {
-                html += string.Format("<table>{0}{1}{2}{3}{4}{5}</table> <br> <br>", WithPre(_case.Number, _case.Date.ToShortDateString()), WithPre(_case.Sum,"Сумма"), WithPre(_case.Type,""), WithPre(_case.Plaintiff, "Истец"), WithPre(_case.Respondent, "Ответчик"), WithPre(_case.Thirds, "Третье лицо"));
+                html += string.Format("<li><table>{0}{1}{2}{3}{4}{5}</table></li> <br> <br>", WithPre(_case.Number, _case.Date.ToShortDateString()), WithPre(_case.Sum,"Сумма"), WithPre(_case.Type,""), WithPre(_case.Plaintiff, "Истец"), WithPre(_case.Respondent, "Ответчик"), WithPre(_case.Thirds, "Третье лицо"));
             }
-            html += "</table>";
+            html += "</ol></table>";
         }
             return html;
         }
@@ -292,14 +292,14 @@ font-size:12px;
 </P >
 <TABLE WIDTH = 699 CELLPADDING = 7 CELLSPACING = 0 style='font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;font-size:8px;'>
 <COL WIDTH=84>
-	<COL WIDTH=587>", info.Count, info.Sum, name);
+	<COL WIDTH=587> <ol>", info.Count, info.Sum, name);
 
                 foreach (var contract in info.Contracts)
                 {
-                    html += string.Format("<table>{0}{1}{2}</table>", WithPre(contract.Date.ToShortDateString(),contract.Number), WithPre(contract.Sum,"Сумма"),
+                    html += string.Format("<li><table>{0}{1}{2}{3}</table></li>", WithPre(contract.Number,contract.Date.ToShortDateString()), WithPre(contract.Sum,"Сумма"),
                         WithPre(contract.Name,""), WithPre(contract.Description,""));
                 }
-                html += "</table>";
+                html += "</ol></table>";
             }
             return html;
         }
@@ -323,7 +323,7 @@ font-size:12px;
 
                 foreach (var _case in info.BailiffsInfo.Cases)
                 {
-                    html += string.Format("<table>{0}{1}</table>", WithPre(_case.Date.ToShortDateString(), _case.Number),WithPre( _case.Sum,"Сумма"), WithPre(_case.Type,"Предмет") );
+                    html += string.Format("<li><table>{0}{1}</table></li>", WithPre(_case.Date.ToShortDateString(), _case.Number),WithPre( _case.Sum,"Сумма"), WithPre(_case.Type,"Предмет") );
                 }
                 html += "</ol></table>";
             }
@@ -401,12 +401,28 @@ font-size:12px;
             return html;
         }
 
+        private static string RelatedCompanies(List<RelatedCompany> list,string name)
+        {
+            string html = "";
+
+            if (list != null)
+            {
+                html += "<h3>" + name + "</h3> <ol>";
+
+                foreach (var item in list)
+                {
+                    html += string.Format("<li><table>{0}{1}{2}{3}{4}</table></li>", WithPre(item.Name, "_"), WithPre(item.INN, "ИНН"), WithPre(item.OGRN, "ОГРН"), WithPre(item.Status, "Состояние"), WithPre(item.Address, ""));
+                }
+                html += "</ol>";
+            }
+            return html;
+        }
         private static string WithPre(string value,string pre)
         {
             if (string.IsNullOrEmpty(value))
                 return "";
             else
-                return string.Format("<tr> <td class='silversmall'>{0} </td> <td> {1}</td> </td></tr>",pre,value);
+                return string.Format("<tr> <td class='silversmall'>{0} </td> <td> {1}</td></tr>",pre,value);
         }
     }
 }

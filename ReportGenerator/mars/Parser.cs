@@ -468,8 +468,17 @@ namespace ReportGenerator
                         _case.Plaintiff = sides.SelectSingleNode("div[2]").InnerText.GetHTMLDecoded();
                     else if (sides.SelectSingleNode("div[1]").InnerText.Contains("Ответчик"))
                         _case.Respondent = sides.SelectSingleNode("div[2]").InnerText.GetHTMLDecoded();
-                    else if (sides.SelectSingleNode("div[1]").InnerText.Contains("Третье лицо"))
+                    else if (sides.SelectSingleNode("div[1]").InnerText.Contains("Третьи лица"))
                         _case.Thirds = sides.SelectSingleNode("div[2]").InnerText.GetHTMLDecoded();
+                }
+                var others = item.SelectNodes(".//div[@class='noMargin target kad-item-row_hidden hidden']/div");
+                if(others!=null)
+                {
+                    foreach(var sides in others)
+                    {
+                        if (sides.SelectSingleNode("div[1]").InnerText.Contains("Третьи лица"))
+                            _case.Thirds = sides.SelectSingleNode("div[2]").InnerText.GetHTMLDecoded();
+                    }
                 }
                 stat.Cases.Add(_case);
             }
@@ -664,13 +673,13 @@ namespace ReportGenerator
                 contr.Name = item.SelectSingleNode("div/div[1]/div[2]/a").InnerText.GetHTMLDecoded();
                 contr.Sum = item.SelectSingleNode("div/div[1]/div[3]/span").InnerText.GetHTMLDecoded();
 
-                foreach (var subItem in item.SelectNodes("div"))
+                foreach (var subItem in item.SelectNodes("div/div"))
                 {
-                    if (subItem.FirstChild.InnerText.GetHTMLDecoded().Contains("Описание"))
+                    if (subItem.InnerText.GetHTMLDecoded().Contains("Описание"))
                     {
                         contr.Description = subItem.InnerText.Replace("Описание", "").GetHTMLDecoded();
                     }
-                    else if (subItem.FirstChild.InnerText.GetHTMLDecoded() == "")
+                    else if (subItem.InnerText.GetHTMLDecoded().Contains("№"))
                     {
                         contr.Number = subItem.InnerText.GetHTMLDecoded();
                     }
@@ -694,7 +703,7 @@ namespace ReportGenerator
             foreach (var element in elements)
             {
                 RelatedCompany company = new RelatedCompany();
-                company.Name = element.SelectSingleNode("div[3]").InnerText.GetHTMLDecoded();
+                company.Name = element.SelectSingleNode(".//a[@class='graph-line-link marR12']").InnerText.GetHTMLDecoded();
 
                 var ogrninn = element.SelectSingleNode("div[@class='ogrn-inn']");
                 if (ogrninn != null)
