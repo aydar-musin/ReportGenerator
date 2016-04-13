@@ -118,6 +118,7 @@ namespace ReportGenerator
         public string Plaintiff;
         public string Respondent;
         public string Thirds;
+        public string Type;
 
         Dictionary<string, DateTime> Instances = new Dictionary<string, DateTime>();
 

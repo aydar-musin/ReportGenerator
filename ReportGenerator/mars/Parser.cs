@@ -412,6 +412,10 @@ namespace ReportGenerator
                 _case.Date = DateTime.Parse(dateEl.InnerText.GetHTMLDecoded().Replace("\n",""));
                 _case.Number = dateEl.NextSibling.NextSibling.InnerText.GetHTMLDecoded();
 
+                var TypeMatch = Regex.Match(dateEl.ParentNode.OuterHtml, "<br>(?<type>.*)<br>");
+                if (TypeMatch.Success)
+                    _case.Type = TypeMatch.Groups["type"].Value;
+
                 var sumNode=dateEl.ParentNode.SelectSingleNode(".//span[@class='brown']");
                 if (sumNode != null)
                     _case.Sum = sumNode.InnerText.GetHTMLDecoded();
@@ -451,7 +455,9 @@ namespace ReportGenerator
                 var dateEl = item.SelectSingleNode("div[1]/div[2]/div[1]/div[1]");
                 _case.Date = DateTime.Parse(dateEl.InnerText.GetHTMLDecoded().Replace("\n", ""));
                 _case.Number = dateEl.NextSibling.NextSibling.InnerText.GetHTMLDecoded();
-
+                var TypeMatch = Regex.Match(dateEl.ParentNode.OuterHtml, "<br>(?<type>.*)<br>");
+                if (TypeMatch.Success)
+                    _case.Type = TypeMatch.Groups["type"].Value;
                 var sumNode = dateEl.ParentNode.SelectSingleNode(".//span[@class='brown']");
                 if (sumNode != null)
                     _case.Sum = sumNode.InnerText.GetHTMLDecoded();
@@ -496,6 +502,10 @@ namespace ReportGenerator
                 var sumNode = dateEl.ParentNode.SelectSingleNode(".//span[@class='brown']");
                 if (sumNode != null)
                     _case.Sum = sumNode.InnerText.GetHTMLDecoded();
+
+                var TypeMatch = Regex.Match(dateEl.ParentNode.OuterHtml, "<br>(?<type>.*)<br>");
+                if (TypeMatch.Success)
+                    _case.Type = TypeMatch.Groups["type"].Value;
 
                 foreach (var sides in item.SelectNodes(".//div[@class='noMargin target ']/div"))
                 {
@@ -586,6 +596,10 @@ namespace ReportGenerator
                     {
                         lic.Department = subItem.SelectSingleNode("p[1]").InnerText.GetHTMLDecoded();
                     }
+                    else if(subItem.InnerText.Contains("Адрес"))
+                    {
+                        lic.Address = subItem.SelectSingleNode("div[2]").InnerText.GetHTMLDecoded();
+                    }
                 }
                 result.Add(lic);
             }
@@ -603,6 +617,8 @@ namespace ReportGenerator
             info.Sum = doc.DocumentNode.SelectSingleNode("/html/body/div[1]/div[5]/div/div[2]/div[1]/ul/li[1]/span/i").InnerText.GetHTMLDecoded();
 
             var items = doc.DocumentNode.SelectNodes(".//li[@class='block relative size13']");
+            if (items == null)
+                return null;
 
             foreach(var item in items)
             {
@@ -638,6 +654,8 @@ namespace ReportGenerator
             info.Sum = doc.DocumentNode.SelectSingleNode("/html/body/div[1]/div[5]/div/div[2]/div[1]/ul/li[2]/span/i").InnerText.GetHTMLDecoded();
 
             var items = doc.DocumentNode.SelectNodes(".//li[@class='block relative size13']");
+            if (items == null)
+                return null;
 
             foreach (var item in items)
             {

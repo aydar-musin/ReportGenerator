@@ -40,9 +40,13 @@ namespace ReportGenerator
             color: gray;
                 font - size:15;
             }
+    p,table{
+font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
+font-size:12px;
+}
 </style>
 
-<BODY LANG = 'ru-RU' LINK = '#0000ff' DIR = 'LTR'>
+<BODY LANG = 'ru-RU' LINK = '#0000ff' DIR = 'LTR' style='font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;'>
      <DIV TYPE = HEADER ALIGN=RIGHT  class='silversmall'>
           <P STYLE = 'margin-bottom: 0in' >
        
@@ -59,12 +63,12 @@ namespace ReportGenerator
             string html = string.Format(@"<p class='HeaderParagraph' style='margin - bottom:0cm; margin - bottom:.0001pt'><span style='font - family:&quot; Calibri & quot;,&quot; sans - serif & quot; '><h3>{0}</h3> <o:p ></o:p ></span >
                     </p >
                     <div style = 'border-bottom-style: solid; border-bottom-color: windowtext; border-bottom-width: 1.5pt; padding: 0cm 0cm 12pt;' >
-                         <p class='MsoNormal' style='margin-bottom: 12pt; padding: 0cm;'><span class='Normal10'><span style = 'font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;' >{1}
-		</span></span><span lang = 'EN-US' style='font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;;mso-ansi-language:EN-US'><o:p></o:p></span>
+                         <p class='MsoNormal' style='margin-bottom: 12pt; padding: 0cm;'><span class='Normal10'><span style = 'font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;font-size:8px;' >{1}
+		</span></span><span lang = 'EN-US' style='font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;font-size:8px;;mso-ansi-language:EN-US'><o:p></o:p></span>
 	</p>
 </div>", info.Name, info.FullName);
 
-            html += string.Format(@" <TABLE WIDTH=699 CELLPADDING=7 CELLSPACING=0>
+            html += string.Format(@" <TABLE WIDTH=699 CELLPADDING=7 CELLSPACING=0 style='font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;font-size:8px;'>
 	<COL WIDTH=203>
 	<COL WIDTH=468>
 	<TR VALIGN=TOP>
@@ -89,17 +93,20 @@ namespace ReportGenerator
         </TD >
         <TD WIDTH = 468 STYLE = 'border: none; padding: 0in' >
             <P STYLE = 'margin-left: 1.17in; margin-bottom: 0.13in; page-break-inside: avoid' >
-             Уставный капитал:{13}<BR ><BR > </P >
+             {13}<BR ><BR > </P >
             
             </P >
             {14}
         </TD >
     </TR >
-</TABLE > ", info.INN, info.KPP, info.OGRN, info.OKPO, info.RegDate, info.Status, info.Address, info.AddressAddedDate.ToShortDateString(), info.AddressCount, info.PhoneNumbers.FirstOrDefault(), Manager(info), info.FOMS, info.NalogCode, info.UstFond, PreActivities(info));
+</TABLE > ", info.INN, info.KPP, info.OGRN, info.OKPO, info.RegDate, info.Status, info.Address, info.AddressAddedDate.ToShortDateString(), info.AddressCount, info.PhoneNumbers.FirstOrDefault(), Manager(info), info.FOMS, info.NalogCode, WithPre(info.UstFond,"Уставной фонд"), PreActivities(info));
             return html;
         }
         private static string Manager(CompanyInfo info)
         {
+            if (string.IsNullOrEmpty(info.ManagerName))
+                return "";
+
             string html = string.Format(@"<P STYLE='margin - top: 0.17in; margin - bottom: 0in; page -break-inside: avoid'><A NAME='_GoBack'></A>
                   {0}<BR > {1}{2}
                                                       <span class='silversmall'> {3} еще компании [{4}] </span><BR ><BR >
@@ -116,7 +123,7 @@ namespace ReportGenerator
                 html += @"<P STYLE='margin - left: 1.17in; margin - bottom: 0.13in; page -break-inside: avoid'>
                  <B > Виды
             деятельности </B ></P >
-            <TABLE WIDTH = 438 CELLPADDING = 7 CELLSPACING = 0 >
+            <TABLE WIDTH = 438 CELLPADDING = 7 CELLSPACING = 0 style='font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;font-size:8px;'>
                      <COL WIDTH = 69 >
                       <COL WIDTH = 341 > ";
 
@@ -146,7 +153,7 @@ namespace ReportGenerator
                 html += PB+string.Format(@"<P STYLE='margin - left: 1.17in; margin - bottom: 0.13in; page -break-inside: avoid'>
                  <B > <h3>Виды
             деятельности ({0})</h3></B ></P >
-            <TABLE WIDTH = 438 CELLPADDING = 7 CELLSPACING = 0 >
+            <TABLE WIDTH = 438 CELLPADDING = 7 CELLSPACING = 0 style='font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;font-size:8px;'>
                      <COL WIDTH = 69 >
                       <COL WIDTH = 341 > ", info.Activities.Count);
 
@@ -199,7 +206,7 @@ namespace ReportGenerator
                  </B > </P >
                                 <P STYLE = 'margin-top: 0.13in; margin-bottom: 0.19in; page-break-inside: avoid; page-break-after: avoid' ></P >
                                       ");
-                html += string.Format(@"<TABLE WIDTH=699 CELLPADDING=7 CELLSPACING=0>
+                html += string.Format(@"<TABLE WIDTH=699 CELLPADDING=7 CELLSPACING=0 style='font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;font-size:8px;'>
 	<COL WIDTH=52>
 	<COL WIDTH=619>
 	<TR VALIGN=TOP>
@@ -231,52 +238,18 @@ namespace ReportGenerator
         private static string Arbitr(CompanyInfo info)
         {
             string html = "";
-            if (info.ArbitrAsPlaintiff != null)
-            {
-                html += string.Format(@"
-<P STYLE = 'margin-bottom: 0in; page-break-inside: avoid; page-break-before: always; page-break-after: avoid' >
-<B ><h3> Арбитражные дела в качестве истца ({0}) {1} </h3></B ></P >
-<P STYLE = 'margin-top: 0.19in; margin-bottom: 0in; page-break-inside: avoid; page-break-after: avoid' >
+            html += ArbitrTable(info.ArbitrAsPlaintiff);
+            html += ArbitrTable(info.ArbitrAsRespondent);
+            html += ArbitrTable(info.ArbitrAsThird);
 
-</P >
-<P STYLE = 'margin-top: 0.19in; margin-bottom: 0in; page-break-inside: avoid; page-break-after: avoid' >
-
-</P >
-<TABLE WIDTH = 699 CELLPADDING = 7 CELLSPACING = 0 >
-<COL WIDTH=84>
-	<COL WIDTH=587> ", info.ArbitrAsPlaintiff.Count, info.ArbitrAsPlaintiff.Sum);
-
-                foreach (var _case in info.ArbitrAsPlaintiff.Cases)
-                {
-                    html += string.Format("<p><P STYLE='margin - bottom: 0.13in; page -break-inside: avoid'>{0} {1} <BR > {2}<BR ><span class='silversmall'> {3}<BR> {4}<BR> {5}</span></P > ", _case.Date.ToShortDateString(), _case.Number, _case.Sum, _case.Plaintiff, _case.Respondent, _case.Thirds);
-                }
-                html += "</ol></table";
-            }
-            if (info.ArbitrAsRespondent != null)
-            {
-                html += string.Format(@"
-<P STYLE = 'margin-bottom: 0in; page-break-inside: avoid; page-break-before: always; page-break-after: avoid' >
-<B ><h3> Арбитражные дела в качестве ответчика ({0}) {1}</h3></B ></P >
-<P STYLE = 'margin-top: 0.19in; margin-bottom: 0in; page-break-inside: avoid; page-break-after: avoid' >
-
-</P >
-<P STYLE = 'margin-top: 0.19in; margin-bottom: 0in; page-break-inside: avoid; page-break-after: avoid' >
-
-</P >
-<TABLE WIDTH = 699 CELLPADDING = 7 CELLSPACING = 0 >
-<COL WIDTH=84>
-	<COL WIDTH=587>
-", info.ArbitrAsRespondent.Count,info.ArbitrAsRespondent.Sum);
-
-                foreach (var _case in info.ArbitrAsRespondent.Cases)
-                {
-                    html += string.Format("<p><P STYLE='margin - bottom: 0.13in; page -break-inside: avoid'>{0} {1} <BR > {2}<BR > <span class='silversmall'> {3}<BR> {4}<BR> {5}</span></P > ", _case.Date.ToShortDateString(), _case.Number, _case.Sum, _case.Plaintiff, _case.Respondent, _case.Thirds);
-                }
-                html += "</ol></table>";
-            }
-            if (info.ArbitrAsThird != null)
-            {
-                html += string.Format(@"
+            return html;
+        }
+        private static string ArbitrTable(ArbitrStat info)
+        {
+            string html = "";
+            if(info!=null)
+            { 
+            html += string.Format(@"
 <P STYLE = 'margin-bottom: 0in; page-break-inside: avoid; page-break-before: always; page-break-after: avoid' >
 <B > <h3> Арбитражные дела в качестве третьего лица ({0}) {1}</h3></B ></P >
 <P STYLE = 'margin-top: 0.19in; margin-bottom: 0in; page-break-inside: avoid; page-break-after: avoid' >
@@ -287,62 +260,46 @@ namespace ReportGenerator
 </P >
 <TABLE WIDTH = 699 CELLPADDING = 7 CELLSPACING = 0 > 
 <COL WIDTH=84>
-	<COL WIDTH=587>", info.ArbitrAsThird.Count,info.ArbitrAsThird.Sum);
+	<COL WIDTH=587>", info.Count, info.Sum);
 
-                foreach (var _case in info.ArbitrAsThird.Cases)
-                {
-                    html += string.Format("<p><P STYLE='margin - bottom: 0.13in; page -break-inside: avoid'>{0} {1} <BR > {2}<BR ><span class='silversmall'> {3}<BR> {4}<BR> {5}</span></P > ", _case.Date.ToShortDateString(), _case.Number, _case.Sum, _case.Plaintiff, _case.Respondent, _case.Thirds);
-                }
-                html += "</ol></table>";
+            foreach (var _case in info.Cases)
+            {
+                html += string.Format("<table>{0}{1}{2}{3}{4}{5}</table> <br> <br>", WithPre(_case.Number, _case.Date.ToShortDateString()), WithPre(_case.Sum,"Сумма"), WithPre(_case.Type,""), WithPre(_case.Plaintiff, "Истец"), WithPre(_case.Respondent, "Ответчик"), WithPre(_case.Thirds, "Третье лицо"));
             }
+            html += "</table>";
+        }
             return html;
         }
         private static string Contracts(CompanyInfo info)
         {
             string html = "";
-
-            if(info.WonContracts!= null)
+            html += ContractsTable(info.WonContracts, "Выйгранные государственные контракты");
+            html += ContractsTable(info.PostedContracts, "Размещенные государственные контракты");
+            return html;
+        }
+        private static string ContractsTable(ContractsInfo info,string name)
+        {
+            string html = "";
+            if (info != null)
             {
                 html += string.Format(@"
 <P STYLE = 'margin-bottom: 0in; page-break-inside: avoid; page-break-before: always; page-break-after: avoid' >
-<B > <h3>Выйгранные государственные контракты ({0}). {1} </h3> </B ></P >
+<B > <h3>{2} ({0}). {1} </h3> </B ></P >
 <P STYLE = 'margin-top: 0.19in; margin-bottom: 0in; page-break-inside: avoid; page-break-after: avoid' >
 </P >
 <P STYLE = 'margin-top: 0.19in; margin-bottom: 0in; page-break-inside: avoid; page-break-after: avoid' >
 
 </P >
-<TABLE WIDTH = 699 CELLPADDING = 7 CELLSPACING = 0 >
+<TABLE WIDTH = 699 CELLPADDING = 7 CELLSPACING = 0 style='font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;font-size:8px;'>
 <COL WIDTH=84>
-	<COL WIDTH=587> <ol>", info.WonContracts.Count,info.WonContracts.Sum);
+	<COL WIDTH=587>", info.Count, info.Sum, name);
 
-                foreach (var contract in info.WonContracts.Contracts)
+                foreach (var contract in info.Contracts)
                 {
-                    html += string.Format("<p><P STYLE='margin - bottom: 0.13in; page -break-inside: avoid'>{0} {1} <BR > <span class='silversmall'>{2}</span><BR > {3} {4}</P > ", contract.Number,contract.Date.ToShortDateString(),contract.Sum,
-                        contract.Name,contract.Description);
+                    html += string.Format("<table>{0}{1}{2}</table>", WithPre(contract.Date.ToShortDateString(),contract.Number), WithPre(contract.Sum,"Сумма"),
+                        WithPre(contract.Name,""), WithPre(contract.Description,""));
                 }
-                html += "</ol></table";
-            }
-            if (info.PostedContracts != null)
-            {
-                html += string.Format(@"
-<P STYLE = 'margin-bottom: 0in; page-break-inside: avoid; page-break-before: always; page-break-after: avoid' >
-<B > <h3>Размещенные государственные контракты ({0}). {1} </h3> </B ></P >
-<P STYLE = 'margin-top: 0.19in; margin-bottom: 0in; page-break-inside: avoid; page-break-after: avoid' >
-</P >
-<P STYLE = 'margin-top: 0.19in; margin-bottom: 0in; page-break-inside: avoid; page-break-after: avoid' >
-
-</P >
-<TABLE WIDTH = 699 CELLPADDING = 7 CELLSPACING = 0 >
-<COL WIDTH=84>
-	<COL WIDTH=587> <ol>", info.PostedContracts.Count, info.PostedContracts.Sum);
-
-                foreach (var contract in info.PostedContracts.Contracts)
-                {
-                    html += string.Format("<p><P STYLE='margin - bottom: 0.13in; page -break-inside: avoid'>{0} <span class='silversmall'>{1}</span> <BR > {2}<BR > {3} {4}</P > ", contract.Number, contract.Date.ToShortDateString(), contract.Sum,
-
-                        contract.Name, contract.Description);
-                }
-                html += "</ol></table>";
+                html += "</table>";
             }
             return html;
         }
@@ -360,13 +317,13 @@ namespace ReportGenerator
 <P STYLE = 'margin-top: 0.19in; margin-bottom: 0in; page-break-inside: avoid; page-break-after: avoid' >
 
 {1}</P >
-<TABLE WIDTH = 699 CELLPADDING = 7 CELLSPACING = 0 >
+<TABLE WIDTH = 699 CELLPADDING = 7 CELLSPACING = 0 style='font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;font-size:8px;'>
 <COL WIDTH=84>
 	<COL WIDTH=587> <ol>", info.BailiffsInfo.Count, info.BailiffsInfo.Sum);
 
                 foreach (var _case in info.BailiffsInfo.Cases)
                 {
-                    html += string.Format("<p><P STYLE='margin - bottom: 0.13in; page -break-inside: avoid'>{0} <span class='silversmall'>{1}</span> <BR > {2}<BR><BR > {3}</P > ", _case.Number,_case.Date.ToShortDateString(), _case.Sum, _case.Type );
+                    html += string.Format("<table>{0}{1}</table>", WithPre(_case.Date.ToShortDateString(), _case.Number),WithPre( _case.Sum,"Сумма"), WithPre(_case.Type,"Предмет") );
                 }
                 html += "</ol></table>";
             }
@@ -378,7 +335,7 @@ namespace ReportGenerator
 
             if(info.Founders!=null)
             {
-                html = string.Format("<div> <h3> Учредители </h3> <table>");
+                html = string.Format("<div> <h3> Учредители </h3> <table style='font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;font-size:8px;'>");
 
                 foreach(var founder in info.Founders)
                 {
@@ -442,6 +399,14 @@ namespace ReportGenerator
                 
             }
             return html;
+        }
+
+        private static string WithPre(string value,string pre)
+        {
+            if (string.IsNullOrEmpty(value))
+                return "";
+            else
+                return string.Format("<tr> <td class='silversmall'>{0} </td> <td> {1}</td> </td></tr>",pre,value);
         }
     }
 }
