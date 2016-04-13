@@ -680,6 +680,48 @@ namespace ReportGenerator
 
             return info;
         }
+        public static List<RelatedCompany> RelatedCompanies(string html)
+        {
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(html);
+
+            var elements = doc.DocumentNode.SelectNodes("//div[@class='rigidIndent graphInfoInBlock js-graph-subject']");
+            if (elements == null)
+                return null;
+
+            List<RelatedCompany> result = new List<RelatedCompany>();
+
+            foreach (var element in elements)
+            {
+                RelatedCompany company = new RelatedCompany();
+                company.Name = element.SelectSingleNode("div[3]").InnerText.GetHTMLDecoded();
+
+                var ogrninn = element.SelectSingleNode("div[@class='ogrn-inn']");
+                if (ogrninn != null)
+                {
+                    string innerText = ogrninn.InnerText.GetHTMLDecoded();
+                    var match = Regex.Match(innerText, "ИНН: (?<inn>[0-9]{9})");
+                    if (match.Success)
+                        company.INN = match.Groups["inn"].Value;
+                    
+                    match = Regex.Match(innerText,"ОГРН: (?<ogrn>[0-9]{13})");
+                    if(match.Success)
+                        company.OGRN=match.Groups["ogrn"].Value;
+                }
+
+                var statusEl = element.SelectSingleNode(".//div[@class='green']");
+                if (statusEl != null)
+                    company.Status = statusEl.InnerText.GetHTMLDecoded();
+                else
+                {
+                    statusEl = element.SelectSingleNode(".//div[@class='alert']");
+                    if (statusEl != null)
+                        company.Status = statusEl.InnerText.GetHTMLDecoded();
+                }
+                result.Add(company);
+            }
+            return result;
+        }
         private static string GetHTMLDecoded(this string input)
         {
             return HttpUtility.HtmlDecode(input).Replace("\t", "").Replace("\r", "").Replace("\n"," ").Trim();

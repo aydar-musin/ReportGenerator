@@ -80,6 +80,9 @@ namespace ReportGenerator
         public string FinNetProfit;
 
         public List<Activity> Activities;
+
+        public List<RelatedCompany> Predecessors;
+        public List<RelatedCompany> RelatedCompanies;
     }
     public class Manager
     {
@@ -179,5 +182,14 @@ namespace ReportGenerator
         public string Sum;
         public string TimeInterval;
         public string Description;
+    }
+
+    public class RelatedCompany
+    {
+        public string Name;
+        public string INN;
+        public string OGRN;
+        public string Address;
+        public string Status;
     }
 }

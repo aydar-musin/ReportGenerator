@@ -99,6 +99,9 @@ namespace ReportGenerator
             }
             info.Founders = GetFounders(order.CompanyId);
             info.Activities = GetActivities(order.CompanyId);
+            info.Predecessors = GetPredecessors(order.CompanyId);
+            info.RelatedCompanies = GetRelatedCompanies(order.CompanyId);
+
             return info;
         }
         public string GetGeneralInfoPage(string id)
@@ -106,7 +109,14 @@ namespace ReportGenerator
             var page = Request("https://focus.kontur.ru/entity?query=" + id);
             return page;
         }
-
+        public List<RelatedCompany> GetPredecessors(string id)
+        {
+            return Parser.RelatedCompanies(Request("https://focus.kontur.ru/graph?page=1&filterFlags=268435456&order=29&query="+id));
+        }
+        public List<RelatedCompany> GetRelatedCompanies(string id)
+        {
+            return Parser.RelatedCompanies(Request("https://focus.kontur.ru/graph?order=29&query=" + id));
+        }
         public List<Founder> GetFounders(string id)
         {
             return Parser.Founders(Request("https://focus.kontur.ru/founders?query=" + id)).ToList();
@@ -146,5 +156,4 @@ namespace ReportGenerator
             return result;
         }
     }
-
 }
