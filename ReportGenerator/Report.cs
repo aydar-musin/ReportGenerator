@@ -33,9 +33,8 @@ namespace ReportGenerator
         }
         private static string GetTemplate()
         {
-            string html = @"<!DOCTYPE HTML PUBLIC ' -//W3C//DTD HTML 4.0 Transitional//EN'>
-<html xmlns: v = ''urn: schemas - microsoft - com:vml'' xmlns: o = ''urn: schemas - microsoft - com:office: office'' xmlns: x = ''urn: schemas - microsoft - com:office: word'' xmlns = ''http://www.w3.org/TR/REC-html40'>
-<style type='text/css'>
+            string html = "<html  xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:x=\"urn:schemas-microsoft-com:office:word\" xmlns=\"http://www.w3.org/TR/REC-html40\">"+
+@"<style type='text/css'>
   .silversmall{
             color: gray;
                 font - size:15;
@@ -43,6 +42,10 @@ namespace ReportGenerator
     p,table{
 font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
 font-size:12px;
+}
+@page {
+   size: 7in 9.25in;
+   margin: 27mm 16mm 27mm 16mm;
 }
 </style>
 
@@ -68,7 +71,7 @@ font-size:12px;
 	</p>
 </div>", info.Name, info.FullName);
 
-            html += string.Format(@" <TABLE WIDTH=699 CELLPADDING=7 CELLSPACING=0 style='font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;font-size:8px;'>
+            html += string.Format(@"<table WIDTH=699 CELLPADDING=7 CELLSPACING=0 style='font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;font-size:8px;'>
 	<COL WIDTH=203>
 	<COL WIDTH=468>
 	<TR VALIGN=TOP>
@@ -94,11 +97,11 @@ font-size:12px;
             <P STYLE = 'margin-left: 1.17in; margin-bottom: 0.13in; page-break-inside: avoid' >
              {13}<BR ><BR >
             
-            </P >
+            </P>
             {14}
         </TD >
     </TR >
-</TABLE > ", info.INN, info.KPP, info.OGRN, info.OKPO, info.RegDate, info.Status, info.Address, info.AddressAddedDate.ToShortDateString(), info.AddressCount, info.PhoneNumbers.FirstOrDefault(), Manager(info), info.FOMS, info.NalogCode, WithPre(info.UstFond,"Уставной фонд"), PreActivities(info));
+</table>", info.INN, info.KPP, info.OGRN, info.OKPO, info.RegDate, info.Status, info.Address, info.AddressAddedDate.ToShortDateString(), info.AddressCount, info.PhoneNumbers.FirstOrDefault(), Manager(info), info.FOMS, info.NalogCode, WithPre(info.UstFond,"Уставной фонд"), PreActivities(info));
             return html;
         }
         private static string Manager(CompanyInfo info)
