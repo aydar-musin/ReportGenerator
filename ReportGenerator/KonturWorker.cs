@@ -35,6 +35,8 @@ namespace ReportGenerator
             req: try
             {
 
+                Random rnd = new Random();
+                System.Threading.Thread.Sleep(rnd.Next(500, 1500));
 
                 HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
                 if (this.proxy != null)
@@ -90,12 +92,12 @@ namespace ReportGenerator
             }
             if(info.BailiffsExist)
             {
-                info.BailiffsInfo = Parser.Bailiffs(Request("https://focus.kontur.ru/fssp?query=" + order.CompanyId));
+                info.BailiffsInfo = GetBailiffs(order.CompanyId);
             }
             if(info.ContractsExist)
             {
-                info.WonContracts = Parser.WonContracts(Request("https://focus.kontur.ru/contracts?type=customers&query=" + order.CompanyId));
-                info.PostedContracts= Parser.PostedContracts(Request("https://focus.kontur.ru/contracts?type=suppliers&query=" + order.CompanyId));
+                info.WonContracts = GetContracts(order.CompanyId, "customers"); 
+                info.PostedContracts = GetContracts(order.CompanyId, "suppliers");
             }
             info.Founders = GetFounders(order.CompanyId);
             info.Activities = GetActivities(order.CompanyId);
@@ -104,6 +106,7 @@ namespace ReportGenerator
 
             return info;
         }
+
         public string GetGeneralInfoPage(string id)
         {
             var page = Request("https://focus.kontur.ru/entity?query=" + id);
@@ -127,15 +130,83 @@ namespace ReportGenerator
         }
         public ArbitrStat GetArbitrAsP(string id)
         {
-            return Parser.ArbitrAsPlaitiff(Request("https://focus.kontur.ru/kad?type=0&years=0&query="+id));
+            return GetArbitr(id, "0");
         }
         public ArbitrStat GetArbitrAsR(string id)
         {
-            return Parser.ArbitrAsRespondent(Request("https://focus.kontur.ru/kad?type=1&years=0&query=" + id));
+            return GetArbitr(id, "1");
         }
         public ArbitrStat GetArbitrAsT(string id)
         {
-            return Parser.ArbitrAsThird(Request("https://focus.kontur.ru/kad?type=4&years=0&query=" + id));
+            return GetArbitr(id, "4");
+        }
+        private ArbitrStat GetArbitr(string id, string type)
+        {
+            var arb = Parser.ArbitrAsPlaitiff(Request(string.Format("https://focus.kontur.ru/kad?type={0}&years=0&query={1}", type, id)));
+
+            if (arb != null && arb.Count > 10)
+            {
+                for (int i = 2; i <= 10; i++)
+                {
+                    var add_arb = Parser.ArbitrAsPlaitiff(Request(string.Format("https://focus.kontur.ru/kad?type={0}&years=0&query={1}&page={2}", type, id, i)));
+                    if (add_arb != null)
+                    {
+                        arb.Cases.AddRange(add_arb.Cases);
+                    }
+                    else
+                        break;
+                }
+            }
+            return arb;
+        }
+        private BailiffsInfo GetBailiffs(string id)
+        {
+            var info = Parser.Bailiffs(Request("https://focus.kontur.ru/fssp?query=" +id));
+            if (info != null&&info.Count>0)
+            {
+                for (int i = 2; i < 5; i++)
+                {
+                    var add_info = Parser.Bailiffs(Request("https://focus.kontur.ru/fssp?query=" + id+"&page="+i.ToString()));
+                    if (add_info != null)
+                        info.Cases.AddRange(add_info.Cases);
+                    else
+                        break;
+                }
+            }
+            return info;
+        }
+        private ContractsInfo GetContracts(string id, string type)
+        {
+            if (type == "customers")
+            {
+                var info = Parser.WonContracts(Request("https://focus.kontur.ru/contracts?type=customers&query="+id));
+                if (info != null && info.Count > 20)
+                {
+                    for (int i = 2; i < 5; i++)
+                    {
+                        var addInfo = Parser.WonContracts(Request("https://focus.kontur.ru/contracts?type=customers&query=" + id+"&page="+i.ToString()));
+                        if (addInfo != null)
+                            info.Contracts.AddRange(addInfo.Contracts);
+                        else break;
+                    }
+                }
+                return info;
+            }
+            else
+            {
+                var info = Parser.PostedContracts(Request("https://focus.kontur.ru/contracts?type=suppliers&query=" + id));
+                if (info != null && info.Count > 20)
+                {
+                    for (int i = 2; i < 5; i++)
+                    {
+                        var addInfo = Parser.PostedContracts(Request("https://focus.kontur.ru/contracts?type=suppliers&query=" + id + "&page=" + i.ToString()));
+                        if (addInfo != null)
+                            info.Contracts.AddRange(addInfo.Contracts);
+                        else break;
+                    }
+                }
+                return info;
+            }
         }
         public string GetCompanyId(string inn)
         {
@@ -154,6 +225,36 @@ namespace ReportGenerator
                 result = match.Groups["id"].Value;
             }
             return result;
+        }
+
+        public  CompanyInfo GetSample()
+        {
+            CompanyInfo info = new CompanyInfo();
+            info.NalogCode = Guid.NewGuid().ToString();
+            info.Name = Guid.NewGuid().ToString();
+            info.Address = Guid.NewGuid().ToString();
+            info.FSS = Guid.NewGuid().ToString();
+            info.INN = Guid.NewGuid().ToString();
+            info.KPP = Guid.NewGuid().ToString();
+            info.MainActiviyCode = Guid.NewGuid().ToString();
+            info.ManagerAmplua = Guid.NewGuid().ToString();
+            info.ManagerName = Guid.NewGuid().ToString();
+            info.OGRN = Guid.NewGuid().ToString();
+            info.OKPO = Guid.NewGuid().ToString();
+            info.PhoneNumbers =new List<string>(){ Guid.NewGuid().ToString()};
+            info.RegDate = Guid.NewGuid().ToString();
+            info.Status = Guid.NewGuid().ToString();
+            info.UstFond = Guid.NewGuid().ToString();
+            info.WonContracts = new ContractsInfo() { Contracts = new List<Contract>() { new Contract() { Number = Guid.NewGuid().ToString(), Date = DateTime.Now, Description = Guid.NewGuid().ToString(), Status = Guid.NewGuid().ToString(), Name = Guid.NewGuid().ToString(), Sum = "1000000", TimeInterval = Guid.NewGuid().ToString() }, new Contract() { Number = Guid.NewGuid().ToString(), Date = DateTime.Now, Description = Guid.NewGuid().ToString(), Status = Guid.NewGuid().ToString(), Name = Guid.NewGuid().ToString(), Sum = "1000000", TimeInterval = Guid.NewGuid().ToString() }, new Contract() { Number = Guid.NewGuid().ToString(), Date = DateTime.Now, Description = Guid.NewGuid().ToString(), Status = Guid.NewGuid().ToString(), Name = Guid.NewGuid().ToString(), Sum = "1000000", TimeInterval = Guid.NewGuid().ToString() } } };
+            info.PostedContracts = new ContractsInfo() { Contracts = new List<Contract>() { new Contract() { Number = Guid.NewGuid().ToString(), Date = DateTime.Now, Description = Guid.NewGuid().ToString(), Status = Guid.NewGuid().ToString(), Name = Guid.NewGuid().ToString(), Sum = "1000000", TimeInterval = Guid.NewGuid().ToString() }, new Contract() { Number = Guid.NewGuid().ToString(), Date = DateTime.Now, Description = Guid.NewGuid().ToString(), Status = Guid.NewGuid().ToString(), Name = Guid.NewGuid().ToString(), Sum = "1000000", TimeInterval = Guid.NewGuid().ToString() }, new Contract() { Number = Guid.NewGuid().ToString(), Date = DateTime.Now, Description = Guid.NewGuid().ToString(), Status = Guid.NewGuid().ToString(), Name = Guid.NewGuid().ToString(), Sum = "1000000", TimeInterval = Guid.NewGuid().ToString() } } };
+            info.Predecessors = new List<RelatedCompany>() { new RelatedCompany() { Name = Guid.NewGuid().ToString(), Address = Guid.NewGuid().ToString(), Status = Guid.NewGuid().ToString(), OGRN = Guid.NewGuid().ToString(), INN = Guid.NewGuid().ToString() }, new RelatedCompany() { Name = Guid.NewGuid().ToString(), Address = Guid.NewGuid().ToString(), Status = Guid.NewGuid().ToString(), OGRN = Guid.NewGuid().ToString(), INN = Guid.NewGuid().ToString() }, new RelatedCompany() { Name = Guid.NewGuid().ToString(), Address = Guid.NewGuid().ToString(), Status = Guid.NewGuid().ToString(), OGRN = Guid.NewGuid().ToString(), INN = Guid.NewGuid().ToString() } };
+            info.RelatedCompanies = new List<RelatedCompany>() { new RelatedCompany() { Name = Guid.NewGuid().ToString(), Address = Guid.NewGuid().ToString(), Status = Guid.NewGuid().ToString(), OGRN = Guid.NewGuid().ToString(), INN = Guid.NewGuid().ToString() }, new RelatedCompany() { Name = Guid.NewGuid().ToString(), Address = Guid.NewGuid().ToString(), Status = Guid.NewGuid().ToString(), OGRN = Guid.NewGuid().ToString(), INN = Guid.NewGuid().ToString() }, new RelatedCompany() { Name = Guid.NewGuid().ToString(), Address = Guid.NewGuid().ToString(), Status = Guid.NewGuid().ToString(), OGRN = Guid.NewGuid().ToString(), INN = Guid.NewGuid().ToString() } };
+            info.BailiffsInfo = new BailiffsInfo() { Cases = new List<BailiffsCase>() { new BailiffsCase() { Number = "1231231", Date = DateTime.Now, Sum = "10000", Type = Guid.NewGuid().ToString() } } };
+            
+            info.Activities = new List<Activity>() { new Activity() { Name = Guid.NewGuid().ToString(), Code = "111.11" }, new Activity() { Name = Guid.NewGuid().ToString(), Code = "111.11" }, new Activity() { Name = Guid.NewGuid().ToString(), Code = "111.11" }, new Activity() { Name = Guid.NewGuid().ToString(), Code = "111.11" }, new Activity() { Name = Guid.NewGuid().ToString(), Code = "111.11" } };
+            info.Lics = new List<Licency>() { new Licency() { Number = Guid.NewGuid().ToString(), Date = DateTime.Now, Department = Guid.NewGuid().ToString(), Status = Guid.NewGuid().ToString(), Activity = Guid.NewGuid().ToString(), Address = Guid.NewGuid().ToString(), Period = DateTime.Now }, new Licency() { Number = Guid.NewGuid().ToString(), Date = DateTime.Now, Department = Guid.NewGuid().ToString(), Status = Guid.NewGuid().ToString(), Activity = Guid.NewGuid().ToString(), Address = Guid.NewGuid().ToString(), Period = DateTime.Now }, new Licency() { Number = Guid.NewGuid().ToString(), Date = DateTime.Now, Department = Guid.NewGuid().ToString(), Status = Guid.NewGuid().ToString(), Activity = Guid.NewGuid().ToString(), Address = Guid.NewGuid().ToString(), Period = DateTime.Now } };
+
+            return info;
         }
     }
 }

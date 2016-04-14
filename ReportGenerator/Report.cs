@@ -23,7 +23,7 @@ namespace ReportGenerator
         public static string Generate(CompanyInfo info,Order order)
         {
             string html = GeneralInfo(info) + Founders(info) + Activities(info) + Lics(info) + Finance(info) + Arbitr(info) + Contracts(info) + Bailiffs(info) + History(info) + RelatedCompanies(info.RelatedCompanies, "Связанные организации") + RelatedCompanies(info.Predecessors,"Предшественники");
-            html= GetTemplate() + html + "<body/> <html/>";
+            html= GetTemplate() + html + "</body> </html>";
 
             string fileName = "temp/" + order.CompanyINNOGRN + "_" + order.CustomerEmail + ".doc";
 
@@ -34,7 +34,7 @@ namespace ReportGenerator
         private static string GetTemplate()
         {
             string html = @"<!DOCTYPE HTML PUBLIC ' -//W3C//DTD HTML 4.0 Transitional//EN'>
-<HTML xmlns: v = ''urn: schemas - microsoft - com:vml'' xmlns: o = ''urn: schemas - microsoft - com:office: office'' xmlns: x = ''urn: schemas - microsoft - com:office: word'' xmlns = ''http://www.w3.org/TR/REC-html40'>
+<html xmlns: v = ''urn: schemas - microsoft - com:vml'' xmlns: o = ''urn: schemas - microsoft - com:office: office'' xmlns: x = ''urn: schemas - microsoft - com:office: word'' xmlns = ''http://www.w3.org/TR/REC-html40'>
 <style type='text/css'>
   .silversmall{
             color: gray;
@@ -46,7 +46,7 @@ font-size:12px;
 }
 </style>
 
-<BODY LANG = 'ru-RU' LINK = '#0000ff' DIR = 'LTR' style='font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;'>
+<body LANG = 'ru-RU' LINK = '#0000ff' DIR = 'LTR' style='font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;'>
      <DIV TYPE = HEADER ALIGN=RIGHT  class='silversmall'>
           <P STYLE = 'margin-bottom: 0in' >
        
@@ -86,14 +86,13 @@ font-size:12px;
              {9} </P >
                 {10}
                        <P STYLE = 'margin-top: 0.13in; margin-bottom: 0in; page-break-inside: avoid' >
-                         <BR > ФОМС:
-			{11} </P >
+                         <BR > ФОМС: {11} </P >
             <P STYLE = 'margin-top: 0.25in; page-break-inside: avoid' > Код
             налогового органа: {12} </P >
         </TD >
         <TD WIDTH = 468 STYLE = 'border: none; padding: 0in' >
             <P STYLE = 'margin-left: 1.17in; margin-bottom: 0.13in; page-break-inside: avoid' >
-             {13}<BR ><BR > </P >
+             {13}<BR ><BR >
             
             </P >
             {14}
@@ -283,23 +282,15 @@ font-size:12px;
             if (info != null)
             {
                 html += string.Format(@"
-<P STYLE = 'margin-bottom: 0in; page-break-inside: avoid; page-break-before: always; page-break-after: avoid' >
-<B > <h3>{2} ({0}). {1} </h3> </B ></P >
-<P STYLE = 'margin-top: 0.19in; margin-bottom: 0in; page-break-inside: avoid; page-break-after: avoid' >
-</P >
-<P STYLE = 'margin-top: 0.19in; margin-bottom: 0in; page-break-inside: avoid; page-break-after: avoid' >
-
-</P >
-<TABLE WIDTH = 699 CELLPADDING = 7 CELLSPACING = 0 style='font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;font-size:8px;'>
-<COL WIDTH=84>
-	<COL WIDTH=587> <ol>", info.Count, info.Sum, name);
+<h3>{2} ({0}). {1} </h3>
+<ol>", info.Count, info.Sum, name);
 
                 foreach (var contract in info.Contracts)
                 {
-                    html += string.Format("<li><table>{0}{1}{2}{3}</table></li>", WithPre(contract.Number,contract.Date.ToShortDateString()), WithPre(contract.Sum,"Сумма"),
+                    html += string.Format("<li><table>{0}{1}{2}{3}</table></li> <br>", WithPre(contract.Number, contract.Date.ToShortDateString()), WithPre(contract.Sum, "Сумма"),
                         WithPre(contract.Name,""), WithPre(contract.Description,""));
                 }
-                html += "</ol></table>";
+                html += "</ol>";
             }
             return html;
         }
@@ -317,15 +308,14 @@ font-size:12px;
 <P STYLE = 'margin-top: 0.19in; margin-bottom: 0in; page-break-inside: avoid; page-break-after: avoid' >
 
 {1}</P >
-<TABLE WIDTH = 699 CELLPADDING = 7 CELLSPACING = 0 style='font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;font-size:8px;'>
-<COL WIDTH=84>
-	<COL WIDTH=587> <ol>", info.BailiffsInfo.Count, info.BailiffsInfo.Sum);
+<ol>
+", info.BailiffsInfo.Count, info.BailiffsInfo.Sum);
 
                 foreach (var _case in info.BailiffsInfo.Cases)
                 {
-                    html += string.Format("<li><table>{0}{1}</table></li>", WithPre(_case.Date.ToShortDateString(), _case.Number),WithPre( _case.Sum,"Сумма"), WithPre(_case.Type,"Предмет") );
+                    html += string.Format("<li><table>{0}{1}{2}</table></li><br>", WithPre(_case.Date.ToShortDateString(), _case.Number), WithPre(_case.Sum, "Сумма"), WithPre(_case.Type, "Предмет"));
                 }
-                html += "</ol></table>";
+                html += "</ol>";
             }
             return html;
         }
@@ -335,13 +325,13 @@ font-size:12px;
 
             if(info.Founders!=null)
             {
-                html = string.Format("<div> <h3> Учредители </h3> <table style='font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;font-size:8px;'>");
+                html = string.Format("<div> <h3> Учредители </h3> <table>");
 
                 foreach(var founder in info.Founders)
                 {
                     html += string.Format("<tr><td>{0}</td><span class='silversmall'><td> {1} </td><td>{2}</td><td>{3}</td><td>{4}</td></span></tr>", founder.Name,founder.Percent, founder.Rubles, string.IsNullOrEmpty(founder.INN) ? "" : "ИНН: " + founder.INN, string.IsNullOrEmpty(founder.OGRN)?"":"ОГРН: "+founder.OGRN);
                 }
-                html += "</tr></table>";
+                html += "</table>";
             }
             return html;
         }

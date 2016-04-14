@@ -94,7 +94,10 @@ namespace ReportGenerator
                              try
                              {
                                  Message("Обработка " + order.CompanyINNOGRN + " " + order.CustomerEmail);
-                                 var info = konturW.Process(order);
+#if DEBUG
+                                 order.CompanyINNOGRN = "1027700132195";
+#endif
+                                 var info = konturW.GetSample();
 
                                  var file=ReportGenerator.Generate(info,order);
 #if DEBUG

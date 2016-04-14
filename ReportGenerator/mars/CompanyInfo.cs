@@ -129,7 +129,7 @@ namespace ReportGenerator
     public class BailiffsInfo
     {
         public string Sum;
-        public string Count;
+        public int Count;
         public List<BailiffsCase> Cases = new List<BailiffsCase>();
     }
     public class BailiffsCase

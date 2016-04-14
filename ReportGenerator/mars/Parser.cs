@@ -403,34 +403,9 @@ namespace ReportGenerator
             var sumEl = doc.DocumentNode.SelectSingleNode("/html/body/div[1]/div[5]/div/div[2]/div/ul/li[2]/span/i");
             stat.Sum = sumEl != null ? sumEl.InnerText.GetHTMLDecoded() : "";
 
-            var items = doc.DocumentNode.SelectNodes("/html/body/div[1]/div[5]/div/div[5]/ul/li");
-            if (items == null) return null;
-            foreach(var item in items)
-            {
-                ArbitrCase _case = new ArbitrCase();
-                var dateEl = item.SelectSingleNode("div[1]/div[2]/div[1]/div[1]");
-                _case.Date = DateTime.Parse(dateEl.InnerText.GetHTMLDecoded().Replace("\n",""));
-                _case.Number = dateEl.NextSibling.NextSibling.InnerText.GetHTMLDecoded();
-
-                var TypeMatch = Regex.Match(dateEl.ParentNode.OuterHtml, "<br>(?<type>.*)<br>");
-                if (TypeMatch.Success)
-                    _case.Type = TypeMatch.Groups["type"].Value;
-
-                var sumNode=dateEl.ParentNode.SelectSingleNode(".//span[@class='brown']");
-                if (sumNode != null)
-                    _case.Sum = sumNode.InnerText.GetHTMLDecoded();
-                
-                foreach(var sides in item.SelectNodes(".//div[@class='noMargin target ']/div"))
-                {
-                    if (sides.SelectSingleNode("div[1]").InnerText.Contains("Истец"))
-                        _case.Plaintiff = sides.SelectSingleNode("div[2]").InnerText.GetHTMLDecoded();
-                    else if (sides.SelectSingleNode("div[1]").InnerText.Contains("Ответчик"))
-                        _case.Respondent = sides.SelectSingleNode("div[2]").InnerText.GetHTMLDecoded();
-                    else if (sides.SelectSingleNode("div[1]").InnerText.Contains("Третье лицо"))
-                        _case.Thirds = sides.SelectSingleNode("div[2]").InnerText.GetHTMLDecoded();
-                }
-                stat.Cases.Add(_case);
-            }
+            stat.Cases = ParseArbitrCases(doc);
+            if (stat.Cases == null)
+                return null;
             return stat;
         }
         public static ArbitrStat ArbitrAsRespondent(string html)
@@ -447,44 +422,11 @@ namespace ReportGenerator
             var sumEl = doc.DocumentNode.SelectSingleNode("/html/body/div[1]/div[5]/div/div[2]/div/ul/li[1]/span/i");
             stat.Sum = sumEl != null ? sumEl.InnerText.GetHTMLDecoded() : "";
 
-            var items = doc.DocumentNode.SelectNodes("/html/body/div[1]/div[5]/div/div[5]/ul/li");
-            if (items == null) return null;
-            foreach (var item in items)
-            {
-                ArbitrCase _case = new ArbitrCase();
-                var dateEl = item.SelectSingleNode("div[1]/div[2]/div[1]/div[1]");
-                _case.Date = DateTime.Parse(dateEl.InnerText.GetHTMLDecoded().Replace("\n", ""));
-                _case.Number = dateEl.NextSibling.NextSibling.InnerText.GetHTMLDecoded();
-                var TypeMatch = Regex.Match(dateEl.ParentNode.OuterHtml, "<br>(?<type>.*)<br>");
-                if (TypeMatch.Success)
-                    _case.Type = TypeMatch.Groups["type"].Value;
-                var sumNode = dateEl.ParentNode.SelectSingleNode(".//span[@class='brown']");
-                if (sumNode != null)
-                    _case.Sum = sumNode.InnerText.GetHTMLDecoded();
-
-                foreach (var sides in item.SelectNodes(".//div[@class='noMargin target ']/div"))
-                {
-                    if (sides.SelectSingleNode("div[1]").InnerText.Contains("Истец"))
-                        _case.Plaintiff = sides.SelectSingleNode("div[2]").InnerText.GetHTMLDecoded();
-                    else if (sides.SelectSingleNode("div[1]").InnerText.Contains("Ответчик"))
-                        _case.Respondent = sides.SelectSingleNode("div[2]").InnerText.GetHTMLDecoded();
-                    else if (sides.SelectSingleNode("div[1]").InnerText.Contains("Третьи лица"))
-                        _case.Thirds = sides.SelectSingleNode("div[2]").InnerText.GetHTMLDecoded();
-                }
-                var others = item.SelectNodes(".//div[@class='noMargin target kad-item-row_hidden hidden']/div");
-                if(others!=null)
-                {
-                    foreach(var sides in others)
-                    {
-                        if (sides.SelectSingleNode("div[1]").InnerText.Contains("Третьи лица"))
-                            _case.Thirds = sides.SelectSingleNode("div[2]").InnerText.GetHTMLDecoded();
-                    }
-                }
-                stat.Cases.Add(_case);
-            }
+            stat.Cases = ParseArbitrCases(doc);
+            if (stat.Cases == null)
+                return null;
             return stat;
         }
-
         public static ArbitrStat ArbitrAsThird(string html)
         {
             HtmlDocument doc = new HtmlDocument();
@@ -499,6 +441,15 @@ namespace ReportGenerator
             var sumEl = doc.DocumentNode.SelectSingleNode("/html/body/div[1]/div[5]/div/div[2]/div/ul/li[3]/span/i");
             stat.Sum = sumEl != null ? sumEl.InnerText.GetHTMLDecoded() : "";
 
+            stat.Cases = ParseArbitrCases(doc);
+            if (stat.Cases == null)
+                return null;
+            return stat;
+        }
+        private static List<ArbitrCase> ParseArbitrCases(HtmlDocument doc)
+        {
+            List<ArbitrCase> cases = new List<ArbitrCase>();
+   
             var items = doc.DocumentNode.SelectNodes("/html/body/div[1]/div[5]/div/div[5]/ul/li");
             if (items == null) return null;
             foreach (var item in items)
@@ -522,13 +473,21 @@ namespace ReportGenerator
                         _case.Plaintiff = sides.SelectSingleNode("div[2]").InnerText.GetHTMLDecoded();
                     else if (sides.SelectSingleNode("div[1]").InnerText.Contains("Ответчик"))
                         _case.Respondent = sides.SelectSingleNode("div[2]").InnerText.GetHTMLDecoded();
-                    else if (sides.SelectSingleNode("div[1]").InnerText.Contains("Третье лицо"))
-                        _case.Thirds = sides.SelectSingleNode("div[2]").InnerText.GetHTMLDecoded();
                 }
-                stat.Cases.Add(_case);
+                var others = item.SelectNodes(".//div[@class='noMargin target kad-item-row_hidden hidden']/div");
+                if (others != null)
+                {
+                    foreach (var sides in others)
+                    {
+                        if (sides.SelectSingleNode("div[1]").InnerText.Contains("Третьи лица"))
+                            _case.Thirds = sides.SelectSingleNode("div[2]").InnerText.GetHTMLDecoded();
+                    }
+                }
+                cases.Add(_case);
             }
-            return stat;
+            return cases;
         }
+
         public static BailiffsInfo Bailiffs(string html)
         {
             HtmlDocument doc = new HtmlDocument();
@@ -540,9 +499,9 @@ namespace ReportGenerator
             var countEl = doc.DocumentNode.SelectSingleNode("/html/body/div[1]/div[5]/div/div[1]");
             if (countEl != null)
             {
-                var match = Regex.Match(countEl.InnerText.GetHTMLDecoded(), "Найдено (?<count>[0-9]{1,10}) исполнительное");
+                var match = Regex.Match(countEl.InnerText.GetHTMLDecoded(), "Найдено (?<count>[0-9]{1,10}) ((исполнительных)|(исполнительное))");
                 if (match.Success)
-                    info.Count = match.Groups["count"].Value;
+                    info.Count = int.Parse(match.Groups["count"].Value);
             }
 
             var kadItems = doc.DocumentNode.SelectNodes(".//li[@class='block relative kad-item size13']");
