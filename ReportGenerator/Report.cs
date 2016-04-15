@@ -404,7 +404,7 @@ font-size:12px;
 
                 foreach (var item in list)
                 {
-                    html += string.Format("<li><table>{0}{1}{2}{3}{4}</table></li>", WithPre(item.Name, "_"), WithPre(item.INN, "ИНН"), WithPre(item.OGRN, "ОГРН"), WithPre(item.Status, "Состояние"), WithPre(item.Address, ""));
+                    html += string.Format("<li><table>{0}{1}{2}{3}{4}</table></li> <br>", WithPre(item.Name, "_"), WithPre(item.INN, "ИНН"), WithPre(item.OGRN, "ОГРН"), WithPre(item.Status, "Состояние"), WithPre(item.Address, ""));
                 }
                 html += "</ol>";
             }
