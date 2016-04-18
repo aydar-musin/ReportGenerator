@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Net;
 
 namespace ReportGenerator
 {
@@ -29,6 +31,7 @@ namespace ReportGenerator
             OrdersEmailtextBox.Text = Settings.OrdersEmail;
             OrdersEmailPasstextBox.Text = Settings.OrdersEmailPass;
             ErrorsEmailTextBox.Text = Settings.ErrorsReportEmail;
+            ProxyCheckBox.Checked = Settings.UseProxy;
         }
         public void SaveConfig()
         {
@@ -37,24 +40,8 @@ namespace ReportGenerator
             Settings.OrdersEmail = OrdersEmailtextBox.Text;
             Settings.OrdersEmailPass = OrdersEmailPasstextBox.Text;
             Settings.ErrorsReportEmail = ErrorsEmailTextBox.Text;
-
+            Settings.UseProxy = ProxyCheckBox.Checked;
             Settings.SaveConfig();
-        }
-
-        public void Work()
-        {
-            var orders = OrdersProvider.GetOrders();
-
-            KonturWorker konturW = new KonturWorker();
-
-            foreach(var order in orders)
-            {
-                if(order.CompanyId.Length==10)
-                {
-                    order.CompanyId = konturW.GetCompanyId(order.CompanyId);
-                }
-
-            }
         }
 
         private void StartStopButton_Click(object sender, EventArgs e)
@@ -68,6 +55,8 @@ namespace ReportGenerator
                 SaveConfig();
                 KonturWorker konturW = new KonturWorker();
                 konturW.Cookie = CookieTextBox.Text;
+
+                Message(string.Format("Доступно {0} прокси", Settings.ProxyList.Count));
 
                 timer = new System.Threading.Timer(new TimerCallback((obj) =>
                  {
@@ -97,7 +86,7 @@ namespace ReportGenerator
 #if DEBUG
                                  order.CompanyINNOGRN = "1027700132195";
 #endif
-                                 var info = konturW.GetSample();
+                                 var info = konturW.Process(order);
 
                                  var file=ReportGenerator.Generate(info,order);
 #if DEBUG
@@ -142,7 +131,7 @@ namespace ReportGenerator
             {
                 using (var writer = new System.IO.StreamWriter("orders.log",true))
                 {
-                    writer.WriteLine(order.CompanyINNOGRN + "\t" + order.CustomerEmail);
+                    writer.WriteLine(order.ToString());
                 }
             }
             catch(Exception ex)
@@ -161,7 +150,8 @@ namespace ReportGenerator
                 {
                     Order order = new Order();
                     var args = line.Split('\t');
-                    order.CompanyINNOGRN = args[0];
+                    order.TimeStamp = DateTime.Parse(args[0]);
+                    order.CompanyINNOGRN = args[2];
                     order.CustomerEmail = args[1];
                     orders.Add(order);
                 }
@@ -179,6 +169,89 @@ namespace ReportGenerator
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void ProxyTestButton_Click(object sender, EventArgs e)
+        {
+            Task.Factory.StartNew(() =>
+            {
+                System.Collections.Concurrent.ConcurrentQueue<string> proxies = new System.Collections.Concurrent.ConcurrentQueue<string>(Settings.ProxyList);
+
+                Task[] tasks = new Task[20];
+                int work = 0;
+
+                for (int i = 0; i < 20; i++)
+                {
+                    tasks[i] = Task.Factory.StartNew(() =>
+                      {
+                          string proxy = "";
+                          while (proxies.TryDequeue(out proxy))
+                          {
+                              try
+                              {
+                                  HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create("https://focus.kontur.ru/entity?query=1126686008701");
+                                  request.Proxy = new WebProxy(proxy);
+
+                                  request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36";
+                                  request.Timeout = 2000;
+                                  var resp=request.GetResponse();
+                                  resp.Close();
+
+                                  Message("+ ");
+                                  work++;
+                              }
+                              catch
+                              {
+                                  Message("-");
+                              }
+                          }
+                      });
+                }
+            
+
+            Task.WaitAll(tasks);
+            Message(string.Format("{0} из {1} прокси работают",work,Settings.ProxyList.Count));
+            });
+        }
+
+        private void TestButton_Click(object sender, EventArgs e)
+        {
+            if(!string.IsNullOrEmpty(TestTextBox.Text))
+            {
+                SaveConfig();
+
+                Order order = new Order();
+                order.CompanyINNOGRN = TestTextBox.Text.Trim();
+                order.TimeStamp = DateTime.Now;
+                KonturWorker konturW = new KonturWorker();
+                konturW.Cookie = CookieTextBox.Text;
+
+                Task.Factory.StartNew(() =>
+                {
+                    ProcessOrder(konturW,order);
+                });
+            }
+        }
+        private void ProcessOrder(KonturWorker konturW,Order order)
+        {
+            try
+            {
+                Message("Обработка " + order.CompanyINNOGRN + " " + order.CustomerEmail);
+#if DEBUG
+                order.CompanyINNOGRN = "1027700132195";
+#endif
+                var info = konturW.Process(order);
+
+                var file = ReportGenerator.Generate(info, order);
+
+                SaveProcessedOrder(order);
+                Message("Успешно обработан " + order.CompanyINNOGRN + " " + order.CustomerEmail);
+            }
+            catch (Exception ex)
+            {
+                ErrorLog(ex);
+                Message("Ошибка при обработке заказа " + order.CompanyINNOGRN + " " + order.CustomerEmail + " " + ex.Message);
+            }
         }
     }
 }

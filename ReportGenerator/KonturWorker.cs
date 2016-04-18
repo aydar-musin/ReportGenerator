@@ -11,16 +11,22 @@ namespace ReportGenerator
     {
         public string Cookie { get; set; }
         private WebProxy proxy;
-
+        public KonturWorker()
+        {
+            if(Settings.UseProxy)
+            {
+                ChangeProxy();
+            }
+        }
         private void ChangeProxy()
         {
-            if (Global.Proxy.Count > 0)
+            if (Settings.ProxyList.Count > 0)
             {
                 Random rnd = new Random();
 
-                int rndIndex = rnd.Next(0, Global.Proxy.Count);
+                int rndIndex = rnd.Next(0, Settings.ProxyList.Count);
 
-                this.proxy = new WebProxy(Global.Proxy[rndIndex]);
+                this.proxy = new WebProxy(Settings.ProxyList[rndIndex]);
             }
             else
                 this.proxy = null;
@@ -31,17 +37,18 @@ namespace ReportGenerator
         }
         private string Request(string url) // Add headers!!!!!
         {
-            int tries = 3;
+            int tries = 10;
             req: try
             {
-
                 Random rnd = new Random();
-                System.Threading.Thread.Sleep(rnd.Next(500, 1500));
+                System.Threading.Thread.Sleep(rnd.Next(50, 100));
 
                 HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
-                if (this.proxy != null)
+                if (Settings.UseProxy && this.proxy != null)
                     request.Proxy = proxy;
+
                 request.UserAgent="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36";
+                request.Timeout = 30000;
 
                 request.Headers.Add("Cookie", this.Cookie);
 
@@ -62,6 +69,7 @@ namespace ReportGenerator
                 tries--;
                 if (tries > 0)
                 {
+                    ChangeProxy();
                     goto req;
                 }
 

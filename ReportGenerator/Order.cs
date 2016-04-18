@@ -14,7 +14,7 @@ namespace ReportGenerator
 
         public override int GetHashCode()
         {
-            return CustomerEmail.GetHashCode() + CompanyINNOGRN.GetHashCode();
+            return CustomerEmail.GetHashCode() + CompanyINNOGRN.GetHashCode()+TimeStamp.GetHashCode();
         }
         public override bool Equals(object obj)
         {
@@ -23,6 +23,10 @@ namespace ReportGenerator
                 return (obj as Order).GetHashCode() == this.GetHashCode();
             }
             return false;
+        }
+        public override string ToString()
+        {
+            return string.Format("{0}\t{1}\t{2}",this.TimeStamp, this.CustomerEmail,this.CompanyINNOGRN);
         }
     }
 }

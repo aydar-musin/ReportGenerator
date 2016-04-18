@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Word;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,8 +8,25 @@ namespace ReportGenerator
 {
     class ReportGenerator
     {
-        private const string PB = "<br clear='all' style='page-break-before:always' />";
+        private static void ConvertDocToDocx(string path)
+        {
+            Application word = new Application();
 
+            if (path.ToLower().EndsWith(".doc"))
+            {
+                var sourceFile = new FileInfo(path);
+                var document = word.Documents.Open(sourceFile.FullName);
+
+                string newFileName = sourceFile.FullName.Replace(".doc", ".docx");
+                document.SaveAs2(newFileName, WdSaveFormat.wdFormatXMLDocument,
+                                 CompatibilityMode: WdCompatibilityMode.wdWord2010);
+
+                word.ActiveDocument.Close();
+                word.Quit();
+
+                File.Delete(path);
+            }
+        }
         private static string GenerateTR(params object[] input)
         {
             string result = "<div>";
@@ -28,8 +46,9 @@ namespace ReportGenerator
             string fileName = "temp/" + order.CompanyINNOGRN + "_" + order.CustomerEmail + ".doc";
 
             File.WriteAllText(fileName , html);
+            ConvertDocToDocx(fileName);
 
-            return fileName;
+            return fileName.Replace(".doc",".docx");
         }
         private static string GetTemplate()
         {
@@ -101,7 +120,7 @@ font-size:12px;
             {14}
         </TD >
     </TR >
-</table>", info.INN, info.KPP, info.OGRN, info.OKPO, info.RegDate, info.Status, info.Address, info.AddressAddedDate.ToShortDateString(), info.AddressCount, info.PhoneNumbers.FirstOrDefault(), Manager(info), info.FOMS, info.NalogCode, WithPre(info.UstFond,"Уставной фонд"), PreActivities(info));
+</table>", info.INN, info.KPP, info.OGRN, info.OKPO, info.RegDate, info.Status, info.Address, info.AddressAddedDate.ToShortDateString(), info.AddressCount, info.PhoneNumbers.FirstOrDefault(), Manager(info), info.FOMS, info.NalogCode, string.IsNullOrEmpty(info.UstFond)?"":"Уставной фонд: "+info.UstFond, PreActivities(info));
             return html;
         }
         private static string Manager(CompanyInfo info)
@@ -152,7 +171,7 @@ font-size:12px;
 
             if (info.Activities != null)
             {
-                html += PB+string.Format(@"<P STYLE='margin - left: 1.17in; margin - bottom: 0.13in; page -break-inside: avoid'>
+                html += string.Format(@"<P STYLE='margin - left: 1.17in; margin - bottom: 0.13in; page -break-inside: avoid'>
                  <B > <h3>Виды
             деятельности ({0})</h3></B ></P >
             <TABLE WIDTH = 438 CELLPADDING = 7 CELLSPACING = 0 style='font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;font-size:8px;'>

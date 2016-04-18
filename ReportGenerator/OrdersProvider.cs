@@ -53,7 +53,7 @@ namespace ReportGenerator
             {
                 List<Order> result = new List<Order>();
                 var messages = FetchAllMessages();
-                foreach (var msg in messages.Where(m => m.Headers.From.Address.Contains("inform@money.yandex.ru")))
+                foreach (var msg in messages.Where(m => m.Headers.From.Address.Contains("inform@money.yandex.ru") &&m.Headers.Subject.Contains("пополнен")))
                 {
                     var order = Parser.Order(msg.FindFirstHtmlVersion().GetBodyAsText());
                     result.Add(order);

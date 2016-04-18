@@ -32,20 +32,27 @@
             this.StateLabel = new System.Windows.Forms.Label();
             this.StartStopButton = new System.Windows.Forms.Button();
             this.SettingsBox = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.ErrorsEmailTextBox = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.OrdersEmailPasstextBox = new System.Windows.Forms.TextBox();
+            this.OrdersEmailtextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.IntervalNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.CookieTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.LogTextBox = new System.Windows.Forms.TextBox();
-            this.OrdersEmailtextBox = new System.Windows.Forms.TextBox();
-            this.OrdersEmailPasstextBox = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.ErrorsEmailTextBox = new System.Windows.Forms.TextBox();
+            this.ManualGroupBox = new System.Windows.Forms.GroupBox();
+            this.TestTextBox = new System.Windows.Forms.TextBox();
+            this.TestButton = new System.Windows.Forms.Button();
+            this.ProxyCheckBox = new System.Windows.Forms.CheckBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.ProxyTestButton = new System.Windows.Forms.Button();
             this.panelButtons.SuspendLayout();
             this.SettingsBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.IntervalNumericUpDown)).BeginInit();
+            this.ManualGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelButtons
@@ -79,6 +86,9 @@
             // 
             // SettingsBox
             // 
+            this.SettingsBox.Controls.Add(this.ProxyTestButton);
+            this.SettingsBox.Controls.Add(this.ProxyCheckBox);
+            this.SettingsBox.Controls.Add(this.ManualGroupBox);
             this.SettingsBox.Controls.Add(this.label5);
             this.SettingsBox.Controls.Add(this.ErrorsEmailTextBox);
             this.SettingsBox.Controls.Add(this.label4);
@@ -91,10 +101,58 @@
             this.SettingsBox.Controls.Add(this.label1);
             this.SettingsBox.Location = new System.Drawing.Point(12, 53);
             this.SettingsBox.Name = "SettingsBox";
-            this.SettingsBox.Size = new System.Drawing.Size(468, 185);
+            this.SettingsBox.Size = new System.Drawing.Size(468, 301);
             this.SettingsBox.TabIndex = 1;
             this.SettingsBox.TabStop = false;
             this.SettingsBox.Text = "Настройки";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 95);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(116, 13);
+            this.label5.TabIndex = 11;
+            this.label5.Text = "Email для сообщений:";
+            // 
+            // ErrorsEmailTextBox
+            // 
+            this.ErrorsEmailTextBox.Location = new System.Drawing.Point(128, 92);
+            this.ErrorsEmailTextBox.Name = "ErrorsEmailTextBox";
+            this.ErrorsEmailTextBox.Size = new System.Drawing.Size(120, 20);
+            this.ErrorsEmailTextBox.TabIndex = 10;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(254, 69);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(48, 13);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Пароль:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 69);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(80, 13);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "Email заказов:";
+            // 
+            // OrdersEmailPasstextBox
+            // 
+            this.OrdersEmailPasstextBox.Location = new System.Drawing.Point(308, 66);
+            this.OrdersEmailPasstextBox.Name = "OrdersEmailPasstextBox";
+            this.OrdersEmailPasstextBox.Size = new System.Drawing.Size(154, 20);
+            this.OrdersEmailPasstextBox.TabIndex = 7;
+            // 
+            // OrdersEmailtextBox
+            // 
+            this.OrdersEmailtextBox.Location = new System.Drawing.Point(88, 66);
+            this.OrdersEmailtextBox.Name = "OrdersEmailtextBox";
+            this.OrdersEmailtextBox.Size = new System.Drawing.Size(160, 20);
+            this.OrdersEmailtextBox.TabIndex = 6;
             // 
             // label2
             // 
@@ -136,66 +194,79 @@
             // 
             // LogTextBox
             // 
-            this.LogTextBox.Location = new System.Drawing.Point(12, 244);
+            this.LogTextBox.Location = new System.Drawing.Point(486, 12);
             this.LogTextBox.Multiline = true;
             this.LogTextBox.Name = "LogTextBox";
             this.LogTextBox.ReadOnly = true;
-            this.LogTextBox.Size = new System.Drawing.Size(468, 110);
+            this.LogTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.LogTextBox.Size = new System.Drawing.Size(305, 342);
             this.LogTextBox.TabIndex = 2;
             // 
-            // OrdersEmailtextBox
+            // ManualGroupBox
             // 
-            this.OrdersEmailtextBox.Location = new System.Drawing.Point(88, 66);
-            this.OrdersEmailtextBox.Name = "OrdersEmailtextBox";
-            this.OrdersEmailtextBox.Size = new System.Drawing.Size(160, 20);
-            this.OrdersEmailtextBox.TabIndex = 6;
+            this.ManualGroupBox.Controls.Add(this.label6);
+            this.ManualGroupBox.Controls.Add(this.TestButton);
+            this.ManualGroupBox.Controls.Add(this.TestTextBox);
+            this.ManualGroupBox.Location = new System.Drawing.Point(9, 165);
+            this.ManualGroupBox.Name = "ManualGroupBox";
+            this.ManualGroupBox.Size = new System.Drawing.Size(453, 130);
+            this.ManualGroupBox.TabIndex = 12;
+            this.ManualGroupBox.TabStop = false;
+            this.ManualGroupBox.Text = "Ручной режим";
             // 
-            // OrdersEmailPasstextBox
+            // TestTextBox
             // 
-            this.OrdersEmailPasstextBox.Location = new System.Drawing.Point(308, 66);
-            this.OrdersEmailPasstextBox.Name = "OrdersEmailPasstextBox";
-            this.OrdersEmailPasstextBox.Size = new System.Drawing.Size(154, 20);
-            this.OrdersEmailPasstextBox.TabIndex = 7;
+            this.TestTextBox.Location = new System.Drawing.Point(79, 29);
+            this.TestTextBox.Name = "TestTextBox";
+            this.TestTextBox.Size = new System.Drawing.Size(115, 20);
+            this.TestTextBox.TabIndex = 0;
             // 
-            // label3
+            // TestButton
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 69);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(80, 13);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Email заказов:";
+            this.TestButton.Location = new System.Drawing.Point(200, 29);
+            this.TestButton.Name = "TestButton";
+            this.TestButton.Size = new System.Drawing.Size(55, 20);
+            this.TestButton.TabIndex = 1;
+            this.TestButton.Text = "OK";
+            this.TestButton.UseVisualStyleBackColor = true;
+            this.TestButton.Click += new System.EventHandler(this.TestButton_Click);
             // 
-            // label4
+            // ProxyCheckBox
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(254, 69);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(48, 13);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "Пароль:";
+            this.ProxyCheckBox.AutoSize = true;
+            this.ProxyCheckBox.Checked = true;
+            this.ProxyCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ProxyCheckBox.Location = new System.Drawing.Point(9, 126);
+            this.ProxyCheckBox.Name = "ProxyCheckBox";
+            this.ProxyCheckBox.Size = new System.Drawing.Size(138, 17);
+            this.ProxyCheckBox.TabIndex = 13;
+            this.ProxyCheckBox.Text = "Использовать прокси";
+            this.ProxyCheckBox.UseVisualStyleBackColor = true;
             // 
-            // label5
+            // label6
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 95);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(116, 13);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "Email для сообщений:";
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 32);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(68, 13);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "ОГРН/ИНН:";
             // 
-            // ErrorsEmailTextBox
+            // ProxyTestButton
             // 
-            this.ErrorsEmailTextBox.Location = new System.Drawing.Point(128, 92);
-            this.ErrorsEmailTextBox.Name = "ErrorsEmailTextBox";
-            this.ErrorsEmailTextBox.Size = new System.Drawing.Size(120, 20);
-            this.ErrorsEmailTextBox.TabIndex = 10;
+            this.ProxyTestButton.Location = new System.Drawing.Point(153, 122);
+            this.ProxyTestButton.Name = "ProxyTestButton";
+            this.ProxyTestButton.Size = new System.Drawing.Size(125, 23);
+            this.ProxyTestButton.TabIndex = 14;
+            this.ProxyTestButton.Text = "Проверить прокси";
+            this.ProxyTestButton.UseVisualStyleBackColor = true;
+            this.ProxyTestButton.Click += new System.EventHandler(this.ProxyTestButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(492, 366);
+            this.ClientSize = new System.Drawing.Size(799, 366);
             this.Controls.Add(this.LogTextBox);
             this.Controls.Add(this.SettingsBox);
             this.Controls.Add(this.panelButtons);
@@ -206,6 +277,8 @@
             this.SettingsBox.ResumeLayout(false);
             this.SettingsBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.IntervalNumericUpDown)).EndInit();
+            this.ManualGroupBox.ResumeLayout(false);
+            this.ManualGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -228,6 +301,12 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox OrdersEmailPasstextBox;
         private System.Windows.Forms.TextBox OrdersEmailtextBox;
+        private System.Windows.Forms.CheckBox ProxyCheckBox;
+        private System.Windows.Forms.GroupBox ManualGroupBox;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button TestButton;
+        private System.Windows.Forms.TextBox TestTextBox;
+        private System.Windows.Forms.Button ProxyTestButton;
     }
 }
 

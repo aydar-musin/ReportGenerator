@@ -29,6 +29,12 @@ namespace ReportGenerator
                 throw new Exception("Ошибка получения email заказчика");
             order.CustomerEmail = match.Groups["email"].Value;
 
+            match = Regex.Match(doc.DocumentNode.InnerText, "Дата и время(?<date>.*)Пополнение");
+            if (!match.Success)
+                throw new Exception("Ошибка получения даты заказа");
+
+            order.TimeStamp = DateTime.Parse(match.Groups["date"].Value);
+
             return order;
         }
         public static CompanyInfo GeneralInfo(string html)
@@ -505,7 +511,8 @@ namespace ReportGenerator
             }
 
             var kadItems = doc.DocumentNode.SelectNodes(".//li[@class='block relative kad-item size13']");
-
+            if (kadItems == null)
+                return null;
             
 
             foreach(var item in kadItems)
