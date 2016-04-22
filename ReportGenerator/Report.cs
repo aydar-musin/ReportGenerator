@@ -423,10 +423,23 @@ font-size:12px;
 
                 foreach (var item in list)
                 {
-                    html += string.Format("<li><table>{0}{1}{2}{3}{4}</table></li> <br>", WithPre(item.Name, "_"), WithPre(item.INN, "ИНН"), WithPre(item.OGRN, "ОГРН"), WithPre(item.Status, "Состояние"), WithPre(item.Address, ""));
+                    html += string.Format("<li><table>{0}{1}{2}{3}{4}</table></li> <br>", 
+                        WithPre(item.Name, "_"), WithPre(item.INN, "ИНН"), WithPre(item.OGRN, "ОГРН"), WithPre(item.Status, ""), WithPre(item.Address, ""),
+                        WithPre(item.Capital,""),WithPre(item.Manager,""), WithPre(Founders(item.Foudners),"Учредители"));
                 }
                 html += "</ol>";
             }
+            return html;
+        }
+        private static string Founders(List<Founder> founders)
+        {
+            string html = "<tabel>";
+
+            foreach (var founder in founders)
+            {
+                html += string.Format("<tr>{0}\n{1} {2} {3}</tr>",founder.Name,founder.Percent,founder.Date);
+            }
+            html += "</table>";
             return html;
         }
         private static string WithPre(string value,string pre)

@@ -703,7 +703,7 @@ namespace ReportGenerator
 
                 foreach(var div in divs)
                 {
-                    if(div.InnerText.Contains("Директор"))
+                    if (div.InnerText.ToLower().Contains("директор") || div.InnerText.ToLower().Contains("председатель "))
                     {
                         company.Manager = div.InnerHtml;
                     }
@@ -713,11 +713,11 @@ namespace ReportGenerator
                     }
                     else if(div.InnerText.Contains("Уставный капитал"))
                     {
-
+                        company.Capital = div.InnerHtml;
                     }
                     else if(div.InnerText.Contains("Адрес"))
                     {
-
+                        company.Address = div.InnerHtml;
                     }
                 }
 

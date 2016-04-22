@@ -198,6 +198,7 @@ namespace ReportGenerator
         public string AsPlaintiff;
         public string AsRespondent;
         public string Contracts;
+        public string Capital;
     }
     public class SpecialReestr
     {
