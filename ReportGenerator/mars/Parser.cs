@@ -473,13 +473,18 @@ namespace ReportGenerator
                 if (TypeMatch.Success)
                     _case.Type = TypeMatch.Groups["type"].Value;
 
-                foreach (var sides in item.SelectNodes(".//div[@class='noMargin target ']/div"))
+                var sidesNodes = item.SelectNodes(".//div[@class='noMargin target ']/div");
+                if (sidesNodes != null)
                 {
-                    if (sides.SelectSingleNode("div[1]").InnerText.Contains("Истец"))
-                        _case.Plaintiff = sides.SelectSingleNode("div[2]").InnerText.GetHTMLDecoded();
-                    else if (sides.SelectSingleNode("div[1]").InnerText.Contains("Ответчик"))
-                        _case.Respondent = sides.SelectSingleNode("div[2]").InnerText.GetHTMLDecoded();
+                    foreach (var sides in item.SelectNodes(".//div[@class='noMargin target ']/div"))
+                    {
+                        if (sides.SelectSingleNode("div[1]").InnerText.Contains("Истец"))
+                            _case.Plaintiff = sides.SelectSingleNode("div[2]").InnerText.GetHTMLDecoded();
+                        else if (sides.SelectSingleNode("div[1]").InnerText.Contains("Ответчик"))
+                            _case.Respondent = sides.SelectSingleNode("div[2]").InnerText.GetHTMLDecoded();
+                    }
                 }
+
                 var others = item.SelectNodes(".//div[@class='noMargin target kad-item-row_hidden hidden']/div");
                 if (others != null)
                 {
@@ -693,6 +698,29 @@ namespace ReportGenerator
                     if (statusEl != null)
                         company.Status = statusEl.InnerText.GetHTMLDecoded();
                 }
+
+                var divs = element.SelectNodes(".//div[@class='graphTextBlock']");
+
+                foreach(var div in divs)
+                {
+                    if(div.InnerText.Contains("Директор"))
+                    {
+                        company.Manager = div.InnerHtml;
+                    }
+                    else if(div.InnerText.Contains("Учредители"))
+                    {
+                        company.Foudners = Founders(div.InnerHtml).ToList();
+                    }
+                    else if(div.InnerText.Contains("Уставный капитал"))
+                    {
+
+                    }
+                    else if(div.InnerText.Contains("Адрес"))
+                    {
+
+                    }
+                }
+
                 result.Add(company);
             }
             return result;

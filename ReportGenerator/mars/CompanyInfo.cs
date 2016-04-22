@@ -191,5 +191,24 @@ namespace ReportGenerator
         public string OGRN;
         public string Address;
         public string Status;
+        public string Manager;
+        public List<Founder> Foudners;
+        public List<Founder> Founded;
+        public string Bailiffs;
+        public string AsPlaintiff;
+        public string AsRespondent;
+        public string Contracts;
     }
+    public class SpecialReestr
+    {
+        public List<Item> Items;
+        public class Item
+        {
+            public string Name;
+            public string Value;
+            public string Descr;
+            public int Count;
+        }
+    }
+
 }
