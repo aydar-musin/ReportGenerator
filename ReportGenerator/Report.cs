@@ -24,35 +24,35 @@ namespace ReportGenerator
                 word.ActiveDocument.Close();
                 word.Quit();
 
-                File.Delete(path);
+                //File.Delete(path);
             }
         }
         private static string GenerateTR(params object[] input)
         {
             string result = "<div>";
 
-            for (int i = 0; i <input.Length; i++)
+            for (int i = 0; i < input.Length; i++)
             {
                 result += "<p>" + input[i].ToString() + "<td/>";
             }
             result += "<tr/>";
             return result;
         }
-        public static string Generate(CompanyInfo info,Order order)
+        public static string Generate(CompanyInfo info, Order order)
         {
-            string html = GeneralInfo(info) + Founders(info) + Activities(info) + Lics(info) + Finance(info) + Arbitr(info) + Contracts(info) + Bailiffs(info) + History(info) + RelatedCompanies(info.RelatedCompanies, "Связанные организации") + RelatedCompanies(info.Predecessors,"Предшественники");
-            html= GetTemplate() + html + "</body> </html>";
+            string html = GeneralInfo(info) +SpecialReestrs(info) + Founders(info) + Activities(info) + Lics(info) + Finance(info) + Arbitr(info) + Contracts(info) + Bailiffs(info) + History(info) + RelatedCompanies(info.RelatedCompanies, "Связанные организации") + RelatedCompanies(info.Predecessors, "Предшественники");
+            html = GetTemplate() + html + "</body> </html>";
 
             string fileName = "temp/" + order.CompanyINNOGRN + "_" + order.CustomerEmail + ".doc";
 
-            File.WriteAllText(fileName , html);
+            File.WriteAllText(fileName, html);
             ConvertDocToDocx(fileName);
 
-            return fileName.Replace(".doc",".docx");
+            return fileName.Replace(".doc", ".docx");
         }
         private static string GetTemplate()
         {
-            string html = "<html  xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:x=\"urn:schemas-microsoft-com:office:word\" xmlns=\"http://www.w3.org/TR/REC-html40\">"+
+            string html = "<html  xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:x=\"urn:schemas-microsoft-com:office:word\" xmlns=\"http://www.w3.org/TR/REC-html40\">" +
 @"<style type='text/css'>
   .silversmall{
             color: gray;
@@ -65,7 +65,7 @@ font-size:12px;
 @page {
    size: 7in 9.25in;
    margin: 27mm 16mm 27mm 16mm;
-}
+}"+style()+@"
 </style>
 
 <body LANG = 'ru-RU' LINK = '#0000ff' DIR = 'LTR' style='font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;'>
@@ -82,7 +82,7 @@ font-size:12px;
         }
         private static string GeneralInfo(CompanyInfo info)
         {
-            string html = string.Format(@"<p class='HeaderParagraph' style='margin - bottom:0cm; margin - bottom:.0001pt'><span style='font - family:&quot; Calibri & quot;,&quot; sans - serif & quot; '><h3>{0}</h3> <o:p ></o:p ></span >
+            string html = string.Format(@"<p class='HeaderParagraph' style='margin - bottom:0cm; margin - bottom:.0001pt'><span style='font - family:&quot; Calibri & quot;,&quot; sans - serif & quot; '><h3 class='h3class'>{0}</h3> <o:p ></o:p ></span >
                     </p >
                     <div style = 'border-bottom-style: solid; border-bottom-color: windowtext; border-bottom-width: 1.5pt; padding: 0cm 0cm 12pt;' >
                          <p class='MsoNormal' style='margin-bottom: 12pt; padding: 0cm;'><span class='Normal10'><span style = 'font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;font-size:8px;' >{1}
@@ -120,7 +120,18 @@ font-size:12px;
             {14}
         </TD >
     </TR >
-</table>", info.INN, info.KPP, info.OGRN, info.OKPO, info.RegDate, info.Status, info.Address, info.AddressAddedDate.ToShortDateString(), info.AddressCount, info.PhoneNumbers.FirstOrDefault(), Manager(info), info.FOMS, info.NalogCode, string.IsNullOrEmpty(info.UstFond)?"":"Уставной фонд: "+info.UstFond, PreActivities(info));
+</table>", info.INN, info.KPP, info.OGRN, info.OKPO, info.RegDate, info.Status, info.Address, info.AddressAddedDate.ToShortDateString(), info.AddressCount, info.PhoneNumbers.FirstOrDefault(), Manager(info), info.FOMS, info.NalogCode, string.IsNullOrEmpty(info.UstFond) ? "" : "Уставной фонд: " + info.UstFond, PreActivities(info));
+            return html;
+        }
+        private static string SpecialReestrs(CompanyInfo info)
+        {
+            string html = "";
+
+            if(!string.IsNullOrEmpty(info.SpecialReestrs))
+            {
+                html = info.SpecialReestrs;
+                
+            }
             return html;
         }
         private static string Manager(CompanyInfo info)
@@ -172,7 +183,7 @@ font-size:12px;
             if (info.Activities != null)
             {
                 html += string.Format(@"<P STYLE='margin - left: 1.17in; margin - bottom: 0.13in; page -break-inside: avoid'>
-                 <B > <h3>Виды
+                 <B > <h3 class='h3class'>Виды
             деятельности ({0})</h3></B ></P >
             <TABLE WIDTH = 438 CELLPADDING = 7 CELLSPACING = 0 style='font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;font-size:8px;'>
                      <COL WIDTH = 69 >
@@ -202,7 +213,7 @@ font-size:12px;
             if (info.Lics != null)
             {
                 html = string.Format(@"<P STYLE='margin - top: 0.25in; margin - bottom: 0.25in; page -break-inside: avoid; page -break-before: always; page -break-after: avoid'>
-        <B > <h3>Лицензии ({0}) </h3>
+        <B > <h3 class='h3class'>Лицензии ({0}) </h3>
                  </B > </P >
                                 <P STYLE = 'margin-top: 0.13in; margin-bottom: 0.19in; page-break-inside: avoid; page-break-after: avoid' ></P > <ol>
                                       ", info.Lics.Count);
@@ -222,8 +233,8 @@ font-size:12px;
 
             if (!(string.IsNullOrEmpty(info.FinBalance) || string.IsNullOrEmpty(info.FinProfit) || string.IsNullOrEmpty(info.FinNetProfit)))
             {
-                html =string.Format(@"<P STYLE='margin - top: 0.25in; margin - bottom: 0.25in; page -break-inside: avoid; page -break-before: always; page -break-after: avoid'>
-        <B > <h3>Финансовое состояние</h3>
+                html = string.Format(@"<P STYLE='margin - top: 0.25in; margin - bottom: 0.25in; page -break-inside: avoid; page -break-before: always; page -break-after: avoid'>
+        <B > <h3 class='h3class'>Финансовое состояние</h3>
                  </B > </P >
                                 <P STYLE = 'margin-top: 0.13in; margin-bottom: 0.19in; page-break-inside: avoid; page-break-after: avoid' ></P >
                                       ");
@@ -268,11 +279,11 @@ font-size:12px;
         private static string ArbitrTable(ArbitrStat info)
         {
             string html = "";
-            if(info!=null)
-            { 
-            html += string.Format(@"
+            if (info != null)
+            {
+                html += string.Format(@"
 <P STYLE = 'margin-bottom: 0in; page-break-inside: avoid; page-break-before: always; page-break-after: avoid' >
-<B > <h3> Арбитражные дела в качестве третьего лица ({0}) {1}</h3></B ></P >
+<B > <h3 class='h3class'> Арбитражные дела в качестве третьего лица ({0}) {1}</h3></B ></P >
 <P STYLE = 'margin-top: 0.19in; margin-bottom: 0in; page-break-inside: avoid; page-break-after: avoid' >
 
 </P >
@@ -283,12 +294,12 @@ font-size:12px;
 <COL WIDTH=84>
 	<COL WIDTH=587><ol>", info.Count, info.Sum);
 
-            foreach (var _case in info.Cases)
-            {
-                html += string.Format("<li><table>{0}{1}{2}{3}{4}{5}</table></li> <br> <br>", WithPre(_case.Number, _case.Date.ToShortDateString()), WithPre(_case.Sum,"Сумма"), WithPre(_case.Type,""), WithPre(_case.Plaintiff, "Истец"), WithPre(_case.Respondent, "Ответчик"), WithPre(_case.Thirds, "Третье лицо"));
+                foreach (var _case in info.Cases)
+                {
+                    html += string.Format("<li><table>{0}{1}{2}{3}{4}{5}</table></li> <br> <br>", WithPre(_case.Number, _case.Date.ToShortDateString()), WithPre(_case.Sum, "Сумма"), WithPre(_case.Type, ""), WithPre(_case.Plaintiff, "Истец"), WithPre(_case.Respondent, "Ответчик"), WithPre(_case.Thirds, "Третье лицо"));
+                }
+                html += "</ol></table>";
             }
-            html += "</ol></table>";
-        }
             return html;
         }
         private static string Contracts(CompanyInfo info)
@@ -298,19 +309,19 @@ font-size:12px;
             html += ContractsTable(info.PostedContracts, "Размещенные государственные контракты");
             return html;
         }
-        private static string ContractsTable(ContractsInfo info,string name)
+        private static string ContractsTable(ContractsInfo info, string name)
         {
             string html = "";
             if (info != null)
             {
                 html += string.Format(@"
-<h3>{2} ({0}). {1} </h3>
+<h3 class='h3class'>{2} ({0}). {1} </h3>
 <ol>", info.Count, info.Sum, name);
 
                 foreach (var contract in info.Contracts)
                 {
                     html += string.Format("<li><table>{0}{1}{2}{3}</table></li> <br>", WithPre(contract.Number, contract.Date.ToShortDateString()), WithPre(contract.Sum, "Сумма"),
-                        WithPre(contract.Name,""), WithPre(contract.Description,""));
+                        WithPre(contract.Name, ""), WithPre(contract.Description, ""));
                 }
                 html += "</ol>";
             }
@@ -320,11 +331,11 @@ font-size:12px;
         {
             string html = "";
 
-            if(info.BailiffsInfo!= null)
+            if (info.BailiffsInfo != null)
             {
-                html +=string.Format(@"
+                html += string.Format(@"
 <P STYLE = 'margin-bottom: 0in; page-break-inside: avoid; page-break-before: always; page-break-after: avoid' >
-<B > <h3>Испольнительные производства ({0})</h3></B ></P >
+<B > <h3 class='h3class'>Испольнительные производства ({0})</h3></B ></P >
 <P STYLE = 'margin-top: 0.19in; margin-bottom: 0in; page-break-inside: avoid; page-break-after: avoid' >
 </P >
 <P STYLE = 'margin-top: 0.19in; margin-bottom: 0in; page-break-inside: avoid; page-break-after: avoid' >
@@ -345,13 +356,13 @@ font-size:12px;
         {
             string html = "";
 
-            if(info.Founders!=null)
+            if (info.Founders != null)
             {
-                html = string.Format("<div> <h3> Учредители </h3> <table>");
+                html = string.Format("<div> <h3 class='h3class'> Учредители </h3> <table>");
 
-                foreach(var founder in info.Founders)
+                foreach (var founder in info.Founders)
                 {
-                    html += string.Format("<tr><td>{0}</td><span class='silversmall'><td> {1} </td><td>{2}</td><td>{3}</td><td>{4}</td></span></tr>", founder.Name,founder.Percent, founder.Rubles, string.IsNullOrEmpty(founder.INN) ? "" : "ИНН: " + founder.INN, string.IsNullOrEmpty(founder.OGRN)?"":"ОГРН: "+founder.OGRN);
+                    html += string.Format("<tr><td>{0}</td><span class='silversmall'><td> {1} </td><td>{2}</td><td>{3}</td><td>{4}</td></span></tr>", founder.Name, founder.Percent, founder.Rubles, string.IsNullOrEmpty(founder.INN) ? "" : "ИНН: " + founder.INN, string.IsNullOrEmpty(founder.OGRN) ? "" : "ОГРН: " + founder.OGRN);
                 }
                 html += "</table>";
             }
@@ -360,19 +371,19 @@ font-size:12px;
         private static string History(CompanyInfo info)
         {
             string html = "";
-            if(info.LastFounders.Count>0 ||info.LastManagers.Count > 0 || info.LastFonds.Count > 0 || info.OtherNames.Count > 0)
+            if (info.LastFounders.Count > 0 || info.LastManagers.Count > 0 || info.LastFonds.Count > 0 || info.OtherNames.Count > 0)
             {
-                html +="<h3>История</h3>";
-                if(info.LastFonds!=null&&info.LastFonds.Count>0)
+                html += "<h3 class='h3class'>История</h3>";
+                if (info.LastFonds != null && info.LastFonds.Count > 0)
                 {
                     html += "<div>Уставной фонд<ol>";
-                    foreach(var fond in info.LastFonds)
+                    foreach (var fond in info.LastFonds)
                     {
-                        html += string.Format("<li>{0} {1}</li>",fond.Value,fond.AddedDate.ToShortDateString());
+                        html += string.Format("<li>{0} {1}</li>", fond.Value, fond.AddedDate.ToShortDateString());
                     }
                     html += "</ol><div>";
                 }
-                if(info.LastFounders!=null&& info.LastFounders.Count>0)
+                if (info.LastFounders != null && info.LastFounders.Count > 0)
                 {
                     html += "<div>Учредители<ol>";
                     foreach (var fond in info.LastFounders)
@@ -381,7 +392,7 @@ font-size:12px;
                     }
                     html += "<div></ol>";
                 }
-                if (info.LastManagers != null&& info.LastFounders.Count>0)
+                if (info.LastManagers != null && info.LastFounders.Count > 0)
                 {
                     html += "<div>Руководители<ol>";
                     foreach (var ruk in info.LastManagers)
@@ -390,7 +401,7 @@ font-size:12px;
                     }
                     html += "</ol><div>";
                 }
-                if(info.OtherNames!= null&& info.OtherNames.Count>0)
+                if (info.OtherNames != null && info.OtherNames.Count > 0)
                 {
                     html += "<div>Наименования<ol>";
                     foreach (var name in info.OtherNames)
@@ -399,7 +410,7 @@ font-size:12px;
                     }
                     html += "</ol><div>";
                 }
-                if (info.OtherAddresses != null &&info.OtherAddresses.Count>0)
+                if (info.OtherAddresses != null && info.OtherAddresses.Count > 0)
                 {
                     html += "<div>Адреса<ol>";
                     foreach (var name in info.OtherAddresses)
@@ -408,33 +419,43 @@ font-size:12px;
                     }
                     html += "</ol><div>";
                 }
-                
+
             }
             return html;
         }
 
-        private static string RelatedCompanies(List<RelatedCompany> list,string name)
+        private static string RelatedCompanies(List<RelatedCompany> list, string name)
         {
             string html = "";
 
             if (list != null)
             {
-                html += "<h3>" + name + "</h3> <ol>";
+                html += "<h3 class='h3class'>" + name + "</h3>";
 
                 foreach (var item in list)
                 {
-                    html += string.Format("<li><table>{0}{1}{2}{3}{4}</table></li> <br>", WithPre(item.Name, "_"), WithPre(item.INN, "ИНН"), WithPre(item.OGRN, "ОГРН"), WithPre(item.Status, "Состояние"), WithPre(item.Address, ""));
+                    //html += string.Format("<li><table>{0}{1}{2}{3}{4}{5}{6}</table></li> <br>", WithPre(item.Name, "_"), WithPre(item.INN, "ИНН"), WithPre(item.OGRN, "ОГРН"), WithPre(item.Status, "Состояние"), 
+                    //    WithPre(item.Address, "Адрес"),WithPre(string.Format("{0}<br>{1}<br>{2}",item.Manager,item.ManagerDate,item.ManagerCount),"Руководитель"),
+                    //    WithPre(item.Capital,"Уставный капитал"));
+                    html += "" + item.Name + "";
                 }
-                html += "</ol>";
+                html += "";
             }
             return html;
         }
-        private static string WithPre(string value,string pre)
+        private static string WithPre(string value, string pre)
         {
             if (string.IsNullOrEmpty(value))
                 return "";
             else
-                return string.Format("<tr> <td class='silversmall'>{0} </td> <td> {1}</td></tr>",pre,value);
+                return string.Format("<tr> <td class='silversmall'>{0} </td> <td> {1}</td></tr>", pre, value);
         }
+
+        private static string style()
+        {
+            return File.ReadAllText("style.txt");
+
+        }
+    
     }
 }

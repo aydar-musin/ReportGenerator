@@ -327,6 +327,11 @@ namespace ReportGenerator
                     var match = Regex.Match(el.InnerText.GetHTMLDecoded(), "Уставный капитал:(?<sum>.*)руб.");
                     if(match.Success) companyInfo.UstFond=match.Groups["sum"].Value;
                 }
+
+                if(block.InnerText.Contains("Особые реестры ФНС"))
+                {
+                    companyInfo.SpecialReestrs = block.InnerHtml.Replace("href","attr").Replace("green underline", "alert underline");
+                }
             }
 
             return companyInfo;
@@ -665,7 +670,7 @@ namespace ReportGenerator
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(html);
 
-            var elements = doc.DocumentNode.SelectNodes("//div[@class='rigidIndent graphInfoInBlock js-graph-subject']");
+            var elements = doc.DocumentNode.SelectNodes("//div[@class='leftColumnGraph']");
             if (elements == null)
                 return null;
 
@@ -674,52 +679,65 @@ namespace ReportGenerator
             foreach (var element in elements)
             {
                 RelatedCompany company = new RelatedCompany();
-                company.Name = element.SelectSingleNode(".//a[@class='graph-line-link marR12']").InnerText.GetHTMLDecoded();
+                company.Name = element.InnerHtml.Replace("href","attr");
+                //company.Name = element.SelectSingleNode(".//a[@class='graph-line-link marR12']").InnerText.GetHTMLDecoded();
 
-                var ogrninn = element.SelectSingleNode("div[@class='ogrn-inn']");
-                if (ogrninn != null)
-                {
-                    string innerText = ogrninn.InnerText.GetHTMLDecoded();
-                    var match = Regex.Match(innerText, "ИНН: (?<inn>[0-9]{9})");
-                    if (match.Success)
-                        company.INN = match.Groups["inn"].Value;
+                //var ogrninn = element.SelectSingleNode("div[@class='ogrn-inn']");
+                //if (ogrninn != null)
+                //{
+                //    string innerText = ogrninn.InnerText.GetHTMLDecoded();
+                //    var match = Regex.Match(innerText, "ИНН: (?<inn>[0-9]{9})");
+                //    if (match.Success)
+                //        company.INN = match.Groups["inn"].Value;
                     
-                    match = Regex.Match(innerText,"ОГРН: (?<ogrn>[0-9]{13})");
-                    if(match.Success)
-                        company.OGRN=match.Groups["ogrn"].Value;
-                }
+                //    match = Regex.Match(innerText,"ОГРН: (?<ogrn>[0-9]{13})");
+                //    if(match.Success)
+                //        company.OGRN=match.Groups["ogrn"].Value;
+                //}
 
-                var statusEl = element.SelectSingleNode(".//div[@class='green']");
-                if (statusEl != null)
-                    company.Status = statusEl.InnerText.GetHTMLDecoded();
-                else
-                {
-                    statusEl = element.SelectSingleNode(".//div[@class='alert']");
-                    if (statusEl != null)
-                        company.Status = statusEl.InnerText.GetHTMLDecoded();
-                }
+                //var statusEl = element.SelectSingleNode(".//div[@class='green']");
+                //if (statusEl != null)
+                //    company.Status = statusEl.InnerText.GetHTMLDecoded();
+                //else
+                //{
+                //    statusEl = element.SelectSingleNode(".//div[@class='alert']");
+                //    if (statusEl != null)
+                //        company.Status = statusEl.InnerText.GetHTMLDecoded();
+                //}
 
-                var divs = element.SelectNodes(".//div[@class='graphTextBlock']");
+                //var divs = element.SelectNodes(".//div[@class='graphTextBlock']");
 
-                foreach(var div in divs)
-                {
-                    if(div.InnerText.Contains("Директор"))
-                    {
-                        company.Manager = div.InnerHtml;
-                    }
-                    else if(div.InnerText.Contains("Учредители"))
-                    {
-                        company.Foudners = Founders(div.InnerHtml).ToList();
-                    }
-                    else if(div.InnerText.Contains("Уставный капитал"))
-                    {
+                //foreach(var div in divs)
+                //{
+                //    if(div.InnerText.ToLower().Contains("директор")|| div.InnerText.ToLower().Contains("председатель"))
+                //    {
+                //        var el = div.SelectSingleNode(".//span[@class=' underline']");
+                //        if(el!=null)
+                //        {
+                //            company.Manager = el.InnerText.Trim();
 
-                    }
-                    else if(div.InnerText.Contains("Адрес"))
-                    {
+                //            var dateEl = div.SelectSingleNode(".//span[@class='ind1em']");
+                //            company.ManagerDate = dateEl!=null?dateEl.InnerText.Trim():"";
 
-                    }
-                }
+                //            var countEl = div.SelectSingleNode(".//a[@class='connectionsLink']");
+                //            company.ManagerCount = countEl!=null?countEl.InnerText.Trim():"";
+                //        }
+                        
+
+                //    }
+                //    else if(div.InnerText.Contains("Учредители"))
+                //    {
+                //        company.Foudners = Founders(div.InnerHtml).ToList();
+                //    }
+                //    else if(div.InnerText.Contains("Уставный капитал"))
+                //    {
+                //        company.Capital = div.InnerHtml.Replace("Уставный капитал", "");
+                //    }
+                //    else if(div.InnerText.Contains("Адрес"))
+                //    {
+                //        company.Address = div.InnerText.Replace("Адрес:","");
+                //    }
+                //}
 
                 result.Add(company);
             }

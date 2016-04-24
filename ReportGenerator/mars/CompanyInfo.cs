@@ -83,6 +83,7 @@ namespace ReportGenerator
 
         public List<RelatedCompany> Predecessors;
         public List<RelatedCompany> RelatedCompanies;
+        public string SpecialReestrs;
     }
     public class Manager
     {
@@ -192,12 +193,17 @@ namespace ReportGenerator
         public string Address;
         public string Status;
         public string Manager;
+        public string ManagerDate;
+        public string ManagerCount;
+
         public List<Founder> Foudners;
         public List<Founder> Founded;
         public string Bailiffs;
         public string AsPlaintiff;
         public string AsRespondent;
         public string Contracts;
+
+        public string Capital;
     }
     public class SpecialReestr
     {
