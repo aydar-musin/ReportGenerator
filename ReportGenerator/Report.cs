@@ -10,6 +10,7 @@ namespace ReportGenerator
     {
         private static void ConvertDocToDocx(string path)
         {
+            CloseWord();
             Application word = new Application();
 
             if (path.ToLower().EndsWith(".doc"))
@@ -24,7 +25,20 @@ namespace ReportGenerator
                 word.ActiveDocument.Close();
                 word.Quit();
 
-                //File.Delete(path);
+                File.Delete(path);
+            }
+        }
+        private static void CloseWord()
+        {
+            try
+            {
+                var prcs = System.Diagnostics.Process.GetProcessesByName("WINWORD");
+                foreach (var prc in prcs)
+                    prc.Kill();
+            }
+            catch
+            {
+
             }
         }
         private static string GenerateTR(params object[] input)
