@@ -122,11 +122,33 @@ namespace ReportGenerator
         }
         public List<RelatedCompany> GetPredecessors(string id)
         {
-            return Parser.RelatedCompanies(Request("https://focus.kontur.ru/graph?page=1&filterFlags=268435456&order=29&query="+id));
+            List<RelatedCompany> result = new List<RelatedCompany>();
+            for(int i=1;i<5;i++)
+            {
+                var items= Parser.RelatedCompanies(Request(string.Format("https://focus.kontur.ru/graph?page={0}&filterFlags=268435456&order=29&query={1}",i,id)));
+                if (items != null)
+                    result.AddRange(items);
+                else
+                    break;
+            }
+            if (result.Count == 0)
+                return null;
+            return result;
         }
         public List<RelatedCompany> GetRelatedCompanies(string id)
         {
-            return Parser.RelatedCompanies(Request("https://focus.kontur.ru/graph?order=29&query=" + id));
+            List<RelatedCompany> result = new List<RelatedCompany>();
+            for (int i = 1; i < 5; i++)
+            {
+                var items = Parser.RelatedCompanies(Request(string.Format("https://focus.kontur.ru/graph?page={0}&filterFlags=268435456&query={1}", i, id)));
+                if (items != null)
+                    result.AddRange(items);
+                else
+                    break;
+            }
+            if (result.Count == 0)
+                return null;
+            return result;
         }
         public List<Founder> GetFounders(string id)
         {
@@ -150,13 +172,23 @@ namespace ReportGenerator
         }
         private ArbitrStat GetArbitr(string id, string type)
         {
-            var arb = Parser.ArbitrAsPlaitiff(Request(string.Format("https://focus.kontur.ru/kad?type={0}&years=0&query={1}", type, id)));
+            Func<string, ArbitrStat> get = null ;
+            switch (type)
+            {
+                case "0":
+                    { get = new Func<string, ArbitrStat>(Parser.ArbitrAsPlaitiff); break; }
+                case "1":
+                    { get = new Func<string, ArbitrStat>(Parser.ArbitrAsRespondent); break; }
+                case "4":
+                    { get = new Func<string, ArbitrStat>(Parser.ArbitrAsThird); break; }
+            }
+            var arb = get(Request(string.Format("https://focus.kontur.ru/kad?type={0}&years=0&query={1}", type, id)));
 
             if (arb != null && arb.Count > 10)
             {
                 for (int i = 2; i <= 10; i++)
                 {
-                    var add_arb = Parser.ArbitrAsPlaitiff(Request(string.Format("https://focus.kontur.ru/kad?type={0}&years=0&query={1}&page={2}", type, id, i)));
+                    var add_arb = get(Request(string.Format("https://focus.kontur.ru/kad?type={0}&years=0&query={1}&page={2}", type, id, i)));
                     if (add_arb != null)
                     {
                         arb.Cases.AddRange(add_arb.Cases);

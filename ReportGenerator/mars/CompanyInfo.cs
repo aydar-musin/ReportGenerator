@@ -16,7 +16,7 @@ namespace ReportGenerator
         public string FOMS;
         public string FSS;
         public string UstFond;
-
+        public string History;
         // Information about existing bailiffs info, arbitr, contracts, licensies, trademark
         public bool BailiffsExist; // Исп. производства
         public bool ArbitrationExists; // Арбитраж
@@ -75,6 +75,7 @@ namespace ReportGenerator
         public ArbitrStat ArbitrAsRespondent;
         public ArbitrStat ArbitrAsThird;
 
+        public string FinYear;
         public string FinBalance;
         public string FinProfit;
         public string FinNetProfit;

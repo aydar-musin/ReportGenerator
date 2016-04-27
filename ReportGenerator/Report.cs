@@ -25,7 +25,7 @@ namespace ReportGenerator
                 word.ActiveDocument.Close();
                 word.Quit();
 
-                File.Delete(path);
+                //File.Delete(path);
             }
         }
         private static void CloseWord()
@@ -234,8 +234,7 @@ font-size:12px;
 
                 foreach (var lic in info.Lics)
                 {
-                    html += string.Format(@"<br><br><li><p><P STYLE='margin - bottom: 0.13in; page -break-inside: avoid'>{0} <span class='silversmall'>{1}</span> <BR > {2}<BR > <span class='silversmall'>{3}</span></P > </li>",
-                        lic.Number, lic.Date.HasValue ? lic.Date.Value.ToShortDateString() : "", lic.Activity, lic.Address);
+                    html += "<li>"+lic.Activity+"</li><br><br>";
                 }
                 html += "</ol>";
             }
@@ -248,10 +247,10 @@ font-size:12px;
             if (!(string.IsNullOrEmpty(info.FinBalance) || string.IsNullOrEmpty(info.FinProfit) || string.IsNullOrEmpty(info.FinNetProfit)))
             {
                 html = string.Format(@"<P STYLE='margin - top: 0.25in; margin - bottom: 0.25in; page -break-inside: avoid; page -break-before: always; page -break-after: avoid'>
-        <B > <h3 class='h3class'>Финансовое состояние</h3>
+        <B > <h3 class='h3class'>Финансовое состояние на {0} год</h3>
                  </B > </P >
                                 <P STYLE = 'margin-top: 0.13in; margin-bottom: 0.19in; page-break-inside: avoid; page-break-after: avoid' ></P >
-                                      ");
+                                      ",info.FinYear);
                 html += string.Format(@"<TABLE WIDTH=699 CELLPADDING=7 CELLSPACING=0 style='font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;font-size:8px;'>
 	<COL WIDTH=52>
 	<COL WIDTH=619>
@@ -304,15 +303,13 @@ font-size:12px;
 <P STYLE = 'margin-top: 0.19in; margin-bottom: 0in; page-break-inside: avoid; page-break-after: avoid' >
 
 </P >
-<TABLE WIDTH = 699 CELLPADDING = 7 CELLSPACING = 0 > 
-<COL WIDTH=84>
-	<COL WIDTH=587><ol>", info.Count, info.Sum);
+<ol>", info.Count, info.Sum);
 
                 foreach (var _case in info.Cases)
                 {
-                    html += string.Format("<li><table>{0}{1}{2}{3}{4}{5}</table></li> <br> <br>", WithPre(_case.Number, _case.Date.ToShortDateString()), WithPre(_case.Sum, "Сумма"), WithPre(_case.Type, ""), WithPre(_case.Plaintiff, "Истец"), WithPre(_case.Respondent, "Ответчик"), WithPre(_case.Thirds, "Третье лицо"));
+                    html += string.Format("<li>{0}</li><br><br>", _case.Number);
                 }
-                html += "</ol></table>";
+                html += "</ol>";
             }
             return html;
         }
@@ -334,8 +331,7 @@ font-size:12px;
 
                 foreach (var contract in info.Contracts)
                 {
-                    html += string.Format("<li><table>{0}{1}{2}{3}</table></li> <br>", WithPre(contract.Number, contract.Date.ToShortDateString()), WithPre(contract.Sum, "Сумма"),
-                        WithPre(contract.Name, ""), WithPre(contract.Description, ""));
+                    html += string.Format("{0}</li>",contract.Number );
                 }
                 html += "</ol>";
             }
@@ -349,7 +345,7 @@ font-size:12px;
             {
                 html += string.Format(@"
 <P STYLE = 'margin-bottom: 0in; page-break-inside: avoid; page-break-before: always; page-break-after: avoid' >
-<B > <h3 class='h3class'>Испольнительные производства ({0})</h3></B ></P >
+<B > <h3 class='h3class'>Исполнительные производства ({0})</h3></B ></P >
 <P STYLE = 'margin-top: 0.19in; margin-bottom: 0in; page-break-inside: avoid; page-break-after: avoid' >
 </P >
 <P STYLE = 'margin-top: 0.19in; margin-bottom: 0in; page-break-inside: avoid; page-break-after: avoid' >
@@ -360,7 +356,7 @@ font-size:12px;
 
                 foreach (var _case in info.BailiffsInfo.Cases)
                 {
-                    html += string.Format("<li><table>{0}{1}{2}</table></li><br>", WithPre(_case.Date.ToShortDateString(), _case.Number), WithPre(_case.Sum, "Сумма"), WithPre(_case.Type, "Предмет"));
+                    html += string.Format("{0}<br>", _case.Number);
                 }
                 html += "</ol>";
             }
@@ -384,58 +380,7 @@ font-size:12px;
         }
         private static string History(CompanyInfo info)
         {
-            string html = "";
-            if (info.LastFounders.Count > 0 || info.LastManagers.Count > 0 || info.LastFonds.Count > 0 || info.OtherNames.Count > 0)
-            {
-                html += "<h3 class='h3class'>История</h3>";
-                if (info.LastFonds != null && info.LastFonds.Count > 0)
-                {
-                    html += "<div>Уставной фонд<ol>";
-                    foreach (var fond in info.LastFonds)
-                    {
-                        html += string.Format("<li>{0} {1}</li>", fond.Value, fond.AddedDate.ToShortDateString());
-                    }
-                    html += "</ol><div>";
-                }
-                if (info.LastFounders != null && info.LastFounders.Count > 0)
-                {
-                    html += "<div>Учредители<ol>";
-                    foreach (var fond in info.LastFounders)
-                    {
-                        html += string.Format("<li>{0} {1}</li>", fond.Name, fond.Rubles);
-                    }
-                    html += "<div></ol>";
-                }
-                if (info.LastManagers != null && info.LastFounders.Count > 0)
-                {
-                    html += "<div>Руководители<ol>";
-                    foreach (var ruk in info.LastManagers)
-                    {
-                        html += string.Format("<li>{0} {1} {2}</li>", ruk.Amplua, ruk.Name, ruk.Date.ToShortDateString());
-                    }
-                    html += "</ol><div>";
-                }
-                if (info.OtherNames != null && info.OtherNames.Count > 0)
-                {
-                    html += "<div>Наименования<ol>";
-                    foreach (var name in info.OtherNames)
-                    {
-                        html += string.Format("<li>{0} {1}</li>", name.Value, name.AddedDate.ToShortDateString());
-                    }
-                    html += "</ol><div>";
-                }
-                if (info.OtherAddresses != null && info.OtherAddresses.Count > 0)
-                {
-                    html += "<div>Адреса<ol>";
-                    foreach (var name in info.OtherAddresses)
-                    {
-                        html += string.Format("<li>{0} {1}</li>", name.Value, name.AddedDate.ToShortDateString());
-                    }
-                    html += "</ol><div>";
-                }
-
-            }
-            return html;
+            return info.History+"<br><br>";
         }
 
         private static string RelatedCompanies(List<RelatedCompany> list, string name)
@@ -444,16 +389,16 @@ font-size:12px;
 
             if (list != null)
             {
-                html += "<h3 class='h3class'>" + name + "</h3>";
+                html += "<h3 class='h3class'>" + name + "</h3> <ol>";
 
                 foreach (var item in list)
                 {
                     //html += string.Format("<li><table>{0}{1}{2}{3}{4}{5}{6}</table></li> <br>", WithPre(item.Name, "_"), WithPre(item.INN, "ИНН"), WithPre(item.OGRN, "ОГРН"), WithPre(item.Status, "Состояние"), 
                     //    WithPre(item.Address, "Адрес"),WithPre(string.Format("{0}<br>{1}<br>{2}",item.Manager,item.ManagerDate,item.ManagerCount),"Руководитель"),
                     //    WithPre(item.Capital,"Уставный капитал"));
-                    html += "" + item.Name + "";
+                    html += "<li>" + item.Name + "</li>";
                 }
-                html += "";
+                html += "</ol>";
             }
             return html;
         }
