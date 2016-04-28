@@ -188,7 +188,8 @@ namespace ReportGenerator
                         }
                         else if (fullmarginBlocks.InnerText.ToLower().Contains("директор")|| 
                             fullmarginBlocks.InnerText.ToLower().Contains("президент") ||
-                            fullmarginBlocks.InnerText.ToLower().Contains("управляющий")
+                            fullmarginBlocks.InnerText.ToLower().Contains("управляющий") ||
+                            fullmarginBlocks.InnerText.ToLower().Contains("председатель")
                             )
                         {
                             var items = fullmarginBlocks.InnerText.Trim().Replace("\t", "").Replace("\r", "").Replace("&nbsp", "").Split(new char[] { '\n', ';' }, StringSplitOptions.RemoveEmptyEntries);
@@ -315,20 +316,22 @@ namespace ReportGenerator
             {
                 Founder founder = new Founder();
                 var tds = tr.Elements("td").ToArray();
-                founder.Name = tds[1].Element("a").InnerText.GetHTMLDecoded();
-                founder.Percent = tds[2].InnerText.GetHTMLDecoded();
-                founder.Rubles = tds[3].InnerText.GetHTMLDecoded();
+                tds[0].InnerHtml = "";
+                founder.Name = tr.InnerHtml.Replace("href","attr").Replace("td","p");
 
-                DateTime.TryParse(tds[5].InnerText.GetHTMLDecoded(),out founder.Date);
+                //founder.Percent = tds[2].InnerText.GetHTMLDecoded();
+                //founder.Rubles = tds[3].InnerText.GetHTMLDecoded();
 
-                string args = tds[1].Element("div").InnerText.GetHTMLDecoded();
-                var match = Regex.Match(args, "ОГРН: (?<ogrn>[0-9]{13})");
-                if (match.Success)
-                    founder.OGRN = match.Groups["ogrn"].Value;
+                //DateTime.TryParse(tds[5].InnerText.GetHTMLDecoded(),out founder.Date);
 
-                match = Regex.Match(args, "ИНН: (?<inn>[0-9]{10})");
-                if (match.Success)
-                    founder.INN = match.Groups["inn"].Value;
+                //string args = tds[1].Element("div").InnerText.GetHTMLDecoded();
+                //var match = Regex.Match(args, "ОГРН: (?<ogrn>[0-9]{13})");
+                //if (match.Success)
+                //    founder.OGRN = match.Groups["ogrn"].Value;
+
+                //match = Regex.Match(args, "ИНН: (?<inn>[0-9]{10})");
+                //if (match.Success)
+                //    founder.INN = match.Groups["inn"].Value;
 
                 result.Add(founder);
             }
@@ -611,6 +614,7 @@ namespace ReportGenerator
 
                 RelatedCompany company = new RelatedCompany();
                 company.Name = element.ParentNode.InnerHtml.Replace("href","attr");
+                company.Name += "<br><br>"+element.ParentNode.NextSibling.NextSibling.InnerHtml.Replace("href", "attr");
 
                 result.Add(company);
             }

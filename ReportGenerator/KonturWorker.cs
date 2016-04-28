@@ -140,7 +140,7 @@ namespace ReportGenerator
             List<RelatedCompany> result = new List<RelatedCompany>();
             for (int i = 1; i < 5; i++)
             {
-                var items = Parser.RelatedCompanies(Request(string.Format("https://focus.kontur.ru/graph?page={0}&filterFlags=268435456&query={1}", i, id)));
+                var items = Parser.RelatedCompanies(Request(string.Format("https://focus.kontur.ru/graph?page={0}&query={1}", i, id)));
                 if (items != null)
                     result.AddRange(items);
                 else

@@ -25,7 +25,7 @@ namespace ReportGenerator
                 word.ActiveDocument.Close();
                 word.Quit();
 
-                //File.Delete(path);
+                File.Delete(path);
             }
         }
         private static void CloseWord()
@@ -33,6 +33,12 @@ namespace ReportGenerator
             try
             {
                 var prcs = System.Diagnostics.Process.GetProcessesByName("WINWORD");
+                foreach (var prc in prcs)
+                    prc.Kill();
+
+                System.Threading.Thread.Sleep(1000);
+
+                prcs = System.Diagnostics.Process.GetProcessesByName("WINWORD");
                 foreach (var prc in prcs)
                     prc.Kill();
             }
@@ -244,7 +250,7 @@ font-size:12px;
         {
             string html = "";
 
-            if (!(string.IsNullOrEmpty(info.FinBalance) || string.IsNullOrEmpty(info.FinProfit) || string.IsNullOrEmpty(info.FinNetProfit)))
+            if ((!string.IsNullOrEmpty(info.FinBalance) || (!string.IsNullOrEmpty(info.FinProfit)) || (!string.IsNullOrEmpty(info.FinNetProfit))))
             {
                 html = string.Format(@"<P STYLE='margin - top: 0.25in; margin - bottom: 0.25in; page -break-inside: avoid; page -break-before: always; page -break-after: avoid'>
         <B > <h3 class='h3class'>Финансовое состояние на {0} год</h3>
@@ -368,13 +374,13 @@ font-size:12px;
 
             if (info.Founders != null)
             {
-                html = string.Format("<div> <h3 class='h3class'> Учредители </h3> <table>");
+                html = string.Format("<div> <h3 class='h3class'> Учредители </h3> <ol>");
 
                 foreach (var founder in info.Founders)
                 {
-                    html += string.Format("<tr><td>{0}</td><span class='silversmall'><td> {1} </td><td>{2}</td><td>{3}</td><td>{4}</td></span></tr>", founder.Name, founder.Percent, founder.Rubles, string.IsNullOrEmpty(founder.INN) ? "" : "ИНН: " + founder.INN, string.IsNullOrEmpty(founder.OGRN) ? "" : "ОГРН: " + founder.OGRN);
+                    html += string.Format("<li>{0}</li><br>", founder.Name);
                 }
-                html += "</table>";
+                html += "</ol>";
             }
             return html;
         }
