@@ -8,6 +8,7 @@ namespace ReportGenerator
 {
     class ReportGenerator
     {
+        private const string BR = "<br><br><br>";
         private static void ConvertDocToDocx(string path)
         {
             CloseWord();
@@ -25,7 +26,7 @@ namespace ReportGenerator
                 word.ActiveDocument.Close();
                 word.Quit();
 
-                File.Delete(path);
+                //File.Delete(path);
             }
         }
         private static void CloseWord()
@@ -60,7 +61,7 @@ namespace ReportGenerator
         }
         public static string Generate(CompanyInfo info, Order order)
         {
-            string html = GeneralInfo(info) +SpecialReestrs(info) + Founders(info) + Activities(info) + Lics(info) + Finance(info) + Arbitr(info) + Contracts(info) + Bailiffs(info) + History(info) + RelatedCompanies(info.RelatedCompanies, "Связанные организации") + RelatedCompanies(info.Predecessors, "Предшественники");
+            string html = GeneralInfo(info) +BR+SpecialReestrs(info)+ BR + Bankrupt(info.BankruptMessages) + BR + Founders(info) + BR + Activities(info) + BR + Lics(info) + BR + Finance(info) + BR + Arbitr(info) + Contracts(info) + BR + Bailiffs(info) + BR + History(info) + BR + RelatedCompanies(info.RelatedCompanies, "Связанные организации") + BR + RelatedCompanies(info.Predecessors, "Предшественники");
             html = GetTemplate() + html + "</body> </html>";
 
             string fileName = "temp/" + order.CompanyINNOGRN + "_" + order.CustomerEmail + ".doc";
@@ -289,27 +290,27 @@ font-size:12px;
         private static string Arbitr(CompanyInfo info)
         {
             string html = "";
-            html += ArbitrTable(info.ArbitrAsPlaintiff);
-            html += ArbitrTable(info.ArbitrAsRespondent);
-            html += ArbitrTable(info.ArbitrAsThird);
+            html += ArbitrTable("истца",info.ArbitrAsPlaintiff);
+            html += ArbitrTable("ответчика",info.ArbitrAsRespondent);
+            html += ArbitrTable("третего лица",info.ArbitrAsThird);
 
             return html;
         }
-        private static string ArbitrTable(ArbitrStat info)
+        private static string ArbitrTable(string name,ArbitrStat info)
         {
             string html = "";
             if (info != null)
             {
                 html += string.Format(@"
 <P STYLE = 'margin-bottom: 0in; page-break-inside: avoid; page-break-before: always; page-break-after: avoid' >
-<B > <h3 class='h3class'> Арбитражные дела в качестве третьего лица ({0}) {1}</h3></B ></P >
+<B > <h3 class='h3class'> Арбитражные дела в качестве {2} ({0}) {1}</h3></B ></P >
 <P STYLE = 'margin-top: 0.19in; margin-bottom: 0in; page-break-inside: avoid; page-break-after: avoid' >
 
 </P >
 <P STYLE = 'margin-top: 0.19in; margin-bottom: 0in; page-break-inside: avoid; page-break-after: avoid' >
 
 </P >
-<ol>", info.Count, info.Sum);
+<ol>", info.Count, info.Sum,name);
 
                 foreach (var _case in info.Cases)
                 {
@@ -322,7 +323,7 @@ font-size:12px;
         private static string Contracts(CompanyInfo info)
         {
             string html = "";
-            html += ContractsTable(info.WonContracts, "Выйгранные государственные контракты");
+            html += ContractsTable(info.WonContracts, "Выигранные государственные контракты");
             html += ContractsTable(info.PostedContracts, "Размещенные государственные контракты");
             return html;
         }
@@ -416,6 +417,22 @@ font-size:12px;
                 return string.Format("<tr> <td class='silversmall'>{0} </td> <td> {1}</td></tr>", pre, value);
         }
 
+        private static string Bankrupt(List<string> messages)
+        {
+            string html = "";
+
+            if(messages!=null)
+            {
+                html=string.Format("<h3>Сообщения о банкротстве</h3> <ol>");
+
+                foreach (var mes in messages)
+                {
+                    html += mes + "<br><br>";
+                }
+                html += "</ol>";
+            }
+            return html;
+        }
         private static string style()
         {
             return File.ReadAllText("style.txt");

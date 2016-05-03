@@ -319,20 +319,6 @@ namespace ReportGenerator
                 tds[0].InnerHtml = "";
                 founder.Name = tr.InnerHtml.Replace("href","attr").Replace("td","p");
 
-                //founder.Percent = tds[2].InnerText.GetHTMLDecoded();
-                //founder.Rubles = tds[3].InnerText.GetHTMLDecoded();
-
-                //DateTime.TryParse(tds[5].InnerText.GetHTMLDecoded(),out founder.Date);
-
-                //string args = tds[1].Element("div").InnerText.GetHTMLDecoded();
-                //var match = Regex.Match(args, "ОГРН: (?<ogrn>[0-9]{13})");
-                //if (match.Success)
-                //    founder.OGRN = match.Groups["ogrn"].Value;
-
-                //match = Regex.Match(args, "ИНН: (?<inn>[0-9]{10})");
-                //if (match.Success)
-                //    founder.INN = match.Groups["inn"].Value;
-
                 result.Add(founder);
             }
             return result;
@@ -413,6 +399,12 @@ namespace ReportGenerator
                 addEl = item.SelectSingleNode(".//*[contains(text(),'Показать всех ')]");
                 if (addEl != null)
                     addEl.InnerHtml = "";
+                addEl = item.SelectSingleNode(".//p[@class='kad-item-exLinkRow-p']");
+                if (addEl != null)
+                    addEl.InnerHtml = "";
+                addEl = item.SelectSingleNode(".//div[@class='halfMargin kad-item-instances hidden']");
+                if (addEl != null)
+                    addEl.InnerHtml = "";
 
                 var rows = item.SelectNodes(".//div[@class='stickOut kad-stickOut stickOut__displayed']");
                 if (rows != null)
@@ -477,7 +469,7 @@ namespace ReportGenerator
                     _case.Number = item.OuterHtml.Replace("stickOut kad-stickOut stickOut__displayed", "silversmall").Replace("Показать все документы", "");
                     _case.Number = _case.Number.Replace("href", "attr");
                     _case.Number = _case.Number.Replace("div","p");
-                    _case.Number = _case.Number.Replace("block relative kad-item size13","");
+                    _case.Number = _case.Number.Replace("block relative kad-item size13","").Replace("fssp-item-department","");
                 }
                 info.Cases.Add(_case);
             }
@@ -525,10 +517,10 @@ namespace ReportGenerator
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(html);
             ContractsInfo info = new ContractsInfo();
-            var countEl = doc.DocumentNode.SelectSingleNode("/html/body/div[1]/div[5]/div/div[2]/div[1]/ul/li[2]/span/sup");
+            var countEl = doc.DocumentNode.SelectSingleNode("/html/body/div[1]/div[5]/div/div[2]/div[1]/ul/li[1]/span/sup");
             if (countEl == null) return null;
             info.Count = int.Parse(countEl.InnerText.GetHTMLDecoded());
-            info.Sum = doc.DocumentNode.SelectSingleNode("/html/body/div[1]/div[5]/div/div[2]/div[1]/ul/li[2]/span/i").InnerText.GetHTMLDecoded();
+            info.Sum = doc.DocumentNode.SelectSingleNode("/html/body/div[1]/div[5]/div/div[2]/div[1]/ul/li[1]/span/i").InnerText.GetHTMLDecoded();
 
             var items = doc.DocumentNode.SelectNodes(".//li[@class='block relative size13']");
             if (items == null)
@@ -611,12 +603,56 @@ namespace ReportGenerator
                 if (addEl != null) addEl.InnerHtml = "";
                 addEl = element.SelectSingleNode(".//div[@class='stickOut stickOut__display1024 textRight leftNum']");
                 if (addEl != null) addEl.InnerHtml = "";
+                addEl = element.SelectSingleNode(".//span[@class=' oldConnection strikeThrough']");
+                if (addEl != null) addEl.InnerHtml = "<strike>"+addEl.InnerHtml+"</strike>";
+
+                addEl = element.SelectSingleNode(".//*[contains(text(),'Подробнее')]");
+                if (addEl != null) addEl.InnerHtml = "";
+
+                
 
                 RelatedCompany company = new RelatedCompany();
                 company.Name = element.ParentNode.InnerHtml.Replace("href","attr");
-                company.Name += "<br><br>"+element.ParentNode.NextSibling.NextSibling.InnerHtml.Replace("href", "attr");
+                try
+                {
+                    var el = element.ParentNode.NextSibling.NextSibling;
+                    addEl = el.SelectSingleNode(".//*[contains(text(),'интернете')]");
+                    if (addEl != null) addEl.InnerHtml = "";
+
+                    addEl = el.SelectSingleNode(".//*[contains(text(),'Учрежденные')]");
+                    if (addEl != null) addEl.InnerHtml = "";
+
+                    company.Name += "<br><br>" + el.InnerHtml.Replace("href", "attr");
+                }
+                catch { }
 
                 result.Add(company);
+            }
+            return result;
+        }
+
+        public static List<string> BankruptMessages(string html)
+        {
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(html);
+
+            
+            var elements = doc.DocumentNode.SelectNodes(".//li[@class='block relative size13']");
+
+            if (elements == null)
+                return null;
+
+            List<string> result = new List<string>();
+
+            foreach (var element in elements)
+            {
+                var addEl = element.SelectSingleNode(".//div[@class='peripheral textRight']");
+                if (addEl != null) addEl.InnerHtml = "";
+                addEl = element.SelectSingleNode(".//*[contains(text(),'далее')]");
+                if (addEl != null) addEl.InnerHtml = "";
+
+                string message = element.OuterHtml.Replace("href","attr").Replace("class","classattr").Replace("classattr=\"stickOut textRight grey stickOut__displayed\"", "class=\"silversmall\"");
+                result.Add(message);
             }
             return result;
         }

@@ -85,6 +85,8 @@ namespace ReportGenerator
         public List<RelatedCompany> Predecessors;
         public List<RelatedCompany> RelatedCompanies;
         public string SpecialReestrs;
+
+        public List<string> BankruptMessages;
     }
     public class Manager
     {

@@ -111,7 +111,7 @@ namespace ReportGenerator
             info.Activities = GetActivities(order.CompanyId);
             info.Predecessors = GetPredecessors(order.CompanyId);
             info.RelatedCompanies = GetRelatedCompanies(order.CompanyId);
-
+            info.BankruptMessages = Parser.BankruptMessages(Request("https://focus.kontur.ru/bankrots?query="+order.CompanyId));
             return info;
         }
 
@@ -123,7 +123,7 @@ namespace ReportGenerator
         public List<RelatedCompany> GetPredecessors(string id)
         {
             List<RelatedCompany> result = new List<RelatedCompany>();
-            for(int i=1;i<5;i++)
+            for(int i=1;i<=5;i++)
             {
                 var items= Parser.RelatedCompanies(Request(string.Format("https://focus.kontur.ru/graph?page={0}&filterFlags=268435456&order=29&query={1}",i,id)));
                 if (items != null)
@@ -138,7 +138,7 @@ namespace ReportGenerator
         public List<RelatedCompany> GetRelatedCompanies(string id)
         {
             List<RelatedCompany> result = new List<RelatedCompany>();
-            for (int i = 1; i < 5; i++)
+            for (int i = 1; i <= 5; i++)
             {
                 var items = Parser.RelatedCompanies(Request(string.Format("https://focus.kontur.ru/graph?page={0}&query={1}", i, id)));
                 if (items != null)
@@ -220,9 +220,9 @@ namespace ReportGenerator
             if (type == "customers")
             {
                 var info = Parser.WonContracts(Request("https://focus.kontur.ru/contracts?type=customers&query="+id));
-                if (info != null && info.Count > 20)
+                if (info != null && info.Count > 19)
                 {
-                    for (int i = 2; i < 5; i++)
+                    for (int i = 2; i <= 10; i++)
                     {
                         var addInfo = Parser.WonContracts(Request("https://focus.kontur.ru/contracts?type=customers&query=" + id+"&page="+i.ToString()));
                         if (addInfo != null)
@@ -235,9 +235,9 @@ namespace ReportGenerator
             else
             {
                 var info = Parser.PostedContracts(Request("https://focus.kontur.ru/contracts?type=suppliers&query=" + id));
-                if (info != null && info.Count > 20)
+                if (info != null && info.Count > 19)
                 {
-                    for (int i = 2; i < 5; i++)
+                    for (int i = 2; i <= 10; i++)
                     {
                         var addInfo = Parser.PostedContracts(Request("https://focus.kontur.ru/contracts?type=suppliers&query=" + id + "&page=" + i.ToString()));
                         if (addInfo != null)
