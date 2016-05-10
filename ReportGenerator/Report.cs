@@ -74,30 +74,20 @@ namespace ReportGenerator
         private static string GetTemplate()
         {
             string html = "<html  xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:x=\"urn:schemas-microsoft-com:office:word\" xmlns=\"http://www.w3.org/TR/REC-html40\">" +
-@"<style type='text/css'>
-  .silversmall{
-            color: gray;
-                font - size:15;
-            }
-    p,table{
-font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;
-font-size:12px;
-}
-@page {
-   size: 7in 9.25in;
-   margin: 27mm 16mm 27mm 16mm;
-}"+style()+@"
+@"<style type='text/css'>"+style()+ @"
 </style>
 
-<body LANG = 'ru-RU' LINK = '#0000ff' DIR = 'LTR' style='font-family: Calibri,Candara,Segoe,Segoe UI,Optima,Arial,sans-serif;'>
+<body>
      <DIV TYPE = HEADER ALIGN=RIGHT  class='silversmall'>
           <P STYLE = 'margin-bottom: 0in' >
        
                                <IMG SRC = 'http://s24.postimg.org/aebxprm5t/logo.jpg?noCache=1459941007' NAME = 'Рисунок 1'  ALIGN = RIGHT  HSPACE = 12 WIDTH = 84 HEIGHT = 91 BORDER = 0 >
                         </P >
-                        <P STYLE = 'margin-bottom: 0in'  ALIGN = RIGHT  >Сервис</P >
-                              <P  ALIGN = RIGHT  STYLE = 'margin-bottom: 0in' > для проверки</P >
-     <P  ALIGN = RIGHT  STYLE = 'margin-bottom: 0.26in' >контрагентов</P >
+<b>
+                        <span STYLE = 'margin-bottom: 0in'  ALIGN = RIGHT  >Сервис</span><br>
+                              <span  ALIGN = RIGHT  STYLE = 'margin-bottom: 0in' > для проверки</span><br>
+     <span ALIGN = RIGHT  STYLE = 'margin-bottom: 0.26in' >контрагентов</span>
+</b>
          </DIV >";
             return html;
         }
@@ -129,7 +119,7 @@ font-size:12px;
              {9} </P >
                 {10}
                        <P STYLE = 'margin-top: 0.13in; margin-bottom: 0in; page-break-inside: avoid' >
-                         <BR > ФОМС: {11} </P >
+                         <BR >{11} </P >
             <P STYLE = 'margin-top: 0.25in; page-break-inside: avoid' > Код
             налогового органа: {12} </P >
         </TD >
@@ -141,7 +131,7 @@ font-size:12px;
             {14}
         </TD >
     </TR >
-</table>", info.INN, info.KPP, info.OGRN, info.OKPO, info.RegDate, info.Status, info.Address, info.AddressAddedDate.ToShortDateString(), info.AddressCount, info.PhoneNumbers.FirstOrDefault(), Manager(info), info.FOMS, info.NalogCode, string.IsNullOrEmpty(info.UstFond) ? "" : "Уставной фонд: " + info.UstFond, PreActivities(info));
+</table>", info.INN, info.KPP, info.OGRN, info.OKPO, info.RegDate, info.Status, info.Address, info.AddressAddedDate.ToShortDateString(), info.AddressCount, info.PhoneNumbers.FirstOrDefault(), Manager(info), info.OtherCodes, info.NalogCode, string.IsNullOrEmpty(info.UstFond) ? "" : "Уставной фонд: " + info.UstFond, PreActivities(info));
             return html;
         }
         private static string SpecialReestrs(CompanyInfo info)

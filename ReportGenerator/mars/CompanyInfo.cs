@@ -13,7 +13,7 @@ namespace ReportGenerator
         public string INN;
         public string KPP;
         public string OKPO;
-        public string FOMS;
+        public string OtherCodes;
         public string FSS;
         public string UstFond;
         public string History;

@@ -103,12 +103,12 @@ namespace ReportGenerator
                             case "ОКПО":
                                 companyInfo.OKPO = node.NextSibling.InnerText;
                                 break;
-                            case "ФОМС":
-                                companyInfo.FOMS = node.NextSibling.InnerText;
-                                break;
-                            case "ФСС":
-                                companyInfo.FSS = node.NextSibling.InnerText;
-                                break;
+                            default:
+                                {
+                                    companyInfo.OtherCodes = node.ParentNode.InnerHtml;
+                                    break;
+                                }
+                                
                         }
                 }
                 #endregion codes
