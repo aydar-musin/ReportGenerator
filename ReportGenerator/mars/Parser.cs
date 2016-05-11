@@ -105,7 +105,7 @@ namespace ReportGenerator
                                 break;
                             default:
                                 {
-                                    companyInfo.OtherCodes = node.ParentNode.InnerHtml;
+                                    companyInfo.OtherCodes = node.ParentNode.InnerHtml.Replace("<dt>", "<br><dt>").Replace("dd", "span").Replace("dt", "span");
                                     break;
                                 }
                                 
@@ -318,6 +318,7 @@ namespace ReportGenerator
                 var tds = tr.Elements("td").ToArray();
                 tds[0].InnerHtml = "";
                 founder.Name = tr.InnerHtml.Replace("href","attr").Replace("td","p");
+                founder.Name = founder.Name.Replace("<p>", "<br><p>").Replace("<p", "<span").Replace("p>", "span>");
 
                 result.Add(founder);
             }

@@ -22,6 +22,10 @@ namespace ReportGenerator
         {
             InitializeComponent();
             Init();
+
+#if DEBUG
+            TryMakeSavedSO();
+#endif
         }
         public void Init()
         {
@@ -240,11 +244,31 @@ namespace ReportGenerator
 
                 SaveProcessedOrder(order);
                 Message("Успешно обработан " + order.CompanyINNOGRN + " " + order.CustomerEmail);
+#if DEBUG
+                SaveSO(info);
+#endif
             }
             catch (Exception ex)
             {
                 ErrorLog(ex);
                 Message("Ошибка при обработке заказа " + order.CompanyINNOGRN + " " + order.CustomerEmail + " " + ex.Message);
+            }
+        }
+
+        private static void SaveSO(CompanyInfo info)
+        {
+            System.IO.File.WriteAllText("savedSO.txt", Newtonsoft.Json.JsonConvert.SerializeObject(info));
+        }
+        private static void TryMakeSavedSO()
+        {
+            try
+            {
+                 var info=Newtonsoft.Json.JsonConvert.DeserializeObject<CompanyInfo>(System.IO.File.ReadAllText("savedSO.txt"));
+                 ReportGenerator.Generate(info,new Order() { CompanyINNOGRN="test", CustomerEmail="test", TimeStamp=DateTime.Now });
+            }
+            catch
+            {
+                
             }
         }
     }

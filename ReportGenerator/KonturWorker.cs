@@ -186,7 +186,7 @@ namespace ReportGenerator
 
             if (arb != null && arb.Count > 10)
             {
-                for (int i = 2; i <= 10; i++)
+                for (int i = 2; i <= 5; i++)
                 {
                     var add_arb = get(Request(string.Format("https://focus.kontur.ru/kad?type={0}&years=0&query={1}&page={2}", type, id, i)));
                     if (add_arb != null)
@@ -222,7 +222,7 @@ namespace ReportGenerator
                 var info = Parser.WonContracts(Request("https://focus.kontur.ru/contracts?type=customers&query="+id));
                 if (info != null && info.Count > 19)
                 {
-                    for (int i = 2; i <= 10; i++)
+                    for (int i = 2; i <= 5; i++)
                     {
                         var addInfo = Parser.WonContracts(Request("https://focus.kontur.ru/contracts?type=customers&query=" + id+"&page="+i.ToString()));
                         if (addInfo != null)
@@ -237,7 +237,7 @@ namespace ReportGenerator
                 var info = Parser.PostedContracts(Request("https://focus.kontur.ru/contracts?type=suppliers&query=" + id));
                 if (info != null && info.Count > 19)
                 {
-                    for (int i = 2; i <= 10; i++)
+                    for (int i = 2; i <= 5; i++)
                     {
                         var addInfo = Parser.PostedContracts(Request("https://focus.kontur.ru/contracts?type=suppliers&query=" + id + "&page=" + i.ToString()));
                         if (addInfo != null)

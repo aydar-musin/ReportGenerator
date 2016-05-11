@@ -84,22 +84,18 @@ namespace ReportGenerator
                                <IMG SRC = 'http://s24.postimg.org/aebxprm5t/logo.jpg?noCache=1459941007' NAME = 'Рисунок 1'  ALIGN = RIGHT  HSPACE = 12 WIDTH = 84 HEIGHT = 91 BORDER = 0 >
                         </P >
 <b>
-                        <span STYLE = 'margin-bottom: 0in'  ALIGN = RIGHT  >Сервис</span><br>
-                              <span  ALIGN = RIGHT  STYLE = 'margin-bottom: 0in' > для проверки</span><br>
-     <span ALIGN = RIGHT  STYLE = 'margin-bottom: 0.26in' >контрагентов</span>
+                        <span style='font-size:16px;'>Сервис</span><br>
+                              <span   style='font-size:16px;'> для проверки</span><br>
+     <span style='font-size:16px;'>контрагентов</span>
 </b>
          </DIV >";
             return html;
         }
         private static string GeneralInfo(CompanyInfo info)
         {
-            string html = string.Format(@"<p class='HeaderParagraph' style='margin - bottom:0cm; margin - bottom:.0001pt'><span style='font - family:&quot; Calibri & quot;,&quot; sans - serif & quot; '><h3 class='h3class'>{0}</h3> <o:p ></o:p ></span >
+            string html = string.Format(@"<p><h3 style='font-size:30px;'>{0}</h3></p>
                     </p >
-                    <div style = 'border-bottom-style: solid; border-bottom-color: windowtext; border-bottom-width: 1.5pt; padding: 0cm 0cm 12pt;' >
-                         <p class='MsoNormal' style='margin-bottom: 12pt; padding: 0cm;'><span class='Normal10'><span style = 'font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;font-size:8px;' >{1}
-		</span></span><span lang = 'EN-US' style='font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;font-size:8px;;mso-ansi-language:EN-US'><o:p></o:p></span>
-	</p>
-</div>", info.Name, info.FullName);
+                    {1} ", info.Name, info.FullName);
 
             html += string.Format(@"<table WIDTH=699 CELLPADDING=7 CELLSPACING=0 style='font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;font-size:8px;'>
 	<COL WIDTH=203>
@@ -131,7 +127,7 @@ namespace ReportGenerator
             {14}
         </TD >
     </TR >
-</table>", info.INN, info.KPP, info.OGRN, info.OKPO, info.RegDate, info.Status, info.Address, info.AddressAddedDate.ToShortDateString(), info.AddressCount, info.PhoneNumbers.FirstOrDefault(), Manager(info), info.OtherCodes, info.NalogCode, string.IsNullOrEmpty(info.UstFond) ? "" : "Уставной фонд: " + info.UstFond, PreActivities(info));
+</table>", info.INN, info.KPP, info.OGRN, info.OKPO, info.RegDate, info.Status, info.Address, info.AddressAddedDate.ToShortDateString(), info.AddressCount, info.PhoneNumbers.FirstOrDefault(), Manager(info), info.OtherCodes, info.NalogCode, string.IsNullOrEmpty(info.UstFond) ? "" : "Уставной капитал: " + info.UstFond, PreActivities(info));
             return html;
         }
         private static string SpecialReestrs(CompanyInfo info)
@@ -165,24 +161,16 @@ namespace ReportGenerator
             {
                 html += @"<P STYLE='margin - left: 1.17in; margin - bottom: 0.13in; page -break-inside: avoid'>
                  <B > Виды
-            деятельности </B ></P >
-            <TABLE WIDTH = 438 CELLPADDING = 7 CELLSPACING = 0 style='font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;font-size:8px;'>
-                     <COL WIDTH = 69 >
-                      <COL WIDTH = 341 > ";
+            деятельности </B ></P > ";
 
                 foreach (var act in info.Activities.Take(3))
                 {
-                    html += string.Format(@"<TR VALIGN=TOP>
-                    <TD WIDTH = 69 STYLE = 'border: none; padding: 0in' >
-                           <P ALIGN = RIGHT STYLE = 'margin-right: 0.14in' > {0} </P >
-                                  </TD >
-                                  <TD WIDTH = 341 STYLE = 'border: none; padding: 0in' >
-                                         <P STYLE = 'page-break-inside: avoid' >{1}</P >
-                    </TD >
-                </TR > ", act.Code, act.Name);
+                    html += string.Format(@"<span>
+                    {0}:  {1}
+                </span><br> ", act.Code, act.Name);
                 }
 
-                html += "</TABLE>";
+                html += "";
 
             }
             return html;
@@ -195,24 +183,14 @@ namespace ReportGenerator
             {
                 html += string.Format(@"<P STYLE='margin - left: 1.17in; margin - bottom: 0.13in; page -break-inside: avoid'>
                  <B > <h3 class='h3class'>Виды
-            деятельности ({0})</h3></B ></P >
-            <TABLE WIDTH = 438 CELLPADDING = 7 CELLSPACING = 0 style='font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;font-size:8px;'>
-                     <COL WIDTH = 69 >
-                      <COL WIDTH = 341 > ", info.Activities.Count);
+            деятельности ({0})</h3></B ></P >", info.Activities.Count);
 
                 foreach (var act in info.Activities)
                 {
-                    html += string.Format(@"<TR VALIGN=TOP>
-                    <TD WIDTH = 69 STYLE = 'border: none; padding: 0in' >
-                           <P ALIGN = RIGHT STYLE = 'margin-right: 0.14in' > {0} </P >
-                                  </TD >
-                                  <TD WIDTH = 341 STYLE = 'border: none; padding: 0in' >
-                                         <P STYLE = 'page-break-inside: avoid' >{1}</P >
-                    </TD >
-                </TR > ", act.Code, act.Name);
+                    html += string.Format(@"<span> {0} {1} </span> <br>", act.Code, act.Name);
                 }
 
-                html += "</TABLE>";
+                html += "";
 
             }
             return html;
@@ -231,7 +209,7 @@ namespace ReportGenerator
 
                 foreach (var lic in info.Lics)
                 {
-                    html += "<li>"+lic.Activity+"</li><br><br>";
+                    html += "<li>"+lic.Activity+"</li><br>";
                 }
                 html += "</ol>";
             }
