@@ -279,11 +279,12 @@ namespace ReportGenerator
                 html += string.Format(@"
 <h3 class='h3class'>{2}</h3> <span>Всего (<span class='silversmall'>{0}</span>). Общая сумма (<span class='silversmall'>{1}</span>)</span>
 <br>
+<br>
 <ol>", info.Count, info.Sum, name);
 
                 foreach (var contract in info.Contracts)
                 {
-                    html += string.Format("{0}</li>",contract.Number );
+                    html += string.Format("{0}<br>",contract.Number );
                 }
                 html += "</ol>";
             }
@@ -297,6 +298,7 @@ namespace ReportGenerator
             {
                 html += string.Format(@"
 <h3 class='h3class'>Исполнительные производства </h3> <span>Всего (<span class='silversmall'>{0}</span>) Остаток суммы к взысканию (<span class='silversmall'>{1}</span>)</span>
+<br>
 <br>
 <ol>
 ", info.BailiffsInfo.Count, info.BailiffsInfo.Sum);
@@ -340,9 +342,6 @@ namespace ReportGenerator
 
                 foreach (var item in list)
                 {
-                    //html += string.Format("<li><table>{0}{1}{2}{3}{4}{5}{6}</table></li> <br>", WithPre(item.Name, "_"), WithPre(item.INN, "ИНН"), WithPre(item.OGRN, "ОГРН"), WithPre(item.Status, "Состояние"), 
-                    //    WithPre(item.Address, "Адрес"),WithPre(string.Format("{0}<br>{1}<br>{2}",item.Manager,item.ManagerDate,item.ManagerCount),"Руководитель"),
-                    //    WithPre(item.Capital,"Уставный капитал"));
                     html += "<li>" + item.Name + "</li>";
                 }
                 html += "</ol>";

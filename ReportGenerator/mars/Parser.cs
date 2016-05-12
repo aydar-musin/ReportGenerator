@@ -266,6 +266,12 @@ namespace ReportGenerator
                 {
                     companyInfo.SpecialReestrs = block.InnerHtml.Replace("href","attr").Replace("green underline", "alert underline").Replace("источник","").Replace("<h3>Особые реестры ФНС</h3>", "<h3 style=\"color: red; \">Особые реестры ФНС</h3>");
                 }
+                if (block.InnerText.Contains("Исполнительные производства"))
+                {
+                    companyInfo.BailiffsInfo = new BailiffsInfo();
+                    var el=block.SelectSingleNode(".//*[@class='nowrap']");
+                    companyInfo.BailiffsInfo.Sum = el.InnerText;
+                }
             }
 
             return companyInfo;
@@ -420,7 +426,6 @@ namespace ReportGenerator
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(html);
 
-
             BailiffsInfo info = new BailiffsInfo();
 
             var countEl = doc.DocumentNode.SelectSingleNode("/html/body/div[1]/div[5]/div/div[1]");
@@ -549,16 +554,13 @@ namespace ReportGenerator
                 var rows = item.SelectNodes(".//div[@class='stickOut kad-stickOut stickOut__displayed']");
                 if (rows != null)
                 {
-                    foreach (var row in rows)
-                    {
-                        row.Name = "span";
-                    }
+                    ChangeNodeName(item, ".//div[@class='stickOut kad-stickOut stickOut__displayed']", "span");
                     RemoveP(item);
 
                     contr.Number = item.OuterHtml.Replace("stickOut kad-stickOut stickOut__displayed", "silversmall").Replace("Показать все документы", "");
                     contr.Number = contr.Number.Replace("href", "attr");
-                    contr.Number = contr.Number.Replace("div", "p");
-                    contr.Number = contr.Number.Replace("block relative size13", "");
+
+                    contr.Number = contr.Number.Replace("block relative size13", "").Replace("</span><br>\r\n\t\t\r\n\t\t</span><br>", "</span></span><br>");
                 }
                 info.Contracts.Add(contr);
             }
@@ -578,36 +580,34 @@ namespace ReportGenerator
 
             foreach (var element in elements)
             {
-                var addEl = element.SelectSingleNode(".//div[@class='peripheral textRight peripheral_lt480']");
-                if (addEl != null) addEl.InnerHtml = "";
-                addEl = element.SelectSingleNode(".//div[@class='stickOut stickOut__display1024 textRight leftNum']");
-                if (addEl != null) addEl.InnerHtml = "";
-                addEl = element.SelectSingleNode(".//span[@class=' oldConnection strikeThrough']");
-                if (addEl != null) addEl.InnerHtml = "<strike>"+addEl.InnerHtml+"</strike>";
-
-                addEl = element.SelectSingleNode(".//*[contains(text(),'Подробнее')]");
-                if (addEl != null) addEl.InnerHtml = "";
-
                 RemoveElements(element, ".//span[@class='smallText lightGrey nowrap']");
                 RemoveElements(element, ".//div[@class='peripheral textRight peripheral_lt480']");
                 RemoveElements(element, ".//div[@class='stickOut stickOut__display1024 textRight leftNum']");
                 RemoveElements(element, ".//span[@class=' oldConnection strikeThrough']");
+                RemoveElements(element, ".//*[contains(text(),'Подробнее')]");
                 RemoveElements(element, ".//a[@class='connectionsLink']");
                 RemoveElements(element, ".//span[@class='percentUp']");
                 RemoveElements(element, ".//span[@class='percentDown']");
 
+                ChangeNodeName(element, ".//div[@class='inlineBlock floatRight ']", "span");
+                ChangeNodeName(element, ".//div[@class='inlineBlock']", "span");
+                
                 RemoveP(element);
 
                 RelatedCompany company = new RelatedCompany();
-                company.Name = element.ParentNode.InnerHtml.Replace("href","attr");
+                company.Name = element.ParentNode.InnerHtml.Replace("href","attr").Replace("class=\"halfMargin mobile-stickOut graphItemElement\"","style=\"margin-left:30px;margin-top:10px;\"");
+
                 try
                 {
                     var el = element.ParentNode.NextSibling.NextSibling;
-                    addEl = el.SelectSingleNode(".//*[contains(text(),'интернете')]");
-                    if (addEl != null) addEl.InnerHtml = "";
 
-                    addEl = el.SelectSingleNode(".//*[contains(text(),'Учрежденные')]");
-                    if (addEl != null) addEl.InnerHtml = "";
+                    ChangeNodeName(el, ".//div[@class='inlineBlock floatRight ']", "span");
+                    ChangeNodeName(el, ".//div[@class='inlineBlock']", "span");
+                
+                    RemoveElements(el, ".//*[contains(text(),'интернете')]");
+                    RemoveElements(el, ".//*[contains(text(),'Учрежденные')]");
+                    RemoveElements(el, ".//span[@class='percentUp']");
+                    RemoveElements(el, ".//span[@class='percentDown']");
 
                     company.Name += "<br><br>" + el.InnerHtml.Replace("href", "attr");
                 }

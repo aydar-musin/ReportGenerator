@@ -106,7 +106,11 @@ namespace ReportGenerator
             //}
             if(info.BailiffsExist)
             {
-                info.BailiffsInfo = GetBailiffs(order.CompanyId);
+                var inf = GetBailiffs(order.CompanyId);
+                if (info.BailiffsInfo != null)
+                    inf.Sum = info.BailiffsInfo.Sum;
+
+                info.BailiffsInfo = inf;
             }
             if(info.ContractsExist)
             {
@@ -129,7 +133,7 @@ namespace ReportGenerator
         public List<RelatedCompany> GetPredecessors(string id)
         {
             List<RelatedCompany> result = new List<RelatedCompany>();
-            for(int i=1;i<=5;i++)
+            for(int i=1;i<=PAGES;i++)
             {
                 var items= Parser.RelatedCompanies(Request(string.Format("https://focus.kontur.ru/graph?page={0}&filterFlags=268435456&order=29&query={1}",i,id)));
                 if (items != null)
@@ -144,7 +148,7 @@ namespace ReportGenerator
         public List<RelatedCompany> GetRelatedCompanies(string id)
         {
             List<RelatedCompany> result = new List<RelatedCompany>();
-            for (int i = 1; i <= 5; i++)
+            for (int i = 1; i <= PAGES; i++)
             {
                 var items = Parser.RelatedCompanies(Request(string.Format("https://focus.kontur.ru/graph?page={0}&query={1}", i, id)));
                 if (items != null)
@@ -192,7 +196,7 @@ namespace ReportGenerator
 
             if (arb != null && arb.Count > 10)
             {
-                for (int i = 2; i <= 5; i++)
+                for (int i = 2; i <= PAGES; i++)
                 {
                     var add_arb = get(Request(string.Format("https://focus.kontur.ru/kad?type={0}&years=0&query={1}&page={2}", type, id, i)));
                     if (add_arb != null)
@@ -210,7 +214,7 @@ namespace ReportGenerator
             var info = Parser.Bailiffs(Request("https://focus.kontur.ru/fssp?query=" +id));
             if (info != null&&info.Count>0)
             {
-                for (int i = 2; i < 5; i++)
+                for (int i = 2; i < PAGES; i++)
                 {
                     var add_info = Parser.Bailiffs(Request("https://focus.kontur.ru/fssp?query=" + id+"&page="+i.ToString()));
                     if (add_info != null)
@@ -228,7 +232,7 @@ namespace ReportGenerator
                 var info = Parser.WonContracts(Request("https://focus.kontur.ru/contracts?type=customers&query="+id));
                 if (info != null && info.Count > 19)
                 {
-                    for (int i = 2; i <= 5; i++)
+                    for (int i = 2; i <= PAGES; i++)
                     {
                         var addInfo = Parser.WonContracts(Request("https://focus.kontur.ru/contracts?type=customers&query=" + id+"&page="+i.ToString()));
                         if (addInfo != null)
@@ -243,7 +247,7 @@ namespace ReportGenerator
                 var info = Parser.PostedContracts(Request("https://focus.kontur.ru/contracts?type=suppliers&query=" + id));
                 if (info != null && info.Count > 19)
                 {
-                    for (int i = 2; i <= 5; i++)
+                    for (int i = 2; i <= PAGES; i++)
                     {
                         var addInfo = Parser.PostedContracts(Request("https://focus.kontur.ru/contracts?type=suppliers&query=" + id + "&page=" + i.ToString()));
                         if (addInfo != null)
