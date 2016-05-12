@@ -9,6 +9,8 @@ namespace ReportGenerator
 {
     class KonturWorker
     {
+        static int PAGES = 5;
+
         public string Cookie { get; set; }
         private WebProxy proxy;
         public KonturWorker()
@@ -17,6 +19,10 @@ namespace ReportGenerator
             {
                 ChangeProxy();
             }
+
+#if DEBUG
+            PAGES = 2;
+#endif
         }
         private void ChangeProxy()
         {
@@ -37,18 +43,18 @@ namespace ReportGenerator
         }
         private string Request(string url) // Add headers!!!!!
         {
-            int tries = 10;
+            int tries = 30;
             req: try
             {
                 Random rnd = new Random();
-                System.Threading.Thread.Sleep(rnd.Next(50, 100));
+                System.Threading.Thread.Sleep(rnd.Next(500, 2000));
 
                 HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
                 if (Settings.UseProxy && this.proxy != null)
                     request.Proxy = proxy;
 
                 request.UserAgent="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.110 Safari/537.36";
-                request.Timeout = 30000;
+                request.Timeout = 10000;
 
                 request.Headers.Add("Cookie", this.Cookie);
 
@@ -87,17 +93,17 @@ namespace ReportGenerator
 
             CompanyInfo info = Parser.GeneralInfo(Request("https://focus.kontur.ru/entity?query=" + order.CompanyId));
 
-            if (info.ArbitrationExists)
-            {
-                info.ArbitrAsPlaintiff = GetArbitrAsP(order.CompanyId);
-                info.ArbitrAsRespondent = GetArbitrAsR(order.CompanyId);
-                info.ArbitrAsThird = GetArbitrAsT(order.CompanyId);
-            }
+            //if (info.ArbitrationExists)
+            //{
+            //    info.ArbitrAsPlaintiff = GetArbitrAsP(order.CompanyId);
+            //    info.ArbitrAsRespondent = GetArbitrAsR(order.CompanyId);
+            //    info.ArbitrAsThird = GetArbitrAsT(order.CompanyId);
+            //}
 
-            if(info.LicensiesExist)//!!!!!!!
-            {
-                info.Lics = Parser.Lics(Request("https://focus.kontur.ru/lics?query=" + order.CompanyId));
-            }
+            //if(info.LicensiesExist)//!!!!!!!
+            //{
+            //    info.Lics = Parser.Lics(Request("https://focus.kontur.ru/lics?query=" + order.CompanyId));
+            //}
             if(info.BailiffsExist)
             {
                 info.BailiffsInfo = GetBailiffs(order.CompanyId);

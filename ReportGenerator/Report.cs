@@ -183,7 +183,7 @@ namespace ReportGenerator
             {
                 html += string.Format(@"<P STYLE='margin - left: 1.17in; margin - bottom: 0.13in; page -break-inside: avoid'>
                  <B > <h3 class='h3class'>Виды
-            деятельности ({0})</h3></B ></P >", info.Activities.Count);
+            деятельности (<span class='silversmall'>{0}</span>)</h3></B ></P >", info.Activities.Count);
 
                 foreach (var act in info.Activities)
                 {
@@ -202,7 +202,7 @@ namespace ReportGenerator
             if (info.Lics != null)
             {
                 html = string.Format(@"<P STYLE='margin - top: 0.25in; margin - bottom: 0.25in; page -break-inside: avoid; page -break-before: always; page -break-after: avoid'>
-        <B > <h3 class='h3class'>Лицензии ({0}) </h3>
+        <B > <h3 class='h3class'>Лицензии (<span class='silversmall'>{0}</span>) </h3>
                  </B > </P >
                                 <P STYLE = 'margin-top: 0.13in; margin-bottom: 0.19in; page-break-inside: avoid; page-break-after: avoid' ></P > <ol>
                                       ", info.Lics.Count);
@@ -222,35 +222,16 @@ namespace ReportGenerator
             if ((!string.IsNullOrEmpty(info.FinBalance) || (!string.IsNullOrEmpty(info.FinProfit)) || (!string.IsNullOrEmpty(info.FinNetProfit))))
             {
                 html = string.Format(@"<P STYLE='margin - top: 0.25in; margin - bottom: 0.25in; page -break-inside: avoid; page -break-before: always; page -break-after: avoid'>
-        <B > <h3 class='h3class'>Финансовое состояние на {0} год</h3>
+        <B > <h3 class='h3class'>Финансовое состояние на <span class='silversmall'>{0}</span> год</h3>
                  </B > </P >
-                                <P STYLE = 'margin-top: 0.13in; margin-bottom: 0.19in; page-break-inside: avoid; page-break-after: avoid' ></P >
-                                      ",info.FinYear);
-                html += string.Format(@"<TABLE WIDTH=699 CELLPADDING=7 CELLSPACING=0 style='font-family:&quot;Calibri&quot;,&quot;sans-serif&quot;font-size:8px;'>
-	<COL WIDTH=52>
-	<COL WIDTH=619>
-	<TR VALIGN=TOP>
-		<TD WIDTH=52 STYLE='border: none; padding: 0in'>
-            <P > Баланс </P >
-                     </TD >
-                     <TD WIDTH = 619 STYLE = 'border: none; padding: 0in' >
-                            <P STYLE = 'page-break-inside: avoid' >{0}</P >
-        </TD >
-    </TR ><TR VALIGN=TOP>
-		<TD WIDTH=52 STYLE='border: none; padding: 0in'>
-            <P > Выручка </P >
-                     </TD >
-                     <TD WIDTH = 619 STYLE = 'border: none; padding: 0in' >
-                            <P STYLE = 'page-break-inside: avoid' >{1}</P >
-        </TD >
-    </TR >  <TR VALIGN=TOP>
-		<TD WIDTH=52 STYLE='border: none; padding: 0in'>
-            <P > Чистая прибыль </P >
-                     </TD >
-                     <TD WIDTH = 619 STYLE = 'border: none; padding: 0in' >
-                            <P STYLE = 'page-break-inside: avoid' >{2}</P >
-        </TD >
-    </TR > </TABLE>", info.FinBalance, info.FinProfit, info.FinNetProfit);
+                                      ", info.FinYear);
+                html += string.Format(@"
+            <span> Баланс {0}</span><br>        
+            <span> Выручка
+                    {1}</span><br>
+            <span> Чистая прибыль
+                     {2}</span><br>
+        ", info.FinBalance, info.FinProfit, info.FinNetProfit);
 
             }
             return html;
@@ -270,19 +251,14 @@ namespace ReportGenerator
             if (info != null)
             {
                 html += string.Format(@"
-<P STYLE = 'margin-bottom: 0in; page-break-inside: avoid; page-break-before: always; page-break-after: avoid' >
-<B > <h3 class='h3class'> Арбитражные дела в качестве {2} ({0}) {1}</h3></B ></P >
-<P STYLE = 'margin-top: 0.19in; margin-bottom: 0in; page-break-inside: avoid; page-break-after: avoid' >
-
-</P >
-<P STYLE = 'margin-top: 0.19in; margin-bottom: 0in; page-break-inside: avoid; page-break-after: avoid' >
-
-</P >
+<h3 class='h3class'> Арбитражные дела в качестве {2}</h3><span> Всего (<span class='silversmall'>{0}</span>) Общая сумма (<span class='silversmall'>{1}</span>)<span>
+<br>
+<br>
 <ol>", info.Count, info.Sum,name);
 
                 foreach (var _case in info.Cases)
                 {
-                    html += string.Format("<li>{0}</li><br><br>", _case.Number);
+                    html += string.Format("<li>{0}</li><br>", _case.Number);
                 }
                 html += "</ol>";
             }
@@ -301,7 +277,8 @@ namespace ReportGenerator
             if (info != null)
             {
                 html += string.Format(@"
-<h3 class='h3class'>{2} ({0}). {1} </h3>
+<h3 class='h3class'>{2}</h3> <span>Всего (<span class='silversmall'>{0}</span>). Общая сумма (<span class='silversmall'>{1}</span>)</span>
+<br>
 <ol>", info.Count, info.Sum, name);
 
                 foreach (var contract in info.Contracts)
@@ -319,13 +296,8 @@ namespace ReportGenerator
             if (info.BailiffsInfo != null)
             {
                 html += string.Format(@"
-<P STYLE = 'margin-bottom: 0in; page-break-inside: avoid; page-break-before: always; page-break-after: avoid' >
-<B > <h3 class='h3class'>Исполнительные производства ({0})</h3></B ></P >
-<P STYLE = 'margin-top: 0.19in; margin-bottom: 0in; page-break-inside: avoid; page-break-after: avoid' >
-</P >
-<P STYLE = 'margin-top: 0.19in; margin-bottom: 0in; page-break-inside: avoid; page-break-after: avoid' >
-
-{1}</P >
+<h3 class='h3class'>Исполнительные производства </h3> <span>Всего (<span class='silversmall'>{0}</span>) Остаток суммы к взысканию (<span class='silversmall'>{1}</span>)</span>
+<br>
 <ol>
 ", info.BailiffsInfo.Count, info.BailiffsInfo.Sum);
 

@@ -222,15 +222,13 @@ namespace ReportGenerator
                 #region history
                 if (block.InnerHtml.Contains("<h3>История</h3>"))
                 {
-                    var addEl = block.SelectNodes(".//a[@class='connectionsLink']");
-                    if (addEl != null)
-                    {
-                        foreach (var el in addEl)
-                            el.InnerHtml = "";
-                    }
+
+                    RemoveElements(block, ".//span[@class=' oldConnection strikeThrough']");
+                    RemoveElements(block, ".//a[@class='connectionsLink']");
+                    RemoveP(block);
 
                     companyInfo.History = block.OuterHtml;
-                    companyInfo.History = companyInfo.History.Replace("href","attr").Replace("noMargin grey size15", "silversmall");
+                    companyInfo.History = companyInfo.History.Replace("href","attr").Replace("noMargin grey size15", "").Replace("<h3>", "<h3 class='h3class'>");
                 }
                 #endregion history
 
@@ -319,6 +317,7 @@ namespace ReportGenerator
                 tds[0].InnerHtml = "";
                 founder.Name = tr.InnerHtml.Replace("href","attr").Replace("td","p");
                 founder.Name = founder.Name.Replace("<p>", "<br><p>").Replace("<p", "<span").Replace("p>", "span>");
+                founder.Name = founder.Name.Replace("&nbsp;", "").Replace("p", "span");
 
                 result.Add(founder);
             }
@@ -392,20 +391,12 @@ namespace ReportGenerator
             {
                 ArbitrCase _case = new ArbitrCase();
 
-                var countEl = item.SelectSingleNode(".//div[@class='peripheral textRight']");
-                if (countEl != null) countEl.InnerHtml = "";
-                var addEl = item.SelectSingleNode(".//*[contains(text(),'Ещё')]");
-                if (addEl != null)
-                    addEl.InnerHtml = "";
-                addEl = item.SelectSingleNode(".//*[contains(text(),'Показать всех ')]");
-                if (addEl != null)
-                    addEl.InnerHtml = "";
-                addEl = item.SelectSingleNode(".//p[@class='kad-item-exLinkRow-p']");
-                if (addEl != null)
-                    addEl.InnerHtml = "";
-                addEl = item.SelectSingleNode(".//div[@class='halfMargin kad-item-instances hidden']");
-                if (addEl != null)
-                    addEl.InnerHtml = "";
+                RemoveElements(item, ".//div[@class='peripheral textRight']");
+                RemoveElements(item, ".//*[contains(text(),'Ещё')]");
+                RemoveElements(item, ".//*[contains(text(),'Показать всех ')]");
+                RemoveElements(item, ".//p[@class='kad-item-exLinkRow-p']");
+                RemoveElements(item, ".//div[@class='halfMargin kad-item-instances hidden']");
+                ChangeNodeName(item, ".//div[@class='kad-item-side']", "span");
 
                 var rows = item.SelectNodes(".//div[@class='stickOut kad-stickOut stickOut__displayed']");
                 if (rows != null)
@@ -416,6 +407,7 @@ namespace ReportGenerator
                     }
                     _case.Number = item.OuterHtml.Replace("stickOut kad-stickOut stickOut__displayed", "silversmall").Replace("Показать все документы","");
                     _case.Number = _case.Number.Replace("href","attr");
+                    _case.Number = _case.Number.Replace("class=\"block relative\"", "style='border: 1px solid #cdcdcd'");
                 }
                 
                 cases.Add(_case);
@@ -448,29 +440,20 @@ namespace ReportGenerator
             {
                 BailiffsCase _case = new BailiffsCase();
 
-                var addEl = item.SelectSingleNode(".//div[@class='peripheral textRight']");
-                if (addEl != null) addEl.InnerHtml = "";
-                addEl = item.SelectSingleNode(".//*[contains(text(),'Должник')]");
-                if (addEl != null)
-                {
-                    addEl.InnerHtml = "";
-                    addEl.ParentNode.InnerHtml = "";
-                }
-                addEl = item.SelectSingleNode(".//*[contains(text(),'должника')]");
-
-                if (addEl != null) addEl.InnerHtml = "";
+                RemoveElements(item, ".//div[@class='peripheral textRight']");
+                RemoveElements(item, ".//*[contains(text(),'Должник')]");
+                RemoveElements(item, ".//*[contains(text(),'должника')]");
+                RemoveElements(item, ".//*[@class='js-fssp-item-debtor hidden']");
 
                 var rows = item.SelectNodes(".//div[@class='stickOut kad-stickOut stickOut__displayed']");
                 if (rows != null)
                 {
-                    foreach (var row in rows)
-                    {
-                        row.Name = "span";
-                    }
+                    ChangeNodeName(item, ".//div[@class='stickOut kad-stickOut stickOut__displayed']", "span");
+                    RemoveP(item);
+                    
                     _case.Number = item.OuterHtml.Replace("stickOut kad-stickOut stickOut__displayed", "silversmall").Replace("Показать все документы", "");
                     _case.Number = _case.Number.Replace("href", "attr");
-                    _case.Number = _case.Number.Replace("div","p");
-                    _case.Number = _case.Number.Replace("block relative kad-item size13","").Replace("fssp-item-department","");
+                    _case.Number = _case.Number.Replace("block relative kad-item size13","").Replace("fssp-item-department","").Replace("unevenIndent js-fssp-item", "");
                 }
                 info.Cases.Add(_case);
             }
@@ -491,22 +474,18 @@ namespace ReportGenerator
             {
                 Licency lic = new Licency();
 
-                var countEl = item.SelectSingleNode(".//div[@class='peripheral textRight']");
-                if (countEl != null) countEl.InnerHtml = "";
-                lic.Activity = item.OuterHtml;
-
+                RemoveElements(item, ".//div[@class='peripheral textRight']");
+                RemoveElementsAndNextNext(item, ".//*[contains(text(),'Орган')]");
+                RemoveElementsAndNextNext(item, ".//*[contains(text(),'Работы')]");
                 var rows = item.SelectNodes(".//div[@class='stickOut kad-stickOut stickOut__displayed']");
+
                 if(rows!=null)
                 {
-                    foreach(var row in rows)
-                    {
-                        string old = row.OuterHtml;
-                        row.Name = "span";
+                    RemoveP(item);
 
-                        item.OuterHtml.Replace(old, row.OuterHtml);
-                    }
-                    lic.Activity = item.OuterHtml.Replace("stickOut kad-stickOut stickOut__displayed", "silversmall").Replace("<p class=\"noMargin\">", "").Replace("<div class=\"silversmall\">", "<p class=\"noMargin\"><div class=\"silversmall\">");
+                    lic.Activity = item.OuterHtml.Replace("stickOut kad-stickOut stickOut__displayed", "silversmall").Replace("<p class=\"noMargin\">", "").Replace("<div class=\"silversmall\">", "<div class=\"silversmall\">");
                     lic.Activity = lic.Activity.Replace("div","span");
+                    lic.Activity = lic.Activity.Replace("noMargin alert", "alert");
                 }
                 result.Add(lic);
             }
@@ -529,21 +508,19 @@ namespace ReportGenerator
 
             foreach(var item in items)
             {
-                var addEl = item.SelectSingleNode(".//div[@class='peripheral textRight']");
-                if (addEl != null) addEl.InnerHtml = "";
+                RemoveElements(item, ".//div[@class='peripheral textRight']");
 
                 Contract contr = new Contract();
                 var rows = item.SelectNodes(".//div[@class='stickOut kad-stickOut stickOut__displayed']");
                 if (rows != null)
                 {
-                    foreach (var row in rows)
-                    {
-                        row.Name = "span";
-                    }
+                    ChangeNodeName(item, ".//div[@class='stickOut kad-stickOut stickOut__displayed']", "span");
+                    RemoveP(item);
+                    
                     contr.Number = item.OuterHtml.Replace("stickOut kad-stickOut stickOut__displayed", "silversmall").Replace("Показать все документы", "");
                     contr.Number = contr.Number.Replace("href", "attr");
-                    contr.Number = contr.Number.Replace("div", "p");
-                    contr.Number = contr.Number.Replace("block relative size13", "");
+                    
+                    contr.Number = contr.Number.Replace("block relative size13", "").Replace("</span><br>\r\n\t\t\r\n\t\t</span><br>", "</span></span><br>");
                 }
                 info.Contracts.Add(contr);
             }
@@ -566,8 +543,7 @@ namespace ReportGenerator
 
             foreach (var item in items)
             {
-                var addEl = item.SelectSingleNode(".//div[@class='peripheral textRight']");
-                if (addEl != null) addEl.InnerHtml = "";
+                RemoveElements(item, ".//div[@class='peripheral textRight']");
 
                 Contract contr = new Contract();
                 var rows = item.SelectNodes(".//div[@class='stickOut kad-stickOut stickOut__displayed']");
@@ -577,6 +553,8 @@ namespace ReportGenerator
                     {
                         row.Name = "span";
                     }
+                    RemoveP(item);
+
                     contr.Number = item.OuterHtml.Replace("stickOut kad-stickOut stickOut__displayed", "silversmall").Replace("Показать все документы", "");
                     contr.Number = contr.Number.Replace("href", "attr");
                     contr.Number = contr.Number.Replace("div", "p");
@@ -610,7 +588,15 @@ namespace ReportGenerator
                 addEl = element.SelectSingleNode(".//*[contains(text(),'Подробнее')]");
                 if (addEl != null) addEl.InnerHtml = "";
 
-                
+                RemoveElements(element, ".//span[@class='smallText lightGrey nowrap']");
+                RemoveElements(element, ".//div[@class='peripheral textRight peripheral_lt480']");
+                RemoveElements(element, ".//div[@class='stickOut stickOut__display1024 textRight leftNum']");
+                RemoveElements(element, ".//span[@class=' oldConnection strikeThrough']");
+                RemoveElements(element, ".//a[@class='connectionsLink']");
+                RemoveElements(element, ".//span[@class='percentUp']");
+                RemoveElements(element, ".//span[@class='percentDown']");
+
+                RemoveP(element);
 
                 RelatedCompany company = new RelatedCompany();
                 company.Name = element.ParentNode.InnerHtml.Replace("href","attr");
@@ -652,6 +638,9 @@ namespace ReportGenerator
                 addEl = element.SelectSingleNode(".//*[contains(text(),'далее')]");
                 if (addEl != null) addEl.InnerHtml = "";
 
+                RemoveElements(element, ".//div[@class='peripheral textRight']");
+                RemoveElements(element, ".//*[contains(text(),'далее')]");
+
                 string message = element.OuterHtml.Replace("href","attr").Replace("class","classattr").Replace("classattr=\"stickOut textRight grey stickOut__displayed\"", "class=\"silversmall\"");
                 result.Add(message);
             }
@@ -660,6 +649,55 @@ namespace ReportGenerator
         private static string GetHTMLDecoded(this string input)
         {
             return HttpUtility.HtmlDecode(input).Replace("\t", "").Replace("\r", "").Replace("\n"," ").Trim();
+        }
+
+        private static void RemoveP(HtmlNode node)
+        {
+            var elements = node.SelectNodes(".//p");
+            if(elements!=null)
+            {
+                foreach(var element in elements)
+                {
+                    element.ParentNode.InsertAfter(HtmlNode.CreateNode("<br>"),element);
+                    element.Name = "span";
+                }
+            }
+        }
+        private static void RemoveElements(HtmlNode node, string xPath)
+        {
+            var elements = node.SelectNodes(xPath);
+            if(elements!=null)
+            {
+                foreach(var element in elements)
+                {
+                    element.Remove();
+                }
+            }
+        }
+        private static void RemoveElementsAndNextNext(HtmlNode node, string xPath)
+        {
+            var elements = node.SelectNodes(xPath);
+            if (elements != null)
+            {
+                foreach (var element in elements)
+                {
+                    element.NextSibling.NextSibling.Remove();
+                    element.Remove();
+                }
+            }
+        }
+
+        private static void ChangeNodeName(HtmlNode node,string xPath,string nodeName)
+        {
+            var elements = node.SelectNodes(xPath);
+            if (elements != null)
+            {
+                foreach (var element in elements)
+                {
+                    element.InnerHtml = element.OuterHtml.Replace(element.Name, nodeName);
+                    element.Name = nodeName;
+                }
+            }
         }
     }
 }
