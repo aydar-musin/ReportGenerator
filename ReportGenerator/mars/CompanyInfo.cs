@@ -13,10 +13,10 @@ namespace ReportGenerator
         public string INN;
         public string KPP;
         public string OKPO;
-        public string FOMS;
+        public string OtherCodes;
         public string FSS;
         public string UstFond;
-
+        public string History;
         // Information about existing bailiffs info, arbitr, contracts, licensies, trademark
         public bool BailiffsExist; // Исп. производства
         public bool ArbitrationExists; // Арбитраж
@@ -75,6 +75,7 @@ namespace ReportGenerator
         public ArbitrStat ArbitrAsRespondent;
         public ArbitrStat ArbitrAsThird;
 
+        public string FinYear;
         public string FinBalance;
         public string FinProfit;
         public string FinNetProfit;
@@ -83,6 +84,9 @@ namespace ReportGenerator
 
         public List<RelatedCompany> Predecessors;
         public List<RelatedCompany> RelatedCompanies;
+        public string SpecialReestrs;
+
+        public List<string> BankruptMessages;
     }
     public class Manager
     {
@@ -192,12 +196,16 @@ namespace ReportGenerator
         public string Address;
         public string Status;
         public string Manager;
+        public string ManagerDate;
+        public string ManagerCount;
+
         public List<Founder> Foudners;
         public List<Founder> Founded;
         public string Bailiffs;
         public string AsPlaintiff;
         public string AsRespondent;
         public string Contracts;
+
         public string Capital;
     }
     public class SpecialReestr
