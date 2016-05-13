@@ -93,17 +93,17 @@ namespace ReportGenerator
 
             CompanyInfo info = Parser.GeneralInfo(Request("https://focus.kontur.ru/entity?query=" + order.CompanyId));
 
-            //if (info.ArbitrationExists)
-            //{
-            //    info.ArbitrAsPlaintiff = GetArbitrAsP(order.CompanyId);
-            //    info.ArbitrAsRespondent = GetArbitrAsR(order.CompanyId);
-            //    info.ArbitrAsThird = GetArbitrAsT(order.CompanyId);
-            //}
+            if (info.ArbitrationExists)
+            {
+                info.ArbitrAsPlaintiff = GetArbitrAsP(order.CompanyId);
+                info.ArbitrAsRespondent = GetArbitrAsR(order.CompanyId);
+                info.ArbitrAsThird = GetArbitrAsT(order.CompanyId);
+            }
 
-            //if(info.LicensiesExist)//!!!!!!!
-            //{
-            //    info.Lics = Parser.Lics(Request("https://focus.kontur.ru/lics?query=" + order.CompanyId));
-            //}
+            if (info.LicensiesExist)//!!!!!!!
+            {
+                info.Lics = Parser.Lics(Request("https://focus.kontur.ru/lics?query=" + order.CompanyId));
+            }
             if(info.BailiffsExist)
             {
                 var inf = GetBailiffs(order.CompanyId);

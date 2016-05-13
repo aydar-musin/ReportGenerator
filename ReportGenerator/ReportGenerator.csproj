@@ -89,6 +89,7 @@
     </Compile>
     <None Include="app.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
     <None Include="mars\packages.config" />
     <None Include="packages.config" />

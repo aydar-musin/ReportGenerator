@@ -11,22 +11,36 @@ namespace ReportGenerator
         private const string BR = "<br><br><br>";
         private static void ConvertDocToDocx(string path)
         {
-            CloseWord();
-            Application word = new Application();
+            int tries = 2;
 
-            if (path.ToLower().EndsWith(".doc"))
+            while (tries > 0)
             {
-                var sourceFile = new FileInfo(path);
-                var document = word.Documents.Open(sourceFile.FullName);
+                try
+                {
+                    CloseWord();
+                    Application word = new Application();
 
-                string newFileName = sourceFile.FullName.Replace(".doc", ".docx");
-                document.SaveAs2(newFileName, WdSaveFormat.wdFormatXMLDocument,
-                                 CompatibilityMode: WdCompatibilityMode.wdWord2010);
+                    if (path.ToLower().EndsWith(".doc"))
+                    {
+                        var sourceFile = new FileInfo(path);
+                        var document = word.Documents.Open(sourceFile.FullName);
 
-                word.ActiveDocument.Close();
-                word.Quit();
+                        string newFileName = sourceFile.FullName.Replace(".doc", ".docx");
+                        document.SaveAs2(newFileName, WdSaveFormat.wdFormatXMLDocument,
+                                         CompatibilityMode: WdCompatibilityMode.wdWord2010);
 
-                //File.Delete(path);
+                        word.ActiveDocument.Close();
+                        word.Quit();
+
+                        //File.Delete(path);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    tries--;
+                    if (tries == 0)
+                        throw ex;
+                }
             }
         }
         private static void CloseWord()
@@ -102,11 +116,11 @@ namespace ReportGenerator
 	<COL WIDTH=468>
 	<TR VALIGN=TOP>
 		<TD WIDTH=203 HEIGHT=356 STYLE='border: none; padding: 0in'>
-            <P STYLE = 'margin-bottom: 0in; page-break-inside: avoid' > ИНН:
-			{0} <BR > КПП: {1} <BR > ОГРН: {2} <BR > ОКПО:
+            <P STYLE = 'margin-bottom: 0in; page-break-inside: avoid' > <br>ИНН:</br>
+			{0} <BR > <br>КПП:</br> {1} <BR > <br>ОГРН:</br> {2} <BR > <br>ОКПО:</br>
 			{3} </P >
             <P STYLE = 'margin-top: 0.17in; margin-bottom: 0in; page-break-inside: avoid' >
-              Дата образования:
+              <br>Дата образования:</br>
             {4} <BR > {5} </P >
                 <P STYLE = 'margin-top: 0.17in; margin-bottom: 0in; page-break-inside: avoid' >
                   {6} 
@@ -116,8 +130,8 @@ namespace ReportGenerator
                 {10}
                        <P STYLE = 'margin-top: 0.13in; margin-bottom: 0in; page-break-inside: avoid' >
                          <BR >{11} </P >
-            <P STYLE = 'margin-top: 0.25in; page-break-inside: avoid' > Код
-            налогового органа: {12} </P >
+            <P STYLE = 'margin-top: 0.25in; page-break-inside: avoid' > <br>Код
+            налогового органа: </br>{12} </P >
         </TD >
         <TD WIDTH = 468 STYLE = 'border: none; padding: 0in' >
             <P STYLE = 'margin-left: 1.17in; margin-bottom: 0.13in; page-break-inside: avoid' >

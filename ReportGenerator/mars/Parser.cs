@@ -225,10 +225,13 @@ namespace ReportGenerator
 
                     RemoveElements(block, ".//span[@class=' oldConnection strikeThrough']");
                     RemoveElements(block, ".//a[@class='connectionsLink']");
+                    RemoveElements(block, ".//span[@class='smallText lightGrey nowrap']");
+
                     RemoveP(block);
 
                     companyInfo.History = block.OuterHtml;
-                    companyInfo.History = companyInfo.History.Replace("href","attr").Replace("noMargin grey size15", "").Replace("<h3>", "<h3 class='h3class'>");
+                    companyInfo.History = companyInfo.History.Replace("href", "attr").Replace("class=\"noMargin grey size15\"", "style='font-weight: bold;'").Replace("<h3>", "<h3 class='h3class'>");
+                    companyInfo.History = GlobalReplacements(companyInfo.History);
                 }
                 #endregion history
 
@@ -270,7 +273,8 @@ namespace ReportGenerator
                 {
                     companyInfo.BailiffsInfo = new BailiffsInfo();
                     var el=block.SelectSingleNode(".//*[@class='nowrap']");
-                    companyInfo.BailiffsInfo.Sum = el.InnerText;
+                    if(el!=null)
+                        companyInfo.BailiffsInfo.Sum = el.InnerText;
                 }
             }
 
@@ -324,6 +328,7 @@ namespace ReportGenerator
                 founder.Name = tr.InnerHtml.Replace("href","attr").Replace("td","p");
                 founder.Name = founder.Name.Replace("<p>", "<br><p>").Replace("<p", "<span").Replace("p>", "span>");
                 founder.Name = founder.Name.Replace("&nbsp;", "").Replace("p", "span");
+                founder.Name = GlobalReplacements(founder.Name);
 
                 result.Add(founder);
             }
@@ -402,6 +407,8 @@ namespace ReportGenerator
                 RemoveElements(item, ".//*[contains(text(),'Показать всех ')]");
                 RemoveElements(item, ".//p[@class='kad-item-exLinkRow-p']");
                 RemoveElements(item, ".//div[@class='halfMargin kad-item-instances hidden']");
+                RemoveElements(item, ".//div[@class='kad-item-exLinkRow']");
+
                 ChangeNodeName(item, ".//div[@class='kad-item-side']", "span");
 
                 var rows = item.SelectNodes(".//div[@class='stickOut kad-stickOut stickOut__displayed']");
@@ -570,6 +577,7 @@ namespace ReportGenerator
         public static List<RelatedCompany> RelatedCompanies(string html)
         {
             HtmlDocument doc = new HtmlDocument();
+            html = GlobalReplacements(html);
             doc.LoadHtml(html);
 
             var elements = doc.DocumentNode.SelectNodes("//div[@class='leftColumnGraph']");
@@ -697,6 +705,11 @@ namespace ReportGenerator
                     element.Name = nodeName;
                 }
             }
+        }
+
+        private static string GlobalReplacements(string html)
+        {
+            return html.Replace("noMargin smallText inline", "silversmall").Replace("ind2em", "silversmall").Replace("noMargin smallText smallTextBlock","silversmall");
         }
     }
 }
