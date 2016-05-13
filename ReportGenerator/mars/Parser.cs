@@ -84,8 +84,6 @@ namespace ReportGenerator
 
                         companyInfo.FullName = block.SelectSingleNode("./h4[1]").InnerText;
 
-                        if (block.InnerHtml.Contains("Наименование на иностранном языке"))
-                            companyInfo.LatName = block.SelectSingleNode("./h4[2]").InnerText.Trim();
                     }
                     var codesNodes = block.SelectNodes(".//dl//dt");
                     foreach (var node in codesNodes)
@@ -325,9 +323,9 @@ namespace ReportGenerator
                 Founder founder = new Founder();
                 var tds = tr.Elements("td").ToArray();
                 tds[0].InnerHtml = "";
-                founder.Name = tr.InnerHtml.Replace("href","attr").Replace("td","p");
-                founder.Name = founder.Name.Replace("<p>", "<br><p>").Replace("<p", "<span").Replace("p>", "span>");
-                founder.Name = founder.Name.Replace("&nbsp;", "").Replace("p", "span");
+
+                ChangeNodeName(tr, ".//tr", "p");
+                RemoveP(tr);
                 founder.Name = GlobalReplacements(founder.Name);
 
                 result.Add(founder);
