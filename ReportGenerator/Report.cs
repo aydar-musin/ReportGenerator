@@ -8,7 +8,9 @@ namespace ReportGenerator
 {
     class ReportGenerator
     {
-        private const string BR = "<br><br><br>";
+        private const string BR = "<br><br>";
+        private const string PB = "<br clear=all style='mso-special-character:line-break;page-break-before:always'>";
+
         private static void ConvertDocToDocx(string path)
         {
             int tries = 2;
@@ -26,17 +28,21 @@ namespace ReportGenerator
                         var document = word.Documents.Open(sourceFile.FullName);
 
                         string newFileName = sourceFile.FullName.Replace(".doc", ".docx");
-                        document.SaveAs2(newFileName, WdSaveFormat.wdFormatXMLDocument,
-                                         CompatibilityMode: WdCompatibilityMode.wdWord2010);
+                        document.SaveAs2(newFileName, WdSaveFormat.wdFormatDocumentDefault,
+                                         CompatibilityMode: WdCompatibilityMode.wdWord2007);
 
                         word.ActiveDocument.Close();
                         word.Quit();
 
                         //File.Delete(path);
+
+                        break;
                     }
                 }
                 catch (Exception ex)
                 {
+                    CloseWord();
+
                     tries--;
                     if (tries == 0)
                         throw ex;
@@ -75,7 +81,7 @@ namespace ReportGenerator
         }
         public static string Generate(CompanyInfo info, Order order)
         {
-            string html = GeneralInfo(info) +BR+SpecialReestrs(info)+ BR + Bankrupt(info.BankruptMessages) + BR + Founders(info) + BR + Activities(info) + BR + Lics(info) + BR + Finance(info) + BR + Arbitr(info) + Contracts(info) + BR + Bailiffs(info) + BR + History(info) + BR + RelatedCompanies(info.RelatedCompanies, "Связанные организации") + BR + RelatedCompanies(info.Predecessors, "Предшественники");
+            string html = GeneralInfo(info) +SpecialReestrs(info) + Bankrupt(info.BankruptMessages) +   Founders(info)   + Activities(info) +  Lics(info) + Finance(info)  + Arbitr(info)+ Contracts(info) + Bailiffs(info)  + History(info)  + RelatedCompanies(info.RelatedCompanies, "Связанные организации") + Predecessors(info.Predecessors);
             html = GetTemplate() + html + "</body> </html>";
 
             string fileName = "temp/" + order.CompanyINNOGRN + "_" + order.CustomerEmail + ".doc";
@@ -87,7 +93,7 @@ namespace ReportGenerator
         }
         private static string GetTemplate()
         {
-            string html = "<html  xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:x=\"urn:schemas-microsoft-com:office:word\" xmlns=\"http://www.w3.org/TR/REC-html40\">" +
+            string html = "<html   xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:x=\"urn:schemas-microsoft-com:office:word\" xmlns=\"http://www.w3.org/TR/REC-html40\">" +
 @"<style type='text/css'>"+style()+ @"
 </style>
 
@@ -116,32 +122,30 @@ namespace ReportGenerator
 	<COL WIDTH=468>
 	<TR VALIGN=TOP>
 		<TD WIDTH=203 HEIGHT=356 STYLE='border: none; padding: 0in'>
-            <P STYLE = 'margin-bottom: 0in; page-break-inside: avoid' > <br>ИНН:</br>
-			{0} <BR > <br>КПП:</br> {1} <BR > <br>ОГРН:</br> {2} <BR > <br>ОКПО:</br>
+            <P STYLE = 'margin-bottom: 0in; page-break-inside: avoid' > <b>ИНН:</b>
+			{0} <BR > <b>КПП:</b> {1} <BR > <b>ОГРН:</b> {2} <BR > <b>ОКПО:</b>
 			{3} </P >
-            <P STYLE = 'margin-top: 0.17in; margin-bottom: 0in; page-break-inside: avoid' >
-              <br>Дата образования:</br>
+            <P>
+              <b>Дата образования:</b>
             {4} <BR > {5} </P >
-                <P STYLE = 'margin-top: 0.17in; margin-bottom: 0in; page-break-inside: avoid' >
+                <P>
                   {6} 
-<span class='silversmall'> {7} еще компании[{8}]</span></P >
+<span class='silversmall'> {7} Зарегистрированные компании по этому адресу[{8}]</span></P >
             <P STYLE = 'margin-top: 0.17in; margin-bottom: 0in; page-break-inside: avoid' >
              {9} </P >
                 {10}
-                       <P STYLE = 'margin-top: 0.13in; margin-bottom: 0in; page-break-inside: avoid' >
-                         <BR >{11} </P >
-            <P STYLE = 'margin-top: 0.25in; page-break-inside: avoid' > <br>Код
-            налогового органа: </br>{12} </P >
+                       <span>
+                         {11} </span>
+            <br>
+            <span> <b>Код
+            налогового органа: </b>{12}</span>
         </TD >
         <TD WIDTH = 468 STYLE = 'border: none; padding: 0in' >
-            <P STYLE = 'margin-left: 1.17in; margin-bottom: 0.13in; page-break-inside: avoid' >
-             {13}<BR ><BR >
-            
-            </P>
+             {13}<BR>
             {14}
         </TD >
     </TR >
-</table>", info.INN, info.KPP, info.OGRN, info.OKPO, info.RegDate, info.Status, info.Address, info.AddressAddedDate.ToShortDateString(), info.AddressCount, info.PhoneNumbers.FirstOrDefault(), Manager(info), info.OtherCodes, info.NalogCode, string.IsNullOrEmpty(info.UstFond) ? "" : "Уставной капитал: " + info.UstFond, PreActivities(info));
+</table>", info.INN, info.KPP, info.OGRN, info.OKPO, info.RegDate, info.Status, info.Address, info.AddressAddedDate.ToShortDateString(), info.AddressCount, info.PhoneNumbers.FirstOrDefault(), Manager(info), info.OtherCodes, info.NalogCode, string.IsNullOrEmpty(info.UstFond) ? "" : "<b>Уставной капитал:</b> " + info.UstFond, PreActivities(info));
             return html;
         }
         private static string SpecialReestrs(CompanyInfo info)
@@ -150,7 +154,7 @@ namespace ReportGenerator
 
             if(!string.IsNullOrEmpty(info.SpecialReestrs))
             {
-                html = info.SpecialReestrs;
+                html = info.SpecialReestrs+BR;
                 
             }
             return html;
@@ -160,10 +164,10 @@ namespace ReportGenerator
             if (string.IsNullOrEmpty(info.ManagerName))
                 return "";
 
-            string html = string.Format(@"<P STYLE='margin - top: 0.17in; margin - bottom: 0in; page -break-inside: avoid'><A NAME='_GoBack'></A>
+            string html = string.Format(@"<span><A NAME='_GoBack'></A>
                   {0}<BR > {1}{2}
-                                                      <span class='silversmall'> {3} еще компании [{4}] </span><BR ><BR >
-                       </P > ", info.ManagerAmplua, info.ManagerName, info.ManagerAddedDate.ToShortDateString(), info.ManagerINN ?? "ИНН: " + info.ManagerINN, info.ManagerCount);
+                                                      <span class='silversmall'> {3} связь с другими компаниями [{4}] </span>
+                       </span> ", info.ManagerAmplua, info.ManagerName, info.ManagerAddedDate.ToShortDateString(), info.ManagerINN ?? "ИНН: " + info.ManagerINN, info.ManagerCount);
             return html;
 
         }
@@ -173,9 +177,9 @@ namespace ReportGenerator
 
             if (info.Activities != null)
             {
-                html += @"<P STYLE='margin - left: 1.17in; margin - bottom: 0.13in; page -break-inside: avoid'>
+                html += @"<span>
                  <B > Виды
-            деятельности </B ></P > ";
+            деятельности </B ></span> ";
 
                 foreach (var act in info.Activities.Take(3))
                 {
@@ -204,7 +208,7 @@ namespace ReportGenerator
                     html += string.Format(@"<span> {0} {1} </span> <br>", act.Code, act.Name);
                 }
 
-                html += "";
+                html += BR;
 
             }
             return html;
@@ -221,11 +225,12 @@ namespace ReportGenerator
                                 <P STYLE = 'margin-top: 0.13in; margin-bottom: 0.19in; page-break-inside: avoid; page-break-after: avoid' ></P > <ol>
                                       ", info.Lics.Count);
 
-                foreach (var lic in info.Lics)
+                foreach (var lic in info.Lics.Take(50))
                 {
                     html += "<li>"+lic.Activity+"</li><br>";
                 }
-                html += "</ol>";
+                html += "</ol>"+(info.Lics.Count>50?("<span> Еще "+(info.Lics.Count-50).ToString()):"")+BR;
+                
             }
             return html;
         }
@@ -246,7 +251,7 @@ namespace ReportGenerator
             <span> Чистая прибыль
                      {2}</span><br>
         ", info.FinBalance, info.FinProfit, info.FinNetProfit);
-
+                html += BR;
             }
             return html;
         }
@@ -255,7 +260,7 @@ namespace ReportGenerator
             string html = "";
             html += ArbitrTable("истца",info.ArbitrAsPlaintiff);
             html += ArbitrTable("ответчика",info.ArbitrAsRespondent);
-            html += ArbitrTable("третего лица",info.ArbitrAsThird);
+            html += ArbitrTable("третьего лица",info.ArbitrAsThird);
 
             return html;
         }
@@ -264,8 +269,9 @@ namespace ReportGenerator
             string html = "";
             if (info != null)
             {
-                html += string.Format(@"
-<h3 class='h3class'> Арбитражные дела в качестве {2}</h3><span> Всего (<span class='silversmall'>{0}</span>) Общая сумма (<span class='silversmall'>{1}</span>)<span>
+                
+                html += string.Format(PB+ @"
+<h3 class='h3class'> Арбитражные дела в качестве {2}</h3><span  style='font-size:13px;'> Всего (<span class='silversmall'>{0}</span>) Общая сумма (<span class='silversmall'>{1}</span>)<span>
 <br>
 <br>
 <ol>", info.Count, info.Sum,name);
@@ -290,8 +296,8 @@ namespace ReportGenerator
             string html = "";
             if (info != null)
             {
-                html += string.Format(@"
-<h3 class='h3class'>{2}</h3> <span>Всего (<span class='silversmall'>{0}</span>). Общая сумма (<span class='silversmall'>{1}</span>)</span>
+                html += string.Format(BR+ @"
+<h3 class='h3class'>{2}</h3> <span  style='font-size:13px;'>Всего (<span class='silversmall'>{0}</span>). Общая сумма (<span class='silversmall'>{1}</span>)</span>
 <br>
 <br>
 <ol>", info.Count, info.Sum, name);
@@ -308,10 +314,10 @@ namespace ReportGenerator
         {
             string html = "";
 
-            if (info.BailiffsInfo != null)
+            if (info.BailiffsInfo != null && info.BailiffsInfo.Cases!=null && info.BailiffsInfo.Cases.Count>0)
             {
-                html += string.Format(@"
-<h3 class='h3class'>Исполнительные производства </h3> <span>Всего (<span class='silversmall'>{0}</span>) Остаток суммы к взысканию (<span class='silversmall'>{1}</span>)</span>
+                html += string.Format(PB+ @"
+<h3 class='h3class'>Исполнительные производства </h3> <span style='font-size:13px;'>Всего (<span class='silversmall'>{0}</span>) Остаток суммы к взысканию (<span class='silversmall'>{1}</span>)</span>
 <br>
 <br>
 <ol>
@@ -352,7 +358,7 @@ namespace ReportGenerator
 
             if (list != null)
             {
-                html += "<h3 class='h3class'>" + name + "</h3> <ol>";
+                html += PB+"<h3 class='h3class'>" + name + "</h3> <ol>";
 
                 foreach (var item in list)
                 {
@@ -360,6 +366,22 @@ namespace ReportGenerator
                 }
                 html += "</ol>";
             }
+            return html;
+        }
+        private static string Predecessors(List<RelatedCompany> list)
+        {
+            string html = "";
+            if(list!=null)
+            {
+                html += string.Format("<h3 class='h3class'>Предшественники (<span class='silversmall'>{0}</span>)</h3><ol>",list.Count);
+                
+                foreach(var item in list)
+                {
+                    html += string.Format("<li>{0}<span class='silversmall'>{1}</span></li>", item.Name, item.OGRN);
+                }
+                html += "</ol>";
+            }
+
             return html;
         }
         private static string WithPre(string value, string pre)

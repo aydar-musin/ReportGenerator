@@ -104,7 +104,7 @@ namespace ReportGenerator
             {
                 info.Lics = Parser.Lics(Request("https://focus.kontur.ru/lics?query=" + order.CompanyId));
             }
-            if(info.BailiffsExist)
+            if (info.BailiffsExist)
             {
                 var inf = GetBailiffs(order.CompanyId);
                 if (info.BailiffsInfo != null)
@@ -112,16 +112,16 @@ namespace ReportGenerator
 
                 info.BailiffsInfo = inf;
             }
-            if(info.ContractsExist)
+            if (info.ContractsExist)
             {
-                info.WonContracts = GetContracts(order.CompanyId, "customers"); 
+                info.WonContracts = GetContracts(order.CompanyId, "customers");
                 info.PostedContracts = GetContracts(order.CompanyId, "suppliers");
             }
             info.Founders = GetFounders(order.CompanyId);
             info.Activities = GetActivities(order.CompanyId);
             info.Predecessors = GetPredecessors(order.CompanyId);
             info.RelatedCompanies = GetRelatedCompanies(order.CompanyId);
-            info.BankruptMessages = Parser.BankruptMessages(Request("https://focus.kontur.ru/bankrots?query="+order.CompanyId));
+            info.BankruptMessages = Parser.BankruptMessages(Request("https://focus.kontur.ru/bankrots?query=" + order.CompanyId));
             return info;
         }
 
@@ -135,7 +135,7 @@ namespace ReportGenerator
             List<RelatedCompany> result = new List<RelatedCompany>();
             for(int i=1;i<=PAGES;i++)
             {
-                var items= Parser.RelatedCompanies(Request(string.Format("https://focus.kontur.ru/graph?page={0}&filterFlags=268435456&order=29&query={1}",i,id)));
+                var items= Parser.Predecessors(Request(string.Format("https://focus.kontur.ru/graph?page={0}&filterFlags=268435456&order=29&query={1}",i,id)));
                 if (items != null)
                     result.AddRange(items);
                 else
