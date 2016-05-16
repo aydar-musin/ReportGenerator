@@ -21,6 +21,8 @@ namespace ReportGenerator
             {
                 System.Net.Mail.Attachment attachment;
                 attachment = new System.Net.Mail.Attachment(attachedFile);
+                attachment.Name = attachment.Name.Replace("temp/","");
+
                 mail.Attachments.Add(attachment);
             }
 

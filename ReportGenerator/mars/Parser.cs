@@ -422,7 +422,7 @@ namespace ReportGenerator
                 var sumEl = item.SelectSingleNode(".//*[@class='brown']");
                 if(sumEl!= null)
                 {
-                    sumEl.PreviousSibling.PreviousSibling.InnerHtml = sumEl.OuterHtml + sumEl.PreviousSibling.PreviousSibling.InnerHtml;
+                    sumEl.PreviousSibling.PreviousSibling.InnerHtml = sumEl.OuterHtml + "&nbsp;&nbsp;" + sumEl.PreviousSibling.PreviousSibling.InnerHtml;
                     sumEl.Remove();
                 }
 
@@ -458,7 +458,7 @@ namespace ReportGenerator
                     _case.Number = _case.Number.Replace("href","attr");
                     _case.Number = _case.Number.Replace("class=\"block relative\"", "style='border: 1px solid #cdcdcd'");
                     _case.Number = _case.Number.Replace("underline", "kad-item-docLink");
-                    _case.Number = _case.Number.Replace("style='display:none'","").Replace("Ответчики","");
+                    _case.Number = _case.Number.Replace("style='display:none'","").Replace("Ответчики","").Replace("Истцы", "");
                 }
                 
                 cases.Add(_case);
@@ -574,6 +574,7 @@ namespace ReportGenerator
                     
                     contr.Number = contr.Number.Replace("block relative size13", "").Replace("</span><br>\r\n\t\t\r\n\t\t</span><br>", "</span></span><br>");
                     contr.Number = contr.Number.Replace("<span class=\"brown\">", "<span class='silversmall'>Сумма- </span><span class=\"brown\">");
+                    contr.Number = contr.Number.Replace("marB5","").Replace("marT7_lt768", "");
                 }
                 info.Contracts.Add(contr);
             }
@@ -612,6 +613,7 @@ namespace ReportGenerator
 
                     contr.Number = contr.Number.Replace("block relative size13", "").Replace("</span><br>\r\n\t\t\r\n\t\t</span><br>", "</span></span><br>");
                     contr.Number = contr.Number.Replace("<span class=\"brown\">", "<span class='silversmall'>Сумма- </span><span class=\"brown\">");
+                    contr.Number = contr.Number.Replace("marB5", "").Replace("marT7_lt768", "");
                 }
                 info.Contracts.Add(contr);
             }
@@ -679,8 +681,8 @@ namespace ReportGenerator
                     RemoveElements(el, ".//span[@class='percentUp']");
                     RemoveElements(el, ".//span[@class='percentDown']");
 
-                    company.Name += "<br><br>" + el.InnerHtml.Replace("href", "attr");
-                    company.Name = company.Name.Replace("<span>","<span class='silversmall'>");
+                    company.Name += "" + el.InnerHtml.Replace("href", "attr");
+                    company.Name = company.Name.Replace("<span>","<span class='silversmall'>").Replace("<span class=\"inlineBlock floatRight \"><span class=\"inlineBlock floatRight \">", "&nbsp;&nbsp;<span class=\"inlineBlock floatRight \"><span class=\"inlineBlock floatRight \">");
                 }
                 catch { }
 

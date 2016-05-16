@@ -93,7 +93,8 @@ namespace ReportGenerator
 #if DEBUG
                                  order.CustomerEmail = "21pomni@gmail.com";
 #endif
-                                 EmailSender.SendEmail(order.CustomerEmail, "Отчет о компании " + order.CompanyINNOGRN, "", file);
+                                 string body = string.Format("Добрый день! \nИнформация по организации {0} ИНН/ОГРН {1}\n\nТехническая поддержка:\ne-mail: bezrisk@mail.ru\nskype: bezrisk_support",info.Name,order.CompanyINNOGRN);
+                                 EmailSender.SendEmail(order.CustomerEmail, "Отчет о компании " + order.CompanyINNOGRN,body, file);
                                  SaveProcessedOrder(order);
                                  Message("Успешно обработан " + order.CompanyINNOGRN + " " + order.CustomerEmail);
                              }

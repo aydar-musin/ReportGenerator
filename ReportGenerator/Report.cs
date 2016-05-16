@@ -130,7 +130,7 @@ namespace ReportGenerator
             {4} <BR > {5} </P >
                 <P>
                   {6} 
-<span class='silversmall'> {7} Зарегистрированные компании по этому адресу[{8}]</span></P >
+<span class='silversmall'> <span style='font-size:10.5px;color:black;'>{7}</span> <b>Зарегистрированные компании по этому адресу[{8}]</b></span></P >
             <P STYLE = 'margin-top: 0.17in; margin-bottom: 0in; page-break-inside: avoid' >
              {9} </P >
                 {10}
@@ -140,7 +140,7 @@ namespace ReportGenerator
             <span> <b>Код
             налогового органа: </b>{12}</span>
         </TD >
-        <TD WIDTH = 468 STYLE = 'border: none; padding: 0in' >
+        <TD><br>
              {13}<BR>
             {14}
         </TD >
@@ -166,7 +166,7 @@ namespace ReportGenerator
 
             string html = string.Format(@"<span><A NAME='_GoBack'></A>
                   {0}<BR > {1}{2}
-                                                      <span class='silversmall'> {3} связь с другими компаниями [{4}] </span>
+                                                      <span class='silversmall'> <span style='font-size:10.5px;color:black;'>{3}</span><b> связь с другими компаниями [{4}] </b></span>
                        </span> ", info.ManagerAmplua, info.ManagerName, info.ManagerAddedDate.ToShortDateString(), info.ManagerINN ?? "ИНН: " + info.ManagerINN, info.ManagerCount);
             return html;
 
