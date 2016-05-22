@@ -9,7 +9,7 @@ namespace ReportGenerator
     class ReportGenerator
     {
         private const string BR = "<br><br>";
-        private const string PB = "<br clear=all style='mso-special-character:line-break;page-break-before:always'>";
+        private const string PB = "<br>"; //"<br clear=all style='mso-special-character:line-break;page-break-before:always'>";
 
         private static void ConvertDocToDocx(string path)
         {
@@ -27,9 +27,9 @@ namespace ReportGenerator
                         var sourceFile = new FileInfo(path);
                         var document = word.Documents.Open(sourceFile.FullName);
 
-                        string newFileName = sourceFile.FullName.Replace(".doc", ".docx");
-                        document.SaveAs2(newFileName, WdSaveFormat.wdFormatDocumentDefault,
-                                         CompatibilityMode: WdCompatibilityMode.wdWord2007);
+                        string newFileName = sourceFile.FullName.Replace(".doc", ".rtf");
+
+                        document.SaveAs2(newFileName, WdSaveFormat.wdFormatRTF);
 
                         word.ActiveDocument.Close();
                         word.Quit();
@@ -86,10 +86,10 @@ namespace ReportGenerator
 
             string fileName = "temp/" + order.CompanyINNOGRN + "_" + order.CustomerEmail + ".doc";
 
-            File.WriteAllText(fileName, html);
+            File.WriteAllText(fileName, html,Encoding.UTF8);
             ConvertDocToDocx(fileName);
 
-            return fileName.Replace(".doc", ".docx");
+            return fileName;
         }
         private static string GetTemplate()
         {
@@ -121,7 +121,7 @@ namespace ReportGenerator
 	<COL WIDTH=203>
 	<COL WIDTH=468>
 	<TR VALIGN=TOP>
-		<TD WIDTH=203 HEIGHT=356 STYLE='border: none; padding: 0in'>
+		<TD STYLE='border: none; padding: 0in'>
             <P STYLE = 'margin-bottom: 0in; page-break-inside: avoid' > <b>ИНН:</b>
 			{0} <BR > <b>КПП:</b> {1} <BR > <b>ОГРН:</b> {2} <BR > <b>ОКПО:</b>
 			{3} </P >
@@ -130,7 +130,7 @@ namespace ReportGenerator
             {4} <BR > {5} </P >
                 <P>
                   {6} 
-<span class='silversmall'> <span style='font-size:10.5px;color:black;'>{7}</span> <b>Зарегистрированные компании по этому адресу[{8}]</b></span></P >
+<span class='silversmall'> <span style='font-size:10.5px;color:black;'>{7}</span> <span style='font-size:10.5px;' class='silversmall'><b>Зарегистрированные компании по этому адресу[{8}]</b></span></span></P >
             <P STYLE = 'margin-top: 0.17in; margin-bottom: 0in; page-break-inside: avoid' >
              {9} </P >
                 {10}
@@ -140,7 +140,7 @@ namespace ReportGenerator
             <span> <b>Код
             налогового органа: </b>{12}</span>
         </TD >
-        <TD><br>
+        <TD  style='width:450px;margin-right:40px;margin-left:10px;'><br>
              {13}<BR>
             {14}
         </TD >
@@ -166,7 +166,7 @@ namespace ReportGenerator
 
             string html = string.Format(@"<span><A NAME='_GoBack'></A>
                   {0}<BR > {1}{2}
-                                                      <span class='silversmall'> <span style='font-size:10.5px;color:black;'>{3}</span><b> связь с другими компаниями [{4}] </b></span>
+                                                      <span class='silversmall'> <span style='font-size:10.5px;color:black;'>{3}</span><span style='font-size:10.5px;' class='silversmall'><b> связь с другими компаниями [{4}]</span> </b></span>
                        </span> ", info.ManagerAmplua, info.ManagerName, info.ManagerAddedDate.ToShortDateString(), info.ManagerINN ?? "ИНН: " + info.ManagerINN, info.ManagerCount);
             return html;
 
@@ -248,9 +248,12 @@ namespace ReportGenerator
             <span> Баланс {0}</span><br>        
             <span> Выручка
                     {1}</span><br>
-            <span> Чистая прибыль
+            <span>
                      {2}</span><br>
-        ", info.FinBalance, info.FinProfit, info.FinNetProfit);
+            <span>
+                     {3}</span><br>
+        ", info.FinBalance, info.FinProfit, string.IsNullOrEmpty(info.FinNetProfit)?"":"Чистая прибыль "+info.FinNetProfit,
+        string.IsNullOrEmpty(info.FintNetLoss)?"":"Чистый убыток "+info.FintNetLoss);
                 html += BR;
             }
             return html;
@@ -316,7 +319,7 @@ namespace ReportGenerator
 
             if (info.BailiffsInfo != null && info.BailiffsInfo.Cases!=null && info.BailiffsInfo.Cases.Count>0)
             {
-                html += string.Format(PB+ @"
+                html += string.Format(BR+ @"
 <h3 class='h3class'>Исполнительные производства </h3> <span style='font-size:13px;'>Всего (<span class='silversmall'>{0}</span>) Остаток суммы к взысканию (<span class='silversmall'>{1}</span>)</span>
 <br>
 <br>

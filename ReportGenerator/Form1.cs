@@ -91,10 +91,14 @@ namespace ReportGenerator
 
                                  var file=ReportGenerator.Generate(info,order);
 #if DEBUG
+                                 string realEmail = order.CustomerEmail;
                                  order.CustomerEmail = "21pomni@gmail.com";
 #endif
-                                 string body = string.Format("Добрый день! \nИнформация по организации {0} ИНН/ОГРН {1}\n\nТехническая поддержка:\ne-mail: bezrisk@mail.ru\nskype: bezrisk_support",info.Name,order.CompanyINNOGRN);
-                                 EmailSender.SendEmail(order.CustomerEmail, "Отчет о компании " + order.CompanyINNOGRN,body, file);
+                                 string body = string.Format("Добрый день! \nИнформация по организации {0} ИНН {1}\n\nТехническая поддержка:\ne-mail: bezrisk@mail.ru\nskype: bezrisk_support",info.Name,info.INN);
+                                 EmailSender.SendEmail(order.CustomerEmail, "Отчет по компании ИНН" + info.INN,body, file);
+#if DEBUG
+                                 order.CustomerEmail = realEmail;
+#endif
                                  SaveProcessedOrder(order);
                                  Message("Успешно обработан " + order.CompanyINNOGRN + " " + order.CustomerEmail);
                              }

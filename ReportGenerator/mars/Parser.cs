@@ -17,7 +17,7 @@ namespace ReportGenerator
             doc.LoadHtml(html);
 
             Order order = new Order();
-            var match=Regex.Match(doc.DocumentNode.InnerText, "Проверка организации;(?<input>[0-9]{10,13})");
+            var match=Regex.Match(doc.DocumentNode.InnerText.Replace("\r\n",""), "Проверка организации;(?<input>[0-9]{10,13})");
             if (!match.Success)
                 throw new Exception("Ошибка получения ИНН или ОГРН заказа");
 
@@ -29,7 +29,7 @@ namespace ReportGenerator
                 throw new Exception("Ошибка получения email заказчика");
             order.CustomerEmail = match.Groups["email"].Value;
 
-            match = Regex.Match(doc.DocumentNode.InnerText, "Дата и время(?<date>.*)Пополнение");
+            match = Regex.Match(doc.DocumentNode.InnerText, @"Дата и время(?<date>\d{2}\.\d{2}\.\d{4} \d{2}:\d{2})");
             if (!match.Success)
                 throw new Exception("Ошибка получения даты заказа");
 
@@ -194,8 +194,10 @@ namespace ReportGenerator
                             companyInfo.ManagerAmplua = items[0];
                             companyInfo.ManagerName = items[1];
 
-                            if (items.Length > 2)
-                                companyInfo.ManagerCount = int.Parse(items[2]);
+                            var countItem = items.FirstOrDefault(i => i.Contains("связи"));
+
+                            if (countItem != null)
+                                companyInfo.ManagerCount = int.Parse(countItem.Split(' ')[0]);
 
                             foreach (var item in items)
                             {
@@ -251,6 +253,9 @@ namespace ReportGenerator
                                 companyInfo.FinProfit = row.InnerText.GetHTMLDecoded().Replace("Выручка —", "");
                             else if (row.InnerText.Contains("Чистая прибыль"))
                                 companyInfo.FinNetProfit = row.InnerText.GetHTMLDecoded().Replace("Чистая прибыль —", "");
+                            else if(row.InnerText.Contains("Чистый убыток"))
+                                companyInfo.FintNetLoss = row.InnerText.GetHTMLDecoded().Replace("Чистый убыток —", "");
+
                         }
                     }
                 }
@@ -266,6 +271,7 @@ namespace ReportGenerator
                 if(block.InnerText.Contains("Особые реестры ФНС"))
                 {
                     companyInfo.SpecialReestrs = block.InnerHtml.Replace("href","attr").Replace("green underline", "alert underline").Replace("источник","").Replace("<h3>Особые реестры ФНС</h3>", "<h3 style=\"color: red; \">Особые реестры ФНС</h3>");
+                    companyInfo.SpecialReestrs = companyInfo.SpecialReestrs.Replace("class=\"size15 marT10\"", "style=\"font - size:10.5px; font - weight:bold; \"").Replace("class=\"noMargin smallText\"", "style=\"font-size:10.5px; \"");
                 }
                 if (block.InnerText.Contains("Исполнительные производства"))
                 {
@@ -575,6 +581,7 @@ namespace ReportGenerator
                     contr.Number = contr.Number.Replace("block relative size13", "").Replace("</span><br>\r\n\t\t\r\n\t\t</span><br>", "</span></span><br>");
                     contr.Number = contr.Number.Replace("<span class=\"brown\">", "<span class='silversmall'>Сумма- </span><span class=\"brown\">");
                     contr.Number = contr.Number.Replace("marB5","").Replace("marT7_lt768", "");
+                    contr.Number = contr.Number.Replace("<span class=\"noMargin fauxh3\"><span class=\"noMargin fauxh3\">", "&nbsp;&nbsp;<span class=\"noMargin fauxh3\"><span class=\"noMargin fauxh3\">");
                 }
                 info.Contracts.Add(contr);
             }
@@ -614,6 +621,7 @@ namespace ReportGenerator
                     contr.Number = contr.Number.Replace("block relative size13", "").Replace("</span><br>\r\n\t\t\r\n\t\t</span><br>", "</span></span><br>");
                     contr.Number = contr.Number.Replace("<span class=\"brown\">", "<span class='silversmall'>Сумма- </span><span class=\"brown\">");
                     contr.Number = contr.Number.Replace("marB5", "").Replace("marT7_lt768", "");
+                    contr.Number = contr.Number.Replace("<span class=\"noMargin fauxh3\"><span class=\"noMargin fauxh3\">", "&nbsp;&nbsp;<span class=\"noMargin fauxh3\"><span class=\"noMargin fauxh3\">");
                 }
                 info.Contracts.Add(contr);
             }

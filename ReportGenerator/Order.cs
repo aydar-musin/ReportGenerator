@@ -14,7 +14,7 @@ namespace ReportGenerator
 
         public override int GetHashCode()
         {
-            return CustomerEmail.GetHashCode() + CompanyINNOGRN.GetHashCode()+TimeStamp.GetHashCode();
+            return CustomerEmail.GetHashCode() + CompanyINNOGRN.GetHashCode()+TimeStamp.ToShortDateString().GetHashCode();
         }
         public override bool Equals(object obj)
         {

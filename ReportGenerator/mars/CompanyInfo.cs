@@ -79,6 +79,7 @@ namespace ReportGenerator
         public string FinBalance;
         public string FinProfit;
         public string FinNetProfit;
+        public string FintNetLoss;
 
         public List<Activity> Activities;
 
