@@ -11,7 +11,7 @@ namespace ReportGenerator
         private const string BR = "<br><br>";
         private const string PB = "<br>"; //"<br clear=all style='mso-special-character:line-break;page-break-before:always'>";
 
-        private static void ConvertDocToDocx(string path)
+        private static string ConvertDocToDocx(string path)
         {
             int tries = 2;
 
@@ -34,9 +34,9 @@ namespace ReportGenerator
                         word.ActiveDocument.Close();
                         word.Quit();
 
-                        //File.Delete(path);
+                        File.Delete(path);
 
-                        break;
+                        return newFileName;
                     }
                 }
                 catch (Exception ex)
@@ -48,6 +48,7 @@ namespace ReportGenerator
                         throw ex;
                 }
             }
+            return null;
         }
         private static void CloseWord()
         {
@@ -87,9 +88,8 @@ namespace ReportGenerator
             string fileName = "temp/" + order.CompanyINNOGRN + "_" + order.CustomerEmail + ".doc";
 
             File.WriteAllText(fileName, html,Encoding.UTF8);
-            ConvertDocToDocx(fileName);
-
-            return fileName;
+            
+            return ConvertDocToDocx(fileName);
         }
         private static string GetTemplate()
         {

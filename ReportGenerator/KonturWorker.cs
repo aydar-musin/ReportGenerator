@@ -10,6 +10,7 @@ namespace ReportGenerator
     class KonturWorker
     {
         static int PAGES = 5;
+        static int Delay = int.Parse(System.Configuration.ConfigurationSettings.AppSettings["Delay"]);
 
         public string Cookie { get; set; }
         private WebProxy proxy;
@@ -47,7 +48,7 @@ namespace ReportGenerator
             req: try
             {
                 Random rnd = new Random();
-                System.Threading.Thread.Sleep(rnd.Next(500, 2000));
+                System.Threading.Thread.Sleep(rnd.Next(Delay, Delay +1000));
 
                 HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(url);
                 if (Settings.UseProxy && this.proxy != null)
@@ -72,6 +73,7 @@ namespace ReportGenerator
             }
             catch (Exception ex)
             {
+
                 tries--;
                 if (tries > 0)
                 {
@@ -86,12 +88,23 @@ namespace ReportGenerator
         }
         public CompanyInfo Process(Order order)
         {
+            bool IP = false;
+
             if (order.CompanyINNOGRN.Length == 10)
                 order.CompanyId = GetCompanyId(order.CompanyINNOGRN);
-            else
+            else if(order.CompanyINNOGRN.Length==13)
                 order.CompanyId = order.CompanyINNOGRN;
-
-            CompanyInfo info = Parser.GeneralInfo(Request("https://focus.kontur.ru/entity?query=" + order.CompanyId));
+            else if(order.CompanyINNOGRN.Length==12)
+            {
+                order.CompanyId = GetCompanyId(order.CompanyINNOGRN);
+                IP = true;
+            }
+            else if(order.CompanyINNOGRN.Length==15)
+            {
+                order.CompanyId = order.CompanyINNOGRN;
+                IP = true;
+            }
+            CompanyInfo info = Parser.GeneralInfo(Request("https://focus.kontur.ru/entity?query=" + order.CompanyId),IP);
 
             if (info.ArbitrationExists)
             {
@@ -268,7 +281,7 @@ namespace ReportGenerator
             string result = "";
             using (var response = request.GetResponse())
             {
-                var match = System.Text.RegularExpressions.Regex.Match(response.ResponseUri.Query, "query=(?<id>[0-9]{13})");
+                var match = System.Text.RegularExpressions.Regex.Match(response.ResponseUri.Query, "query=(?<id>[0-9]{13,15})");
                 if (!match.Success)
                     new Exception("Ошибка получения id компании по входной информации заказа");
 

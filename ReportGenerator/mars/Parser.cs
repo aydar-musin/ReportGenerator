@@ -37,7 +37,7 @@ namespace ReportGenerator
 
             return order;
         }
-        public static CompanyInfo GeneralInfo(string html)
+        public static CompanyInfo GeneralInfo(string html,bool IP)
         {
             var companyInfo = new CompanyInfo();
 
@@ -82,7 +82,7 @@ namespace ReportGenerator
                         if (nameEl != null)
                             companyInfo.Name = nameEl.InnerText.GetHTMLDecoded();
 
-                        companyInfo.FullName = block.SelectSingleNode("./h4[1]").InnerText;
+                        companyInfo.FullName = block.SelectSingleNode("./h4[1]")!=null? block.SelectSingleNode("./h4[1]").InnerText : null;
 
                     }
                     var codesNodes = block.SelectNodes(".//dl//dt");
@@ -125,7 +125,27 @@ namespace ReportGenerator
                         statusnode = block.SelectSingleNode(".//div[@class='fullMargin warning']");
 
                     if (statusnode != null)
+                    {
                         companyInfo.Status = statusnode.InnerText.Trim();
+
+                        if(IP)
+                        {
+                            try
+                            {
+
+
+                                var addressNode = statusnode.NextSibling.NextSibling.NextSibling.NextSibling.NextSibling.NextSibling;
+                                if (addressNode != null)
+                                {
+                                    companyInfo.Address = addressNode.InnerText;
+                                }
+                            }
+                            catch
+                            {
+
+                            }
+                        }
+                    }
                 }
                 #endregion status
 

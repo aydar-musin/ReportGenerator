@@ -17,6 +17,8 @@ namespace ReportGenerator
         bool IsWorking = false;
 
         System.Threading.Timer timer;
+        private List<Order> Sucess = new List<Order>();
+        private List<Order> Fail = new List<Order>();
 
         public Form1()
         {
@@ -53,7 +55,6 @@ namespace ReportGenerator
             if (!IsWorking)
             {
                 StartStopButton.Text = "Stop";
-                IsWorking = true;
                 SettingsBox.Enabled = false;
 
                 SaveConfig();
@@ -64,8 +65,13 @@ namespace ReportGenerator
 
                 timer = new System.Threading.Timer(new TimerCallback((obj) =>
                  {
+                     if (IsWorking)
+                         return;
+
+                     IsWorking = true;
                      try
                      {
+                         
                          Message("Начало проверки заказов");
                          var orders = OrdersProvider.GetOrders();
                          var processedOrders = GetProcessedOrders();
@@ -76,6 +82,7 @@ namespace ReportGenerator
                          if (orders.Count == 0)
                          {
                              Message("Новых заказов не получено");
+                             IsWorking = false;
                              return;
                          }
 
@@ -101,17 +108,25 @@ namespace ReportGenerator
 #endif
                                  SaveProcessedOrder(order);
                                  Message("Успешно обработан " + order.CompanyINNOGRN + " " + order.CustomerEmail);
+                                 Sucess.Add(order);
                              }
                              catch (Exception ex)
                              {
                                  ErrorLog(ex);
                                  Message("Ошибка при обработке заказа " + order.CompanyINNOGRN + " " + order.CustomerEmail +" "+ex.Message);
+                                 Fail.Add(order);
+                             }
+                             finally
+                             {
+                                 RefreshStat();
                              }
                          }
+                         IsWorking = false;
                      }
                      catch (Exception ex)
                      {
-
+                         IsWorking = false;
+                         Message(ex.Message);
                      }
                  }), null, 500, (int)IntervalNumericUpDown.Value * 60000);
             }
@@ -164,7 +179,7 @@ namespace ReportGenerator
             }
             catch(Exception ex)
             {
-
+                throw new Exception("Ошибка чтения файла orders.log");
             }
             return orders;
         }
@@ -261,6 +276,20 @@ namespace ReportGenerator
             }
         }
 
+        private void RefreshStat()
+        {
+            this.Invoke(new Action(() =>
+            {
+                SuccessListBox.Items.Clear();
+                FailListBox.Items.Clear();
+
+                SuccessListBox.Items.AddRange(Sucess.Select(o => o.CompanyINNOGRN + " " + o.CustomerEmail).ToArray());
+                FailListBox.Items.AddRange(Fail.Select(o => o.CompanyINNOGRN + " " + o.CustomerEmail).ToArray());
+
+                SuccessLabel.Text = "Успешно- " + Sucess.Count;
+                FailLabel.Text = "Ошибка- "+Fail.Count;
+            }));
+        }
         private static void SaveSO(CompanyInfo info)
         {
             System.IO.File.WriteAllText("savedSO.txt", Newtonsoft.Json.JsonConvert.SerializeObject(info));

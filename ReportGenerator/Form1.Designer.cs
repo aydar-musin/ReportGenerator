@@ -32,6 +32,12 @@
             this.StateLabel = new System.Windows.Forms.Label();
             this.StartStopButton = new System.Windows.Forms.Button();
             this.SettingsBox = new System.Windows.Forms.GroupBox();
+            this.ProxyTestButton = new System.Windows.Forms.Button();
+            this.ProxyCheckBox = new System.Windows.Forms.CheckBox();
+            this.ManualGroupBox = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.TestButton = new System.Windows.Forms.Button();
+            this.TestTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.ErrorsEmailTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -43,16 +49,16 @@
             this.CookieTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.LogTextBox = new System.Windows.Forms.TextBox();
-            this.ManualGroupBox = new System.Windows.Forms.GroupBox();
-            this.TestTextBox = new System.Windows.Forms.TextBox();
-            this.TestButton = new System.Windows.Forms.Button();
-            this.ProxyCheckBox = new System.Windows.Forms.CheckBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.ProxyTestButton = new System.Windows.Forms.Button();
+            this.StatGroupBox = new System.Windows.Forms.GroupBox();
+            this.FailLabel = new System.Windows.Forms.Label();
+            this.SuccessLabel = new System.Windows.Forms.Label();
+            this.FailListBox = new System.Windows.Forms.ListBox();
+            this.SuccessListBox = new System.Windows.Forms.ListBox();
             this.panelButtons.SuspendLayout();
             this.SettingsBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.IntervalNumericUpDown)).BeginInit();
             this.ManualGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.IntervalNumericUpDown)).BeginInit();
+            this.StatGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelButtons
@@ -101,10 +107,70 @@
             this.SettingsBox.Controls.Add(this.label1);
             this.SettingsBox.Location = new System.Drawing.Point(12, 53);
             this.SettingsBox.Name = "SettingsBox";
-            this.SettingsBox.Size = new System.Drawing.Size(468, 301);
+            this.SettingsBox.Size = new System.Drawing.Size(468, 238);
             this.SettingsBox.TabIndex = 1;
             this.SettingsBox.TabStop = false;
             this.SettingsBox.Text = "Настройки";
+            // 
+            // ProxyTestButton
+            // 
+            this.ProxyTestButton.Location = new System.Drawing.Point(153, 122);
+            this.ProxyTestButton.Name = "ProxyTestButton";
+            this.ProxyTestButton.Size = new System.Drawing.Size(125, 23);
+            this.ProxyTestButton.TabIndex = 14;
+            this.ProxyTestButton.Text = "Проверить прокси";
+            this.ProxyTestButton.UseVisualStyleBackColor = true;
+            this.ProxyTestButton.Click += new System.EventHandler(this.ProxyTestButton_Click);
+            // 
+            // ProxyCheckBox
+            // 
+            this.ProxyCheckBox.AutoSize = true;
+            this.ProxyCheckBox.Checked = true;
+            this.ProxyCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ProxyCheckBox.Location = new System.Drawing.Point(9, 126);
+            this.ProxyCheckBox.Name = "ProxyCheckBox";
+            this.ProxyCheckBox.Size = new System.Drawing.Size(138, 17);
+            this.ProxyCheckBox.TabIndex = 13;
+            this.ProxyCheckBox.Text = "Использовать прокси";
+            this.ProxyCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // ManualGroupBox
+            // 
+            this.ManualGroupBox.Controls.Add(this.label6);
+            this.ManualGroupBox.Controls.Add(this.TestButton);
+            this.ManualGroupBox.Controls.Add(this.TestTextBox);
+            this.ManualGroupBox.Location = new System.Drawing.Point(9, 165);
+            this.ManualGroupBox.Name = "ManualGroupBox";
+            this.ManualGroupBox.Size = new System.Drawing.Size(453, 64);
+            this.ManualGroupBox.TabIndex = 12;
+            this.ManualGroupBox.TabStop = false;
+            this.ManualGroupBox.Text = "Ручной режим";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 32);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(68, 13);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "ОГРН/ИНН:";
+            // 
+            // TestButton
+            // 
+            this.TestButton.Location = new System.Drawing.Point(200, 29);
+            this.TestButton.Name = "TestButton";
+            this.TestButton.Size = new System.Drawing.Size(55, 20);
+            this.TestButton.TabIndex = 1;
+            this.TestButton.Text = "OK";
+            this.TestButton.UseVisualStyleBackColor = true;
+            this.TestButton.Click += new System.EventHandler(this.TestButton_Click);
+            // 
+            // TestTextBox
+            // 
+            this.TestTextBox.Location = new System.Drawing.Point(79, 29);
+            this.TestTextBox.Name = "TestTextBox";
+            this.TestTextBox.Size = new System.Drawing.Size(115, 20);
+            this.TestTextBox.TabIndex = 0;
             // 
             // label5
             // 
@@ -199,74 +265,62 @@
             this.LogTextBox.Name = "LogTextBox";
             this.LogTextBox.ReadOnly = true;
             this.LogTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.LogTextBox.Size = new System.Drawing.Size(305, 342);
+            this.LogTextBox.Size = new System.Drawing.Size(305, 364);
             this.LogTextBox.TabIndex = 2;
             // 
-            // ManualGroupBox
+            // StatGroupBox
             // 
-            this.ManualGroupBox.Controls.Add(this.label6);
-            this.ManualGroupBox.Controls.Add(this.TestButton);
-            this.ManualGroupBox.Controls.Add(this.TestTextBox);
-            this.ManualGroupBox.Location = new System.Drawing.Point(9, 165);
-            this.ManualGroupBox.Name = "ManualGroupBox";
-            this.ManualGroupBox.Size = new System.Drawing.Size(453, 130);
-            this.ManualGroupBox.TabIndex = 12;
-            this.ManualGroupBox.TabStop = false;
-            this.ManualGroupBox.Text = "Ручной режим";
+            this.StatGroupBox.Controls.Add(this.FailLabel);
+            this.StatGroupBox.Controls.Add(this.SuccessLabel);
+            this.StatGroupBox.Controls.Add(this.FailListBox);
+            this.StatGroupBox.Controls.Add(this.SuccessListBox);
+            this.StatGroupBox.Location = new System.Drawing.Point(12, 297);
+            this.StatGroupBox.Name = "StatGroupBox";
+            this.StatGroupBox.Size = new System.Drawing.Size(468, 82);
+            this.StatGroupBox.TabIndex = 16;
+            this.StatGroupBox.TabStop = false;
+            this.StatGroupBox.Text = "Статистика за последний сеанс работы";
             // 
-            // TestTextBox
+            // FailLabel
             // 
-            this.TestTextBox.Location = new System.Drawing.Point(79, 29);
-            this.TestTextBox.Name = "TestTextBox";
-            this.TestTextBox.Size = new System.Drawing.Size(115, 20);
-            this.TestTextBox.TabIndex = 0;
+            this.FailLabel.AutoSize = true;
+            this.FailLabel.Location = new System.Drawing.Point(230, 20);
+            this.FailLabel.Name = "FailLabel";
+            this.FailLabel.Size = new System.Drawing.Size(59, 13);
+            this.FailLabel.TabIndex = 3;
+            this.FailLabel.Text = "Ошибка: ()";
             // 
-            // TestButton
+            // SuccessLabel
             // 
-            this.TestButton.Location = new System.Drawing.Point(200, 29);
-            this.TestButton.Name = "TestButton";
-            this.TestButton.Size = new System.Drawing.Size(55, 20);
-            this.TestButton.TabIndex = 1;
-            this.TestButton.Text = "OK";
-            this.TestButton.UseVisualStyleBackColor = true;
-            this.TestButton.Click += new System.EventHandler(this.TestButton_Click);
+            this.SuccessLabel.AutoSize = true;
+            this.SuccessLabel.Location = new System.Drawing.Point(6, 20);
+            this.SuccessLabel.Name = "SuccessLabel";
+            this.SuccessLabel.Size = new System.Drawing.Size(65, 13);
+            this.SuccessLabel.TabIndex = 2;
+            this.SuccessLabel.Text = "Успешно: ()";
             // 
-            // ProxyCheckBox
+            // FailListBox
             // 
-            this.ProxyCheckBox.AutoSize = true;
-            this.ProxyCheckBox.Checked = true;
-            this.ProxyCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ProxyCheckBox.Location = new System.Drawing.Point(9, 126);
-            this.ProxyCheckBox.Name = "ProxyCheckBox";
-            this.ProxyCheckBox.Size = new System.Drawing.Size(138, 17);
-            this.ProxyCheckBox.TabIndex = 13;
-            this.ProxyCheckBox.Text = "Использовать прокси";
-            this.ProxyCheckBox.UseVisualStyleBackColor = true;
+            this.FailListBox.FormattingEnabled = true;
+            this.FailListBox.Location = new System.Drawing.Point(295, 19);
+            this.FailListBox.Name = "FailListBox";
+            this.FailListBox.Size = new System.Drawing.Size(147, 56);
+            this.FailListBox.TabIndex = 1;
             // 
-            // label6
+            // SuccessListBox
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 32);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(68, 13);
-            this.label6.TabIndex = 14;
-            this.label6.Text = "ОГРН/ИНН:";
-            // 
-            // ProxyTestButton
-            // 
-            this.ProxyTestButton.Location = new System.Drawing.Point(153, 122);
-            this.ProxyTestButton.Name = "ProxyTestButton";
-            this.ProxyTestButton.Size = new System.Drawing.Size(125, 23);
-            this.ProxyTestButton.TabIndex = 14;
-            this.ProxyTestButton.Text = "Проверить прокси";
-            this.ProxyTestButton.UseVisualStyleBackColor = true;
-            this.ProxyTestButton.Click += new System.EventHandler(this.ProxyTestButton_Click);
+            this.SuccessListBox.FormattingEnabled = true;
+            this.SuccessListBox.Location = new System.Drawing.Point(77, 20);
+            this.SuccessListBox.Name = "SuccessListBox";
+            this.SuccessListBox.Size = new System.Drawing.Size(140, 56);
+            this.SuccessListBox.TabIndex = 0;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(799, 366);
+            this.ClientSize = new System.Drawing.Size(799, 388);
+            this.Controls.Add(this.StatGroupBox);
             this.Controls.Add(this.LogTextBox);
             this.Controls.Add(this.SettingsBox);
             this.Controls.Add(this.panelButtons);
@@ -276,9 +330,11 @@
             this.panelButtons.PerformLayout();
             this.SettingsBox.ResumeLayout(false);
             this.SettingsBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.IntervalNumericUpDown)).EndInit();
             this.ManualGroupBox.ResumeLayout(false);
             this.ManualGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.IntervalNumericUpDown)).EndInit();
+            this.StatGroupBox.ResumeLayout(false);
+            this.StatGroupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -307,6 +363,11 @@
         private System.Windows.Forms.Button TestButton;
         private System.Windows.Forms.TextBox TestTextBox;
         private System.Windows.Forms.Button ProxyTestButton;
+        private System.Windows.Forms.GroupBox StatGroupBox;
+        private System.Windows.Forms.Label FailLabel;
+        private System.Windows.Forms.Label SuccessLabel;
+        private System.Windows.Forms.ListBox FailListBox;
+        private System.Windows.Forms.ListBox SuccessListBox;
     }
 }
 
