@@ -24,7 +24,6 @@ namespace ReportGenerator
         {
             InitializeComponent();
             Init();
-
 #if DEBUG
             TryMakeSavedSO();
 #endif
@@ -101,8 +100,9 @@ namespace ReportGenerator
                                  string realEmail = order.CustomerEmail;
                                  order.CustomerEmail = "21pomni@gmail.com";
 #endif
-                                 string body = string.Format("Добрый день! \nИнформация по организации {0} ИНН {1}\n\nТехническая поддержка:\ne-mail: bezrisk@mail.ru\nskype: bezrisk_support",info.Name,info.INN);
-                                 EmailSender.SendEmail(order.CustomerEmail, "Отчет по компании ИНН" + info.INN,body, file);
+                                 string body = string.Format(
+                                     "Добрый день!\nБлагодарим Вас за использование ресурса bezrisk.ru \nВ прикрепленном ниже файле содержится отчет о проверяемой Вами компании. \nЕсли для просмотра, Вы используете Microsoft Word, рекомендуем убедится, что документ отображается в режиме 'разметка страницы'(настройку режима можно осуществить в правом нижнем углу страницы). \nПо возникшим вопросам, жалобам и предложениям обращайтесь ответным письмом.\nТак же у Вас теперь есть возможность экономить при работе с нами.Обратите внимание на наше специальное предложение: При единовременном заказе 10 отчетов и более, действует скидка - 50 %.Что бы воспользоваться данным предложением и получить скидку, пишите ответным письмом\n\n___________________\nС уважением,\nАдминистрация ресурса bezrisk.ru");
+                                 EmailSender.SendEmail(order.CustomerEmail, "Отчет по компании ИНН " + info.INN,body, file);
 #if DEBUG
                                  order.CustomerEmail = realEmail;
 #endif
