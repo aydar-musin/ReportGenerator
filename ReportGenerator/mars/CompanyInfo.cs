@@ -27,11 +27,11 @@ namespace ReportGenerator
         public string Status;
         // Current address with date
         public string Address;
-        public DateTime AddressAddedDate;
+        public DateTime? AddressAddedDate;
         public int AddressCount;
 
         // Date of Manager
-        public DateTime ManagerAddedDate;
+        public DateTime? ManagerAddedDate;
         public string ManagerName;
         public string ManagerAmplua;
         public int ManagerCount;

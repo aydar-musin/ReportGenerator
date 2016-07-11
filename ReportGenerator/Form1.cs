@@ -93,6 +93,10 @@ namespace ReportGenerator
                              try
                              {
                                  Message("Обработка " + order.CompanyINNOGRN + " " + order.CustomerEmail);
+                                 
+                                 if (!System.Text.RegularExpressions.Regex.IsMatch(order.CustomerEmail, @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"))
+                                     throw new Exception("Неправильный формат email");
+
                                  var info = konturW.Process(order);
 
                                  var file=ReportGenerator.Generate(info,order);
