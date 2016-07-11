@@ -92,18 +92,21 @@ namespace ReportGenerator
 
             if (order.CompanyINNOGRN.Length == 10)
                 order.CompanyId = GetCompanyId(order.CompanyINNOGRN);
-            else if(order.CompanyINNOGRN.Length==13)
+            else if (order.CompanyINNOGRN.Length == 13)
                 order.CompanyId = order.CompanyINNOGRN;
-            else if(order.CompanyINNOGRN.Length==12)
+            else if (order.CompanyINNOGRN.Length == 12)
             {
-                order.CompanyId = GetCompanyId(order.CompanyINNOGRN);
+                order.CompanyId = GetIPId(order.CompanyINNOGRN);
                 IP = true;
             }
-            else if(order.CompanyINNOGRN.Length==15)
+            else if (order.CompanyINNOGRN.Length == 15)
             {
                 order.CompanyId = order.CompanyINNOGRN;
                 IP = true;
             }
+            else
+                throw new Exception("Неправильный формат ИНН/ОГРН");
+
             CompanyInfo info = Parser.GeneralInfo(Request("https://focus.kontur.ru/entity?query=" + order.CompanyId),IP);
 
             if (info.ArbitrationExists)
@@ -130,9 +133,13 @@ namespace ReportGenerator
                 info.WonContracts = GetContracts(order.CompanyId, "customers");
                 info.PostedContracts = GetContracts(order.CompanyId, "suppliers");
             }
-            info.Founders = GetFounders(order.CompanyId);
+            if (!IP) // только у компаний
+            {
+                info.Founders = GetFounders(order.CompanyId);
+                info.Predecessors = GetPredecessors(order.CompanyId);
+            }
+            
             info.Activities = GetActivities(order.CompanyId);
-            info.Predecessors = GetPredecessors(order.CompanyId);
             info.RelatedCompanies = GetRelatedCompanies(order.CompanyId);
             info.BankruptMessages = Parser.BankruptMessages(Request("https://focus.kontur.ru/bankrots?query=" + order.CompanyId));
             return info;
@@ -281,7 +288,7 @@ namespace ReportGenerator
             string result = "";
             using (var response = request.GetResponse())
             {
-                var match = System.Text.RegularExpressions.Regex.Match(response.ResponseUri.Query, "query=(?<id>[0-9]{13,15})");
+                var match = System.Text.RegularExpressions.Regex.Match(response.ResponseUri.Query, "query=(?<id>[0-9]{13})");
                 if (!match.Success)
                     new Exception("Ошибка получения id компании по входной информации заказа");
 
@@ -289,7 +296,28 @@ namespace ReportGenerator
             }
             return result;
         }
+        public string GetIPId(string inn)
+        {
+            HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create("https://focus.kontur.ru/search?region=&industry=&state=081077917&query=" + inn);
+            if (this.proxy != null)
+                request.Proxy = proxy;
+            request.Headers.Add("Cookie", this.Cookie);
 
+            string result = "";
+            using (var response = request.GetResponse())
+            {
+                using (var reader = new StreamReader(response.GetResponseStream()))
+                {
+                    string page = reader.ReadToEnd();
+                    var match = System.Text.RegularExpressions.Regex.Match(page, "marR12 js-subject-link\" href=\"/entity\\?query=(?<id>[0-9]{15})");
+                    if (!match.Success)
+                        new Exception("Не найдена компании с таким ИНН");
+
+                    result = match.Groups["id"].Value;
+                }
+            }
+            return result;
+        }
         public  CompanyInfo GetSample()
         {
             CompanyInfo info = new CompanyInfo();

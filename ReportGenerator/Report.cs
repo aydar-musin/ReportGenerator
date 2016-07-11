@@ -145,7 +145,7 @@ namespace ReportGenerator
             {14}
         </TD >
     </TR >
-</table>", info.INN, info.KPP, info.OGRN, info.OKPO, info.RegDate, info.Status, info.Address, info.AddressAddedDate.ToShortDateString(), info.AddressCount, info.PhoneNumbers.FirstOrDefault(), Manager(info), info.OtherCodes, info.NalogCode, string.IsNullOrEmpty(info.UstFond) ? "" : "<b>Уставной капитал:</b> " + info.UstFond, PreActivities(info));
+</table>", info.INN, info.KPP, info.OGRN, info.OKPO, info.RegDate, info.Status, info.Address, info.AddressAddedDate.HasValue?info.AddressAddedDate.Value.ToShortDateString():"", info.AddressCount, info.PhoneNumbers.FirstOrDefault(), Manager(info), info.OtherCodes, info.NalogCode, string.IsNullOrEmpty(info.UstFond) ? "" : "<b>Уставной капитал:</b> " + info.UstFond, PreActivities(info));
             return html;
         }
         private static string SpecialReestrs(CompanyInfo info)
@@ -167,7 +167,7 @@ namespace ReportGenerator
             string html = string.Format(@"<span><A NAME='_GoBack'></A>
                   {0}<BR > {1}{2}
                                                       <span class='silversmall'> <span style='font-size:10.5px;color:black;'>{3}</span><span style='font-size:10.5px;' class='silversmall'><b> связь с другими компаниями [{4}]</span> </b></span>
-                       </span> ", info.ManagerAmplua, info.ManagerName, info.ManagerAddedDate.ToShortDateString(), info.ManagerINN ?? "ИНН: " + info.ManagerINN, info.ManagerCount);
+                       </span> ", info.ManagerAmplua, info.ManagerName, info.AddressAddedDate.HasValue?info.ManagerAddedDate.Value.ToShortDateString():"", info.ManagerINN ?? "ИНН: " + info.ManagerINN, info.ManagerCount);
             return html;
 
         }

@@ -80,7 +80,10 @@ namespace ReportGenerator
                     { 
                         var nameEl = htmlDocument.DocumentNode.SelectSingleNode(@"//*[@id='org-content']/div[1]/div[1]/div[2]/div[1]/h1");
                         if (nameEl != null)
+                        {
+                            RemoveElements(nameEl, ".//span[@class='lightGrey nowrap']");
                             companyInfo.Name = nameEl.InnerText.GetHTMLDecoded();
+                        }
 
                         companyInfo.FullName = block.SelectSingleNode("./h4[1]")!=null? block.SelectSingleNode("./h4[1]").InnerText : null;
 
@@ -186,31 +189,32 @@ namespace ReportGenerator
                 var fullMarginBloksCollection = block.SelectNodes(".//div[@class='fullMargin']");
                 if (fullMarginBloksCollection != null)
                 {
-                    foreach (var fullmarginBlocks in fullMarginBloksCollection)
+                    foreach (var fullmarginBlock in fullMarginBloksCollection)
                     {
-                        if (fullmarginBlocks.InnerHtml.Contains("company-phone-block"))
+                        if (fullmarginBlock.InnerHtml.Contains("company-phone-block"))
                         {
-                            var nodes = fullmarginBlocks.InnerText.Replace("\t", "").Replace("\r", "").Replace("&nbsp", "").Split(new char[] { '\n', ';' }, StringSplitOptions.RemoveEmptyEntries);
+                            var nodes = fullmarginBlock.InnerText.Replace("\t", "").Replace("\r", "").Replace("&nbsp", "").Split(new char[] { '\n', ';' }, StringSplitOptions.RemoveEmptyEntries);
                             foreach (var node in nodes.Where(s => s.StartsWith("+7")))
                                 companyInfo.PhoneNumbers.Add(node.Trim());
 
                         }
-                        else if (fullmarginBlocks.InnerText.Contains("Код налогового органа: "))
+                        else if (fullmarginBlock.InnerText.Contains("Код налогового органа: "))
                         {
-                            companyInfo.NalogCode = fullmarginBlocks.FirstChild.InnerText.Split(':')[1].Trim();
-
-                            if (fullmarginBlocks.InnerText.Contains("Дата постановки на учет:"))
+                            foreach (var node in fullmarginBlock.ChildNodes)
                             {
-                                companyInfo.RegDate = fullmarginBlocks.ChildNodes[2].InnerText.Split(':')[1].Trim();
+                                if (node.InnerText.Contains("Код налогового органа: "))
+                                    companyInfo.NalogCode = node.InnerText.Split(':')[1].Trim();
+                                else if(node.InnerText.Contains("Дата постановки на учет:"))
+                                    companyInfo.RegDate = node.InnerText.Split(':')[1].Trim();
                             }
                         }
-                        else if (fullmarginBlocks.InnerText.ToLower().Contains("директор")|| 
-                            fullmarginBlocks.InnerText.ToLower().Contains("президент") ||
-                            fullmarginBlocks.InnerText.ToLower().Contains("управляющий") ||
-                            fullmarginBlocks.InnerText.ToLower().Contains("председатель")
+                        else if (fullmarginBlock.InnerText.ToLower().Contains("директор")|| 
+                            fullmarginBlock.InnerText.ToLower().Contains("президент") ||
+                            fullmarginBlock.InnerText.ToLower().Contains("управляющий") ||
+                            fullmarginBlock.InnerText.ToLower().Contains("председатель")
                             )
                         {
-                            var items = fullmarginBlocks.InnerText.Trim().Replace("\t", "").Replace("\r", "").Replace("&nbsp", "").Split(new char[] { '\n', ';' }, StringSplitOptions.RemoveEmptyEntries);
+                            var items = fullmarginBlock.InnerText.Trim().Replace("\t", "").Replace("\r", "").Replace("&nbsp", "").Split(new char[] { '\n', ';' }, StringSplitOptions.RemoveEmptyEntries);
                             companyInfo.ManagerAmplua = items[0];
                             companyInfo.ManagerName = items[1];
 
