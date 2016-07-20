@@ -137,10 +137,10 @@ namespace ReportGenerator
             {
                 info.Founders = GetFounders(order.CompanyId);
                 info.Predecessors = GetPredecessors(order.CompanyId);
+                info.RelatedCompanies = GetRelatedCompanies(order.CompanyId);
             }
             
             info.Activities = GetActivities(order.CompanyId);
-            info.RelatedCompanies = GetRelatedCompanies(order.CompanyId);
             info.BankruptMessages = Parser.BankruptMessages(Request("https://focus.kontur.ru/bankrots?query=" + order.CompanyId));
             return info;
         }

@@ -26,7 +26,7 @@ namespace ReportGenerator
         }
         public override string ToString()
         {
-            return string.Format("{0}\t{1}\t{2}",this.TimeStamp, this.CustomerEmail,this.CompanyINNOGRN);
+            return string.Format("{0};{1};{2}",this.TimeStamp, this.CustomerEmail,this.CompanyINNOGRN);
         }
     }
 }

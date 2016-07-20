@@ -174,7 +174,7 @@ namespace ReportGenerator
                 foreach(var line in lines)
                 {
                     Order order = new Order();
-                    var args = line.Split('\t');
+                    var args = line.Trim().Split(';');
                     order.TimeStamp = DateTime.Parse(args[0]);
                     order.CompanyINNOGRN = args[2];
                     order.CustomerEmail = args[1];

@@ -17,7 +17,7 @@ namespace ReportGenerator
             doc.LoadHtml(html);
 
             Order order = new Order();
-            var match=Regex.Match(doc.DocumentNode.InnerText.Replace("\r\n",""), "Проверка организации;(?<input>[0-9]{10,13})");
+            var match=Regex.Match(doc.DocumentNode.InnerText.Replace("\r\n",""), "Проверка организации;(?<input>[0-9]{10,15})");
             if (!match.Success)
                 throw new Exception("Ошибка получения ИНН или ОГРН заказа");
 
